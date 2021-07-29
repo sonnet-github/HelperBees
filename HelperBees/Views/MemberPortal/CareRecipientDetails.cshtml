@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "Care Recipient Details";
+    Layout = "~/Views/Shared/_MemberPortal.cshtml";
+}
+
+<h1>Client Profile</h1>
+
+
+
+<div class='parent'>
+    <div style="display: inline-block; width:65%">
+        <h3>Care Recipient Details</h3>
+        <input type="text" placeholder="First Name" />
+        <br />
+        <br />
+        <input type="text" placeholder="Last Name" />
+        <br />
+        <br />
+        <input type="text" placeholder="Gender" />
+        <br />
+        <div><input type="button" value="Medical Details" onclick="window.location = '/memberPortal/medicaldetails'" /></div>
+    </div>
+    <div style="display: inline-block; width: 30%">
+        <div>
+            <ul>
+                <li> <a href="/memberPortal/accountdetails"> Account Details</a> </li>
+                <li> <a href="/memberPortal/carerecipientdetails"> Care Recipient Details</a> </li>
+                <li> <a href="/memberPortal/medicaldetails"> Medical Details</a> </li>
+                <li> <a href="/memberPortal/paymentdetails"> Payment Details</a> </li>
+                <li> <a href="/memberPortal/supportinginfo"> Supporting Information</a> </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Job Posts";
+    Layout = "~/Views/Shared/_MemberPortal.cshtml";
+}
+
+<h1>Job Postings</h1>
+
+<br />
+<div style="margin:auto;">
+    <div><input type="button" value="Post a New Job" onclick="window.location = '/memberPortal/jobsubmission'"/></div><br />
+    <table style="width:90%; border:2px solid black;">
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Job Type</th>
+                <th>Suburb</th>
+                <th>Date Submitted</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td><a href="/memberportal/jobsubmission">Personal carer two days a week</a></td>
+                <td>Regular</td>
+                <td>West Pymble NSW 2073</td>
+                <td>3rd February 2021</td>
+                <td>3rd March 2021</td>
+                <td>Active</td>
+            </tr>
+        </tbody>
+    </table><br />
+    <div><input type="button" value="Post a New Job" onclick="window.location = '/memberPortal/jobsubmission'"/></div>
+</div>

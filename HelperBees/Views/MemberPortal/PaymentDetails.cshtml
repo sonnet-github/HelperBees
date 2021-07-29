@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Payment Details";
+    Layout = "~/Views/Shared/_MemberPortal.cshtml";
+}
+
+<h1>Client Profile</h1>
+
+<div class='parent'>
+    <div style="display: inline-block; width:65%">
+        <h3>Payment Details</h3>
+        <div>
+            Do you have some form of Government funding? <input type="radio" name="gfunding" /> Yes <input type="radio" name="gfunding" /> No
+        </div>
+        <div><input type="button" value="Supporting Information Details" onclick="window.location = '/memberPortal/supportinginfo'" /></div>
+    </div>
+    <div style="display: inline-block; width: 30%">
+        <div>
+            <ul>
+                <li> <a href="/memberPortal/accountdetails"> Account Details</a> </li>
+                <li> <a href="/memberPortal/carerecipientdetails"> Care Recipient Details</a> </li>
+                <li> <a href="/memberPortal/medicaldetails"> Medical Details</a> </li>
+                <li> <a href="/memberPortal/paymentdetails"> Payment Details</a> </li>
+                <li> <a href="/memberPortal/supportinginfo"> Supporting Information</a> </li>
+            </ul>
+        </div>
+    </div>
+</div>

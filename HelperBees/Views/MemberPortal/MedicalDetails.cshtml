@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "Medical Details";
+    Layout = "~/Views/Shared/_MemberPortal.cshtml";
+}
+
+<h1>Client Profile</h1>
+
+<div class='parent'>
+    <div style="display: inline-block; width:65%">
+        <h3>Medical Details</h3>
+        <div>
+            <p><span>What type of care is needed?</span></p>
+            <div><input type="checkbox" /> Disability Support</div><br />
+            <div><input type="checkbox" /> Aged Care</div><br />
+            <div><input type="checkbox" /> Post Surgery</div><br />
+            <div><input type="checkbox" /> Mental Health</div><br />
+            <div><input type="checkbox" /> Other</div><br />
+            <div><textarea cols="2" style="width:200px;"></textarea></div>
+        </div>
+        <div><input type="button" value="Payment Details" onclick="window.location = '/memberPortal/paymentdetails'"/></div>
+    </div>
+    <div style="display: inline-block; width: 30%">
+        <div>
+            <ul>
+                <li> <a href="/memberPortal/accountdetails"> Account Details</a> </li>
+                <li> <a href="/memberPortal/carerecipientdetails"> Care Recipient Details</a> </li>
+                <li> <a href="/memberPortal/medicaldetails"> Medical Details</a> </li>
+                <li> <a href="/memberPortal/paymentdetails"> Payment Details</a> </li>
+                <li> <a href="/memberPortal/supportinginfo"> Supporting Information</a> </li>
+            </ul>
+        </div>
+    </div>
+</div>

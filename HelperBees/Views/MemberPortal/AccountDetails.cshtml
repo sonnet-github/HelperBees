@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Account Details";
+    Layout = "~/Views/Shared/_MemberPortal.cshtml";
+}
+
+<style>
+
+</style>
+
+<div>
+    <h1>Client Profile</h1>
+    <div class='parent'>
+        <div style="display: inline-block; width:65%">
+            <h3>Account Details</h3>
+            <input type="text" placeholder="Your First Name" /><br /><br />
+            <input type="text" placeholder="Your Last Name" /><br /><br />
+            <input type="text" placeholder="Email Address" /><br /><br />
+            <input type="text" placeholder="Gender" /><br /><br />
+            <p>
+                <span>
+                    Are you 18 years or older (you must be 18 years or older to have an account).
+                    If no, your parent or guardian must be the account holder.
+                </span>
+            </p>
+            <input type="text" placeholder="Residential Address" /><br />
+            <input type="text" placeholder="Pos Code" /><br />
+            <input type="text" placeholder="Suburb" /><br />
+            <input type="text" placeholder="State" /><br />
+            <input type="text" placeholder="Landline Phone Number" /><br />
+            <input type="text" placeholder="Mobile Number" /><br /><br />
+            <div><input type="checkbox" /> Is the support taking place at the same address?</div><br />
+            <select><option>What is your Relationship to the Person Who is Receiving the Care?</option></select>
+            <br />
+            <div><input type="button" value="Care Recipient Details" onclick="window.location = '/memberPortal/carerecipientdetails'" /></div>
+        </div>
+        <div style="display: inline-block; width: 30%">
+            <div>
+                <ul>
+                    <li> <a href="/memberPortal/accountdetails"> Account Details</a> </li>
+                    <li> <a href="/memberPortal/carerecipientdetails"> Care Recipient Details</a> </li>
+                    <li> <a href="/memberPortal/medicaldetails"> Medical Details</a> </li>
+                    <li> <a href="/memberPortal/paymentdetails"> Payment Details</a> </li>
+                    <li> <a href="/memberPortal/supportinginfo"> Supporting Information</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

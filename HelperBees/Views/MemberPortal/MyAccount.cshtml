@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "My Account";
+    Layout = "~/Views/Shared/_MemberPortal.cshtml";
+}
+
+<h1>My Account</h1>
+
+<div style="text-align:center;">
+    <h3>Account Settings</h3>
+    <input type="text" placeholder="Email Address" /><br />
+    <input type="text" placeholder="Password" /><br />
+    <input type="text" placeholder="Re-enter Password" /><br />
+    <br />
+    <input type="button" value="Update My Account"  onclick="window.location = '/memberPortal/dashboard'"/>
+</div>
