@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_SupportWorkerPortal.cshtml";
+}
+
+
+
+<style>
+    .div-complete-profile {
+        text-align: center;
+        margin: auto;
+        width: 98%;
+        border: 2px solid black;
+        padding: 10px;
+        background-color: #EA9999;
+    }
+
+    .div-avail-work {
+        text-align: center;
+        margin: auto;
+        width: 98%;
+        border: 2px solid black;
+        padding: 10px;
+        background-color: #7eff75;
+    }
+
+    #container {
+        height: 100%;
+        width: 100%;
+        font-size: 0;
+    }
+
+    .left, .middle, .right {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+        vertical-align: top;
+        font-size: 12px;
+    }
+
+    .left {
+        width: 33%;
+    }
+
+    .middle {
+        width: 33%;
+    }
+
+    .right {
+        width: 33%;
+    }
+
+    .dashboard-items {
+        border: 2px solid black;
+        cursor: pointer;
+    }
+</style>
+
+<div>
+    <br />
+    <div class="div-complete-profile">
+        <h1>Complete Your Client Profile</h1>
+        <div style="width:80%; margin:auto; padding:10px;">
+            <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></p>
+        </div>
+        <div style=" margin: auto; padding: 10px;">
+            <input type="button" value="Complete Your Profile" onclick="window.location = '/supportworkerportal/accountdetails'" />
+        </div>
+    </div>
+    <br />
+    <div class="div-avail-work" >
+        <h1>You are currently set as available for work</h1>
+
+        <div style=" margin: auto; padding: 10px;">
+            <input type="button" value="Turn Off" />
+        </div>
+    </div>
+    <br />
+    <div id="container" style="width:98%; margin: auto;">
+        <div class="dashboard-items left" onclick="window.location = '/supportworkerportal/accountdetails'">
+            <h3>Profile</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+        <div class="dashboard-items middle" onclick="window.location = '/supportworkerportal/inbox'">
+            <h3>Inbox</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+        <div class="dashboard-items right" onclick="window.location = '/supportworkerportal/joblistings'">
+            <h3>Job Listings</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+    </div>
+    <br />
+    <div id="container" style="width:98%; margin: auto;">
+        <div class="dashboard-items left" onclick="window.location = '/supportworkerportal/timesheets'">
+            <h3>Timesheets</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+        <div class="dashboard-items middle" onclick="window.location = '/supportworkerportal/myclients'">
+            <h3>My Clients</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+        <div class="dashboard-items right">
+            <h3>Billings</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+    </div>
+    <div id="container" style="width:98%; margin: auto;" onclick="window.location = '/supportworkerportal/myaccount'">
+        <div class="dashboard-items middle">
+            <h3>My Account</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+

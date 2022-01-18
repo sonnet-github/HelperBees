@@ -1,15 +1,14 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HelperBess.WebApiCore.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [Microsoft.AspNetCore.Cors.EnableCors("AllowOrigin")]
     public class SwSupportWorkerController : ControllerBase
     {
         private readonly ISwSupportWorkerService swSupportWorkerService;
@@ -21,9 +20,9 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorker/GetSwSupportWorker")]
-        public IEnumerable<SwSupportWorker> GetSwSupportWorker()
+        public SwSupportWorker GetSwSupportWorkerByLogin(string email, string password)
         {
-            return swSupportWorkerService.GetSwSupportWorker();
+            return swSupportWorkerService.GetSwSupportWorkerByLogin(email, password);
         }
 
         [HttpPost]

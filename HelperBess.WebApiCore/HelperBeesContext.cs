@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -94,8 +92,13 @@ namespace HelperBess.WebApiCore.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=SHMOWZOW\\SQLEXPRESS;Database=HelperBees;Trusted_Connection=True;");
+                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+
+                //optionsBuilder.UseSqlServer("Server=DEO-DESKTOP;Database=HelperBees;Persist Security Info=True;Integrated Security=True;MultipleActiveResultSets=True;");
+
+                //optionsBuilder.UseSqlServer("Server=LAPTOP-JQE05MHB\\SQLEXPRESS2019;Database=HelperBees;Persist Security Info=True;User ID=sa;Password=8232566;MultipleActiveResultSets=True;");
+
+                optionsBuilder.UseSqlServer("Server=SonnetDevWin1\\MSSQLSERVER2019;Database=HelperBees;Persist Security Info=True;User ID=sa;Password=RuzT8%Y7EvWr;MultipleActiveResultSets=True;");
             }
         }
 

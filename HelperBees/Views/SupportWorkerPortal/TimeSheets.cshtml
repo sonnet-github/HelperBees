@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Time Sheets";
+    Layout = "~/Views/Shared/_SupportWorkerPortal.cshtml";
+}
+
+<h1>Time Sheets</h1>
+
+<br />
+<div style="margin:auto;">
+    <table style="width:90%; border:2px solid black;">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Date Worked</th>
+                <th>Start Time</th>
+                <th>Hours</th>
+                <th>Rate</th>
+                <th>Total Cost</th>
+                <th>Date Submitted</th>
+                <th>Date Approved</th>
+                <th>Status</th>
+                <th>Shift Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jane Doe</td>
+                <td>1st of February</td>
+                <td>9am</td>
+                <td>3</td>
+                <td>$30</td>
+                <td>90</td>
+                <td>3rd of Feb</td>
+                <td>4th of Feb</td>
+                <td>Approved</td>
+                <td><a href="#">View</a></td>
+                <td><a href="#">Decline</a>&nbsp; <a href="#">Approve</a></td>
+            </tr>
+        </tbody>
+    </table><br />
+    <div><a href="#">Export Timesheets</a></div>
+</div>

@@ -1,9 +1,7 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelperBess.WebApiCore.Services
@@ -35,10 +33,16 @@ namespace HelperBess.WebApiCore.Services
             return clAccountHolders;
         }
 
-        public IEnumerable<ClAccountHolder> GetClAccountHolder()
+        public IEnumerable<ClAccountHolder> GetClAccountHolder(string emailaddress, string password)
         {
-            var clAccountHolders = dbContext.ClAccountHolders.ToList();
+            var clAccountHolders = dbContext.ClAccountHolders.Where(x=>x.EmailAddress == emailaddress && x.Password == password).ToList();
             return clAccountHolders;
+        }
+
+        public ClAccountHolder GetClAccountHolderByEmailAddress(string emailaddress)
+        {
+            var clAccountHolder = dbContext.ClAccountHolders.FirstOrDefault(x => x.EmailAddress == emailaddress);
+            return clAccountHolder;
         }
 
         public ClAccountHolder GetClAccountHolderById(int id)

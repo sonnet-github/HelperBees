@@ -1,9 +1,7 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelperBess.WebApiCore.Services
@@ -37,9 +35,10 @@ namespace HelperBess.WebApiCore.Services
             return swSupportWorker;
         }
 
-        public IEnumerable<SwSupportWorker> GetSwSupportWorker()
+        //[Microsoft.AspNetCore.Mvc.HttpGet]
+        public SwSupportWorker GetSwSupportWorkerByLogin(string email, string password)
         {
-            var swSupportWorker = dbContext.SwSupportWorkers.ToList();
+            var swSupportWorker = dbContext.SwSupportWorkers.FirstOrDefault(x => x.EmailAddress == email && x.Password == password);
             return swSupportWorker;
 
             //throw new NotImplementedException();
