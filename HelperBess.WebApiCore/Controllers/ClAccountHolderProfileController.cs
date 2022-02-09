@@ -60,9 +60,16 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClAccountHolderProfile/GetClAccountHolderProfileByAccountHolder")]
-        public ClAccountHolderProfile GetClAccountHolderProfileByAccountHolder(int accountHolderId)
+        public IActionResult GetClAccountHolderProfileByAccountHolder(int accountHolderId)
         {
-            return ClAccountHolderProfileService.GetClAccountHolderProfileByAccountHolder(accountHolderId);
+            ClAccountHolderProfile accountHolderProfile = ClAccountHolderProfileService.GetClAccountHolderProfileByAccountHolder(accountHolderId);
+
+            if (accountHolderProfile == null)
+            { 
+                return BadRequest("request is incorrect");
+            }
+
+            return Ok(accountHolderProfile);
         }
     }
 }

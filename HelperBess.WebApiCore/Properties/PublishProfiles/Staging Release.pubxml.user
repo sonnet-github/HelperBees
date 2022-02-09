@@ -6,6 +6,6 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\Solutions\HelperBees\HelperBees Release\HelperBess.WebApiCore</_PublishTargetUrl>
-    <History>True|2022-02-09T02:49:02.1938889Z;</History>
+    <History>True|2022-02-09T05:19:54.0200106Z;True|2022-02-09T13:17:57.6029639+08:00;True|2022-02-09T13:16:46.6153769+08:00;True|2022-02-09T10:49:02.1938889+08:00;</History>
   </PropertyGroup>
 </Project>
