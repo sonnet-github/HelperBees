@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return clAccountHolderProfile;
         }
 
+        public ClAccountHolderProfile GetClAccountHolderProfileByAccountHolder(int accountHolderId)
+        {
+            var clAccountHolderProfile = dbContext.ClAccountHolderProfiles.FirstOrDefault(x => x.AccountHolderId == accountHolderId);
+            return clAccountHolderProfile;
+        }
+
         public ClAccountHolderProfile UpdateClAccountHolderProfile(ClAccountHolderProfile clAccountHolderProfile)
         {
             dbContext.Entry(clAccountHolderProfile).State = EntityState.Modified;

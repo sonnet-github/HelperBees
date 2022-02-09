@@ -119,6 +119,7 @@ namespace HelperBess.WebApiCore
 
             //error handling logs
             services.AddSingleton<ILog, LogNLog>();
+            services.AddSingleton<IConfigurationService, ConfigurationService>();
 
             services.AddHttpClient();
             services.AddDbContext<Models.HelperBeesContext>(options =>

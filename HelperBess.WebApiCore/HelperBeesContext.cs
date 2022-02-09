@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HelperBess.WebApiCore.IServices;
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -6,13 +7,17 @@ namespace HelperBess.WebApiCore.Models
 {
     public partial class HelperBeesContext : DbContext
     {
-        public HelperBeesContext()
+        private readonly IConfigurationService configuration;
+
+        public HelperBeesContext(IConfigurationService configService)
         {
+            configuration = configService;
         }
 
-        public HelperBeesContext(DbContextOptions<HelperBeesContext> options)
+        public HelperBeesContext(DbContextOptions<HelperBeesContext> options, IConfigurationService configService)
             : base(options)
         {
+            configuration = configService;
         }
 
         public virtual DbSet<ChangeLog> ChangeLogs { get; set; }
@@ -97,8 +102,8 @@ namespace HelperBess.WebApiCore.Models
                 //optionsBuilder.UseSqlServer("Server=DEO-DESKTOP;Database=HelperBees;Persist Security Info=True;Integrated Security=True;MultipleActiveResultSets=True;");
 
                 //optionsBuilder.UseSqlServer("Server=LAPTOP-JQE05MHB\\SQLEXPRESS2019;Database=HelperBees;Persist Security Info=True;User ID=sa;Password=8232566;MultipleActiveResultSets=True;");
-
-                optionsBuilder.UseSqlServer("Server=SonnetDevWin1\\MSSQLSERVER2019;Database=HelperBees;Persist Security Info=True;User ID=sa;Password=RuzT8%Y7EvWr;MultipleActiveResultSets=True;");
+                
+                optionsBuilder.UseSqlServer(configuration.DbConnectionString);
             }
         }
 
