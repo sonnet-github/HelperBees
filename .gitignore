@@ -3,3 +3,8 @@
 ################################################################################
 
 /HelperBees/bin
+/.vs/HelperBees
+*.user
+/HelperBess.WebApiCore/bin
+/HelperBess.WebApiCore/obj
+/HelperBees/obj
