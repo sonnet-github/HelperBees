@@ -196,7 +196,8 @@ namespace HelperBess.WebApiCore
             services.AddTransient<ISwTimesheetStatusService, SwTimesheetStatusService>();
             services.AddTransient<ISwTransportInfoService, SwTransportInfoService>();
             services.AddTransient<ISwWorkHistoryService, SwWorkHistoryService>();
-          
+            services.AddTransient<ISW_SupportWorkerUploadFiles, SW_SupportWorkerUploadFilesService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
