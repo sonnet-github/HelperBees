@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,138 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherQualification/GetSwSupportWorkerOtherQualification")]
-        public IEnumerable<SwSupportWorkerOtherQualification> GetSwSupportWorkerOtherQualification()
+        public IActionResult GetSwSupportWorkerOtherQualification()
         {
-            return SwSupportWorkerOtherQualificationServiceService.GetSwSupportWorkerOtherQualification();
+            try
+            {
+                List<SwSupportWorkerOtherQualification> swQualifications = SwSupportWorkerOtherQualificationServiceService.GetSwSupportWorkerOtherQualification().ToList();
+
+                if (swQualifications != null && swQualifications.Any())
+                {
+                    return Ok(swQualifications);
+                }
+                else
+                {
+                    return BadRequest("No support worker other qualification(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherQualification/AddSwSupportWorkerOtherQualification")]
-        public SwSupportWorkerOtherQualification AddSwSupportWorkerOtherQualification(SwSupportWorkerOtherQualification SwSupportWorkerOtherQualification)
+        public IActionResult AddSwSupportWorkerOtherQualification(SwSupportWorkerOtherQualification SwSupportWorkerOtherQualification)
         {
-            return SwSupportWorkerOtherQualificationServiceService.AddSwSupportWorkerOtherQualification(SwSupportWorkerOtherQualification);
+            try
+            {
+                SwSupportWorkerOtherQualification swQualification = SwSupportWorkerOtherQualificationServiceService.AddSwSupportWorkerOtherQualification(SwSupportWorkerOtherQualification);
+
+                if (swQualification != null)
+                {
+                    return Ok(swQualification);
+                }
+                else
+                {
+                    return BadRequest("Failed to add support worker other qualification.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherQualification/UpdateSwSupportWorkerOtherQualification")]
-        public SwSupportWorkerOtherQualification UpdateSwSupportWorkerOtherQualification(SwSupportWorkerOtherQualification SwSupportWorkerOtherQualification)
+        public IActionResult UpdateSwSupportWorkerOtherQualification(SwSupportWorkerOtherQualification SwSupportWorkerOtherQualification)
         {
-            return SwSupportWorkerOtherQualificationServiceService.UpdateSwSupportWorkerOtherQualification(SwSupportWorkerOtherQualification);
+            try
+            {
+                SwSupportWorkerOtherQualification swCurrentQualification = SwSupportWorkerOtherQualificationServiceService.GetSwSupportWorkerOtherQualificationById(SwSupportWorkerOtherQualification.SupportWorkerOtherQualificationId);
+
+                if (swCurrentQualification != null)
+                {
+                    swCurrentQualification.SupportWorkerOtherQualificationId = SwSupportWorkerOtherQualification.SupportWorkerOtherQualificationId;
+                    swCurrentQualification.SupportWorkerId = SwSupportWorkerOtherQualification.SupportWorkerId;
+                    swCurrentQualification.ServiceGroupId = SwSupportWorkerOtherQualification.SupportWorkerOtherQualificationId;
+                    swCurrentQualification.OtherQualification = SwSupportWorkerOtherQualification.OtherQualification;
+                    swCurrentQualification.Certificate = SwSupportWorkerOtherQualification.Certificate;
+
+                    SwSupportWorkerOtherQualification swQualification = SwSupportWorkerOtherQualificationServiceService.UpdateSwSupportWorkerOtherQualification(swCurrentQualification);
+
+                    if (swQualification != null)
+                    {
+                        return Ok(swQualification);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update support worker other qualification.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support worker other qualification not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherQualification/DeleteSwSupportWorkerOtherQualification")]
-        public SwSupportWorkerOtherQualification DeleteSwSupportWorkerOtherQualification(int id)
+        public IActionResult DeleteSwSupportWorkerOtherQualification(int id)
         {
-            return SwSupportWorkerOtherQualificationServiceService.DeleteSwSupportWorkerOtherQualification(id);
+            try
+            {
+                SwSupportWorkerOtherQualification swCurrentQualification = SwSupportWorkerOtherQualificationServiceService.GetSwSupportWorkerOtherQualificationById(id);
+
+                if (swCurrentQualification != null)
+                {
+                    SwSupportWorkerOtherQualification swQualification = SwSupportWorkerOtherQualificationServiceService.DeleteSwSupportWorkerOtherQualification(id);
+
+                    return Ok(swQualification);
+                }
+                else
+                {
+                    return BadRequest("Support worker other qualification not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherQualification/GetSwSupportWorkerOtherQualificationById")]
-        public SwSupportWorkerOtherQualification GetSwSupportWorkerOtherQualificationById(int id)
+        public IActionResult GetSwSupportWorkerOtherQualificationById(int id)
         {
-            return SwSupportWorkerOtherQualificationServiceService.GetSwSupportWorkerOtherQualificationById(id);
+            try
+            {
+                SwSupportWorkerOtherQualification swQualification = SwSupportWorkerOtherQualificationServiceService.GetSwSupportWorkerOtherQualificationById(id);
+
+                if (swQualification != null)
+                {
+                    return Ok(swQualification);
+                }
+                else
+                {
+                    return BadRequest("Support worker other qualification not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

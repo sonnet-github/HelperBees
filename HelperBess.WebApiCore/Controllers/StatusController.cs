@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,139 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/Status/GetStatus")]
-        public IEnumerable<Status> GetStatus()
+        public IActionResult GetStatus()
         {
-            return StatusServiceService.GetStatus();
+            try
+            {
+                List<Status> statuses = StatusServiceService.GetStatus().ToList();
+
+                if (statuses != null && statuses.Any())
+                {
+                    return Ok(statuses);
+                }
+                else
+                {
+                    return BadRequest("No Status(es) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/Status/AddStatus")]
-        public Status AddStatus(Status Status)
+        public IActionResult AddStatus(Status Status)
         {
-            return StatusServiceService.AddStatus(Status);
+            try
+            {
+                Status status = StatusServiceService.AddStatus(Status);
+
+                if (status != null)
+                {
+                    return Ok(status);
+                }
+                else
+                {
+                    return BadRequest("Failed to add status.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/Status/UpdateStatus")]
-        public Status UpdateStatus(Status Status)
+        public IActionResult UpdateStatus(Status Status)
         {
-            return StatusServiceService.UpdateStatus(Status);
+            try
+            {
+                Status currentStatus = StatusServiceService.GetStatusById(Status.StatusId);
+
+                if (currentStatus != null)
+                {
+                    #region Status to update
+
+                    currentStatus.StatusId = Status.StatusId;
+                    currentStatus.Status1 = Status.Status1;
+
+                    #endregion
+
+                    Status status = StatusServiceService.UpdateStatus(currentStatus);
+
+                    if (status != null)
+                    {
+                        return Ok(status);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update status.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Status not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/Status/DeleteStatus")]
-        public Status DeleteStatus(int id)
+        public IActionResult DeleteStatus(int id)
         {
-            return StatusServiceService.DeleteStatus(id);
+            try
+            {
+                Status currentStatus = StatusServiceService.GetStatusById(id);
+
+                if (currentStatus != null)
+                {
+                    Status status = StatusServiceService.DeleteStatus(id);
+
+                    return Ok(status);
+                }
+                else
+                {
+                    return BadRequest("Status not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/Status/GetStatusById")]
-        public Status GetStatusById(int id)
+        public IActionResult GetStatusById(int id)
         {
-            return StatusServiceService.GetStatusById(id);
+            try
+            {
+                Status status = StatusServiceService.GetStatusById(id);
+
+                if (status != null)
+                {
+                    return Ok(status);
+                }
+                else
+                {
+                    return BadRequest("Status not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

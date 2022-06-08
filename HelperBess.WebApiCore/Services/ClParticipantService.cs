@@ -39,6 +39,14 @@ namespace HelperBess.WebApiCore.Services
             return ClParticipants;
         }
 
+        public IEnumerable<ClParticipant> GetClParticipantsByAccountHolderId(int accountHolderId)
+        {
+            var ClParticipants = dbContext.ClParticipants?
+                                .Where(p => p.AccountHolderId == accountHolderId)?
+                                .ToList();
+            return ClParticipants;
+        }
+
         public ClParticipant GetClParticipantById(int id)
         {
             var ClParticipants = dbContext.ClParticipants.FirstOrDefault(x => x.ParticpantId == id);

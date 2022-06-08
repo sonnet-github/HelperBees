@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,141 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantNeed/GetClParticipantNeed")]
-        public IEnumerable<ClParticipantNeed> GetClParticipantNeed()
+        public IActionResult GetClParticipantNeed()
         {
-            return ClParticipantNeedServiceService.GetClParticipantNeed();
+            try
+            {
+                List<ClParticipantNeed> participantNeeds = ClParticipantNeedServiceService.GetClParticipantNeed().ToList();
+
+                if (participantNeeds != null && participantNeeds.Any())
+                {
+                    return Ok(participantNeeds);
+                }
+                else
+                {
+                    return BadRequest("No participant medication need(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClParticipantNeed/AddClParticipantNeed")]
-        public ClParticipantNeed AddClParticipantNeed(ClParticipantNeed ClParticipantNeed)
+        public IActionResult AddClParticipantNeed(ClParticipantNeed ClParticipantNeed)
         {
-            return ClParticipantNeedServiceService.AddClParticipantNeed(ClParticipantNeed);
+            try
+            {
+                ClParticipantNeed participantNeed = ClParticipantNeedServiceService.AddClParticipantNeed(ClParticipantNeed);
+
+                if (participantNeed != null)
+                {
+                    return Ok(participantNeed);
+                }
+                else
+                {
+                    return BadRequest("Failed to add participant need.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClParticipantNeed/UpdateClParticipantNeed")]
-        public ClParticipantNeed UpdateClParticipantNeed(ClParticipantNeed ClParticipantNeed)
+        public IActionResult UpdateClParticipantNeed(ClParticipantNeed ClParticipantNeed)
         {
-            return ClParticipantNeedServiceService.UpdateClParticipantNeed(ClParticipantNeed);
+            try
+            {
+                ClParticipantNeed currentParticipantNeed = ClParticipantNeedServiceService.GetClParticipantNeedById(ClParticipantNeed.ParticipantNeedsId);
+
+                if (currentParticipantNeed != null)
+                {
+                    #region Participant Need to update
+
+                    currentParticipantNeed.ParticipantNeedsId = ClParticipantNeed.ParticipantNeedsId;
+                    currentParticipantNeed.ParticipantId = ClParticipantNeed.ParticipantId;
+                    currentParticipantNeed.ParticipantNeedsAreaId = ClParticipantNeed.ParticipantNeedsAreaId;
+                    currentParticipantNeed.Description = ClParticipantNeed.Description;
+
+                    #endregion
+
+                    ClParticipantNeed participantNeed = ClParticipantNeedServiceService.UpdateClParticipantNeed(currentParticipantNeed);
+
+                    if (participantNeed != null)
+                    {
+                        return Ok(participantNeed);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update participant need.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Participant need not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClParticipantNeed/DeleteClParticipantNeed")]
-        public ClParticipantNeed DeleteClParticipantNeed(int id)
+        public IActionResult DeleteClParticipantNeed(int id)
         {
-            return ClParticipantNeedServiceService.DeleteClParticipantNeed(id);
+            try
+            {
+                ClParticipantNeed CurrentParticipantNeed = ClParticipantNeedServiceService.GetClParticipantNeedById(id);
+
+                if (CurrentParticipantNeed != null)
+                {
+                    ClParticipantNeed participantNeed = ClParticipantNeedServiceService.DeleteClParticipantNeed(id);
+
+                    return Ok(participantNeed);
+                }
+                else
+                {
+                    return BadRequest("Participant need not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantNeed/GetClParticipantNeedById")]
-        public ClParticipantNeed GetClParticipantNeedById(int id)
+        public IActionResult GetClParticipantNeedById(int id)
         {
-            return ClParticipantNeedServiceService.GetClParticipantNeedById(id);
+            try
+            {
+                ClParticipantNeed participantNeed = ClParticipantNeedServiceService.GetClParticipantNeedById(id);
+
+                if (participantNeed != null)
+                {
+                    return Ok(participantNeed);
+                }
+                else
+                {
+                    return BadRequest("Participant need not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

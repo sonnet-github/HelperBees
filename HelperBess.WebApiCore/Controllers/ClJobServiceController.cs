@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,139 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClJobService/GetClJobService")]
-        public IEnumerable<ClJobService> GetClJobService()
+        public IActionResult GetClJobService()
         {
-            return ClJobServiceServiceService.GetClJobService();
+            try
+            {
+                List<ClJobService> jobServices = ClJobServiceServiceService.GetClJobService().ToList();
+
+                if (jobServices != null && jobServices.Any())
+                {
+                    return Ok(jobServices);
+                }
+                else
+                {
+                    return BadRequest("No job services(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClJobService/AddClJobService")]
-        public ClJobService AddClJobService(ClJobService ClJobService)
+        public IActionResult AddClJobService(ClJobService ClJobService)
         {
-            return ClJobServiceServiceService.AddClJobService(ClJobService);
+            try
+            {
+                ClJobService jobService = ClJobServiceServiceService.AddClJobService(ClJobService);
+
+                if (jobService != null)
+                {
+                    return Ok(jobService);
+                }
+                else
+                {
+                    return BadRequest("Failed to add job service.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClJobService/UpdateClJobService")]
-        public ClJobService UpdateClJobService(ClJobService ClJobService)
+        public IActionResult UpdateClJobService(ClJobService ClJobService)
         {
-            return ClJobServiceServiceService.UpdateClJobService(ClJobService);
+            try
+            {
+                ClJobService currentJobService = ClJobServiceServiceService.GetClJobServiceById(ClJobService.JobServiceId);
+
+                if (currentJobService != null)
+                {
+                    #region Job Service to update
+
+                    currentJobService.JobServiceId = ClJobService.JobServiceId;
+                    currentJobService.Description = ClJobService.Description;
+
+                    #endregion
+
+                    ClJobService jobService = ClJobServiceServiceService.UpdateClJobService(currentJobService);
+
+                    if (jobService != null)
+                    {
+                        return Ok(jobService);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update job service.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Job Service not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClJobService/DeleteClJobService")]
-        public ClJobService DeleteClJobService(int id)
+        public IActionResult DeleteClJobService(int id)
         {
-            return ClJobServiceServiceService.DeleteClJobService(id);
+            try
+            {
+                ClJobService currentJobService = ClJobServiceServiceService.GetClJobServiceById(id);
+
+                if (currentJobService != null)
+                {
+                    ClJobService jobService = ClJobServiceServiceService.DeleteClJobService(id);
+
+                    return Ok(jobService);
+                }
+                else
+                {
+                    return BadRequest("Job Service not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClJobService/GetClJobServiceById")]
-        public ClJobService GetClJobServiceById(int id)
+        public IActionResult GetClJobServiceById(int id)
         {
-            return ClJobServiceServiceService.GetClJobServiceById(id);
+            try
+            {
+                ClJobService jobService = ClJobServiceServiceService.GetClJobServiceById(id);
+
+                if (jobService != null)
+                {
+                    return Ok(jobService);
+                }
+                else
+                {
+                    return BadRequest("Job Service not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

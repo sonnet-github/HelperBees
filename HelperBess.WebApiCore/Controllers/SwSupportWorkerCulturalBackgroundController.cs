@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,136 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerCulturalBackground/GetSwSupportWorkerCulturalBackground")]
-        public IEnumerable<SwSupportWorkerCulturalBackground> GetSwSupportWorkerCulturalBackground()
+        public IActionResult GetSwSupportWorkerCulturalBackground()
         {
-            return SwSupportWorkerCulturalBackgroundServiceService.GetSwSupportWorkerCulturalBackground();
+            try
+            {
+                List<SwSupportWorkerCulturalBackground> swCulturalBackgrounds = SwSupportWorkerCulturalBackgroundServiceService.GetSwSupportWorkerCulturalBackground().ToList();
+
+                if (swCulturalBackgrounds != null && swCulturalBackgrounds.Any())
+                {
+                    return Ok(swCulturalBackgrounds);
+                }
+                else
+                {
+                    return BadRequest("No support worker cultural background(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwSupportWorkerCulturalBackground/AddSwSupportWorkerCulturalBackground")]
-        public SwSupportWorkerCulturalBackground AddSwSupportWorkerCulturalBackground(SwSupportWorkerCulturalBackground SwSupportWorkerCulturalBackground)
+        public IActionResult AddSwSupportWorkerCulturalBackground(SwSupportWorkerCulturalBackground SwSupportWorkerCulturalBackground)
         {
-            return SwSupportWorkerCulturalBackgroundServiceService.AddSwSupportWorkerCulturalBackground(SwSupportWorkerCulturalBackground);
+            try
+            {
+                SwSupportWorkerCulturalBackground swCulturalBackground = SwSupportWorkerCulturalBackgroundServiceService.AddSwSupportWorkerCulturalBackground(SwSupportWorkerCulturalBackground);
+
+                if (swCulturalBackground != null)
+                {
+                    return Ok(swCulturalBackground);
+                }
+                else
+                {
+                    return BadRequest("Failed to add support worker cultural background.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/SwSupportWorkerCulturalBackground/UpdateSwSupportWorkerCulturalBackground")]
-        public SwSupportWorkerCulturalBackground UpdateSwSupportWorkerCulturalBackground(SwSupportWorkerCulturalBackground SwSupportWorkerCulturalBackground)
+        public IActionResult UpdateSwSupportWorkerCulturalBackground(SwSupportWorkerCulturalBackground SwSupportWorkerCulturalBackground)
         {
-            return SwSupportWorkerCulturalBackgroundServiceService.UpdateSwSupportWorkerCulturalBackground(SwSupportWorkerCulturalBackground);
+            try
+            {
+                SwSupportWorkerCulturalBackground swCurrentCulturalBackground = SwSupportWorkerCulturalBackgroundServiceService.GetSwSupportWorkerCulturalBackgroundById(SwSupportWorkerCulturalBackground.SupportWorkerCulturalBackgroundId);
+
+                if (swCurrentCulturalBackground != null)
+                {
+                    swCurrentCulturalBackground.SupportWorkerCulturalBackgroundId = SwSupportWorkerCulturalBackground.SupportWorkerCulturalBackgroundId;
+                    swCurrentCulturalBackground.SupportWorkerId = SwSupportWorkerCulturalBackground.SupportWorkerId;
+                    swCurrentCulturalBackground.CulturalBackgroundId = SwSupportWorkerCulturalBackground.CulturalBackgroundId;
+
+                    SwSupportWorkerCulturalBackground swCulturalBackground = SwSupportWorkerCulturalBackgroundServiceService.UpdateSwSupportWorkerCulturalBackground(swCurrentCulturalBackground);
+
+                    if (swCulturalBackground != null)
+                    {
+                        return Ok(swCulturalBackground);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update support worker cultural background.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support worker cultural background not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/SwSupportWorkerCulturalBackground/DeleteSwSupportWorkerCulturalBackground")]
-        public SwSupportWorkerCulturalBackground DeleteSwSupportWorkerCulturalBackground(int id)
+        public IActionResult DeleteSwSupportWorkerCulturalBackground(int id)
         {
-            return SwSupportWorkerCulturalBackgroundServiceService.DeleteSwSupportWorkerCulturalBackground(id);
+            try
+            {
+                SwSupportWorkerCulturalBackground swCurrentCulturalBackground = SwSupportWorkerCulturalBackgroundServiceService.GetSwSupportWorkerCulturalBackgroundById(id);
+
+                if (swCurrentCulturalBackground != null)
+                {
+                    SwSupportWorkerCulturalBackground swCulturalBackground = SwSupportWorkerCulturalBackgroundServiceService.DeleteSwSupportWorkerCulturalBackground(id);
+
+                    return Ok(swCulturalBackground);
+                }
+                else
+                {
+                    return BadRequest("Support worker cultural background not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerCulturalBackground/GetSwSupportWorkerCulturalBackgroundById")]
-        public SwSupportWorkerCulturalBackground GetSwSupportWorkerCulturalBackgroundById(int id)
+        public IActionResult GetSwSupportWorkerCulturalBackgroundById(int id)
         {
-            return SwSupportWorkerCulturalBackgroundServiceService.GetSwSupportWorkerCulturalBackgroundById(id);
+            try
+            {
+                SwSupportWorkerCulturalBackground swCulturalBackground = SwSupportWorkerCulturalBackgroundServiceService.GetSwSupportWorkerCulturalBackgroundById(id);
+
+                if (swCulturalBackground != null)
+                {
+                    return Ok(swCulturalBackground);
+                }
+                else
+                {
+                    return BadRequest("Support worker cultural background not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

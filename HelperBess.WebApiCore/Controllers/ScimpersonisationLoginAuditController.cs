@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,140 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ScimpersonisationLoginAudit/GetScimpersonisationLoginAudit")]
-        public IEnumerable<ScimpersonisationLoginAudit> GetScimpersonisationLoginAudit()
+        public IActionResult GetScimpersonisationLoginAudit()
         {
-            return ScimpersonisationLoginAuditServiceService.GetScimpersonisationLoginAudit();
+            try
+            {
+                List<ScimpersonisationLoginAudit> impersonisationLoginAudits = ScimpersonisationLoginAuditServiceService.GetScimpersonisationLoginAudit().ToList();
+
+                if (impersonisationLoginAudits != null && impersonisationLoginAudits.Any())
+                {
+                    return Ok(impersonisationLoginAudits);
+                }
+                else
+                {
+                    return BadRequest("No impersonisation login audit(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ScimpersonisationLoginAudit/AddScimpersonisationLoginAudit")]
-        public ScimpersonisationLoginAudit AddScimpersonisationLoginAudit(ScimpersonisationLoginAudit ScimpersonisationLoginAudit)
+        public IActionResult AddScimpersonisationLoginAudit(ScimpersonisationLoginAudit ScimpersonisationLoginAudit)
         {
-            return ScimpersonisationLoginAuditServiceService.AddScimpersonisationLoginAudit(ScimpersonisationLoginAudit);
+            try
+            {
+                ScimpersonisationLoginAudit impersonisationLoginAudit = ScimpersonisationLoginAuditServiceService.AddScimpersonisationLoginAudit(ScimpersonisationLoginAudit);
+
+                if (impersonisationLoginAudit != null)
+                {
+                    return Ok(impersonisationLoginAudit);
+                }
+                else
+                {
+                    return BadRequest("Failed to add impersonisation login audit.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ScimpersonisationLoginAudit/UpdateScimpersonisationLoginAudit")]
-        public ScimpersonisationLoginAudit UpdateScimpersonisationLoginAudit(ScimpersonisationLoginAudit ScimpersonisationLoginAudit)
+        public IActionResult UpdateScimpersonisationLoginAudit(ScimpersonisationLoginAudit ScimpersonisationLoginAudit)
         {
-            return ScimpersonisationLoginAuditServiceService.UpdateScimpersonisationLoginAudit(ScimpersonisationLoginAudit);
+            try
+            {
+                ScimpersonisationLoginAudit currentImpersonisationLoginAudit = ScimpersonisationLoginAuditServiceService.GetScimpersonisationLoginAuditById(ScimpersonisationLoginAudit.ScimpLoginAuditId);
+
+                if (currentImpersonisationLoginAudit != null)
+                {
+                    #region Impersonisation Login Audit to update
+
+                    currentImpersonisationLoginAudit.ScimpLoginAuditId = ScimpersonisationLoginAudit.ScimpLoginAuditId;
+                    currentImpersonisationLoginAudit.SupportCoordinatorId = ScimpersonisationLoginAudit.SupportCoordinatorId;
+                    currentImpersonisationLoginAudit.DateTime = ScimpersonisationLoginAudit.DateTime;
+
+                    #endregion
+
+                    ScimpersonisationLoginAudit impersonisationLoginAudit = ScimpersonisationLoginAuditServiceService.UpdateScimpersonisationLoginAudit(currentImpersonisationLoginAudit);
+
+                    if (impersonisationLoginAudit != null)
+                    {
+                        return Ok(impersonisationLoginAudit);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update impersonisation login audit.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Impersonisation login audit not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ScimpersonisationLoginAudit/DeleteScimpersonisationLoginAudit")]
-        public ScimpersonisationLoginAudit DeleteScimpersonisationLoginAudit(int id)
+        public IActionResult DeleteScimpersonisationLoginAudit(int id)
         {
-            return ScimpersonisationLoginAuditServiceService.DeleteScimpersonisationLoginAudit(id);
+            try
+            {
+                ScimpersonisationLoginAudit currentImpersonisationLoginAudit = ScimpersonisationLoginAuditServiceService.GetScimpersonisationLoginAuditById(id);
+
+                if (currentImpersonisationLoginAudit != null)
+                {
+                    ScimpersonisationLoginAudit impersonisationLoginAudit = ScimpersonisationLoginAuditServiceService.DeleteScimpersonisationLoginAudit(id);
+
+                    return Ok(impersonisationLoginAudit);
+                }
+                else
+                {
+                    return BadRequest("Impersonisation login audit not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ScimpersonisationLoginAudit/GetScimpersonisationLoginAuditById")]
-        public ScimpersonisationLoginAudit GetScimpersonisationLoginAuditById(int id)
+        public IActionResult GetScimpersonisationLoginAuditById(int id)
         {
-            return ScimpersonisationLoginAuditServiceService.GetScimpersonisationLoginAuditById(id);
+            try
+            {
+                ScimpersonisationLoginAudit impersonisationLoginAudit = ScimpersonisationLoginAuditServiceService.GetScimpersonisationLoginAuditById(id);
+
+                if (impersonisationLoginAudit != null)
+                {
+                    return Ok(impersonisationLoginAudit);
+                }
+                else
+                {
+                    return BadRequest("Impersonisation login audit not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
