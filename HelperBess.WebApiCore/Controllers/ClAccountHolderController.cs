@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,49 +22,174 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClAccountHolder/GetClAccountHolder")]
-        public IEnumerable<ClAccountHolder> GetClAccountHolder(string emailaddress, string password)
+        public IActionResult GetClAccountHolder(string emailaddress, string password)
         {
-            return ClAccountHolderService.GetClAccountHolder(emailaddress, password);
+            try
+            {
+                List<ClAccountHolder> accounts = ClAccountHolderService.GetClAccountHolder(emailaddress, password).ToList();
+
+                if (accounts != null && accounts.Any())
+                {
+                    return Ok(accounts);
+                }
+                else
+                {
+                    return BadRequest("Account holder(s) not found.");
+                }
+            }
+            catch(Exception  ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClAccountHolder/GetClAccountHolderByEmailAddress")]
-        public ClAccountHolder GetClAccountHolderByEmailAddress(string emailaddress)
+        public IActionResult GetClAccountHolderByEmailAddress(string emailaddress)
         {
-            return ClAccountHolderService.GetClAccountHolderByEmailAddress(emailaddress);
+            try
+            {
+                ClAccountHolder account = ClAccountHolderService.GetClAccountHolderByEmailAddress(emailaddress);
+
+                if (account != null)
+                {
+                    return Ok(account);
+                }
+                else
+                {
+                    return BadRequest("Account holder not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClAccountHolder/AddClAccountHolder")]
-        public ClAccountHolder AddClAccountHolder(ClAccountHolder ClAccountHolder)
+        public IActionResult AddClAccountHolder(ClAccountHolder ClAccountHolder)
         {
-            return ClAccountHolderService.AddClAccountHolder(ClAccountHolder);
+            try
+            {
+                ClAccountHolder currentAccount = ClAccountHolderService.GetClAccountHolderByEmailAddress(ClAccountHolder.EmailAddress);
+
+                if (currentAccount == null)
+                {
+                    ClAccountHolder account = ClAccountHolderService.AddClAccountHolder(ClAccountHolder);
+
+                    if (account != null)
+                    {
+                        return Ok(account);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to add account holder.");
+                    }
+                }
+                else
+                {
+                    return BadRequest($"E-mail address {ClAccountHolder.EmailAddress} is already use by another account holder.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClAccountHolder/EditClAccountHolder")]
-        public ClAccountHolder EditEmployee(ClAccountHolder ClAccountHolder)
+        public IActionResult EditEmployee(ClAccountHolder ClAccountHolder)
         {
-            return ClAccountHolderService.UpdateClAccountHolder(ClAccountHolder);
+            try
+            {
+                ClAccountHolder currentAccount = ClAccountHolderService.GetClAccountHolderById(ClAccountHolder.AccountHolderId);
+
+                if (currentAccount != null)
+                {
+                    currentAccount.AccountHolderId = ClAccountHolder.AccountHolderId;
+                    currentAccount.EmailAddress = ClAccountHolder.EmailAddress;
+                    currentAccount.Password = ClAccountHolder.Password;
+                    currentAccount.FailedLoginCount = ClAccountHolder.FailedLoginCount;
+                    currentAccount.DateCreated = ClAccountHolder.DateCreated;
+                    currentAccount.StatusId = ClAccountHolder.StatusId != 0 ? ClAccountHolder.StatusId : null;
+                    currentAccount.Locked = ClAccountHolder.Locked;
+                    currentAccount.Active = ClAccountHolder.Active;
+                    
+                    ClAccountHolder account = ClAccountHolderService.UpdateClAccountHolder(currentAccount);
+
+                    if (account != null)
+                    {
+                        return Ok(account);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to add account holder.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Account holder not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClAccountHolder/DeleteClAccountHolder")]
-        public ClAccountHolder DeleteClAccountHolder(int id)
+        public IActionResult DeleteClAccountHolder(int id)
         {
-            return ClAccountHolderService.DeleteClAccountHolder(id);
+            try
+            {
+                ClAccountHolder currentAccount = ClAccountHolderService.DeleteClAccountHolder(id);
+
+                if (currentAccount != null)
+                {
+                    ClAccountHolder account = ClAccountHolderService.DeleteClAccountHolder(id);
+
+                    return Ok(account);
+                }
+                else
+                {
+                    return BadRequest("Account holder not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClAccountHolder/GetClAccountHolderById")]
-        public ClAccountHolder GetClAccountHolderById(int id)
+        public IActionResult GetClAccountHolderById(int id)
         {
-            return ClAccountHolderService.GetClAccountHolderById(id);
+            try
+            {
+                ClAccountHolder account = ClAccountHolderService.GetClAccountHolderById(id);
+
+                if (account != null)
+                {
+                    return Ok(account);
+                }
+                else
+                {
+                    return BadRequest("Account holder not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

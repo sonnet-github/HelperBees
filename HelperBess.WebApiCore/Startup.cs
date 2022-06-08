@@ -37,41 +37,12 @@ namespace HelperBess.WebApiCore
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true));
             });
 
-            //services.AddCors(options =>
-            //{
-            //    options.AddDefaultPolicy(
-            //    builder =>
-            //    {
-            //        builder.WithOrigins("https://www.barambahorganics.com.au")
-            //        .AllowAnyHeader()
-            //        .AllowAnyMethod()
-            //        .AllowCredentials();
-            //    });
-            //});
-
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("AllowOrigin",
-            //    builder =>
-            //    {
-            //        builder.WithOrigins("https://www.test-cors.org")
-            //        .SetIsOriginAllowedToAllowWildcardSubdomains()
-            //        .AllowAnyHeader()
-            //        .AllowAnyMethod()
-            //        .AllowCredentials();
-            //    });
-            //});
+            
             #endregion
-
-            //services.AddCors(c =>
-            //{
-            //    c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://www.barambahorganics.com.au").AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed(origin => true));
-            //});
 
             #region -- Swagger --
             //Swagger
-            //services.AddControllers();
-            //services.AddSingleton<ISwSupportWorkerService, SwSupportWorkerService>();
+            
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -105,12 +76,7 @@ namespace HelperBess.WebApiCore
                     }
                 });
             });
-
-            //services.AddCors(c =>
-            //{
-            //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            //});
-
+                        
             services.AddAuthentication("BasicAuthentication")
                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
@@ -236,25 +202,9 @@ namespace HelperBess.WebApiCore
             app.UseRouting();
 
             #region -- add cors --
-            //app.UseCors(
-            //    options => options.WithOrigins("https://www.barambahorganics.com.au").AllowAnyMethod().AllowAnyHeader().AllowCredentials()
-            //);
-
-            //app.UseCors(x => x
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader()
-            //    .AllowAnyOrigin()
-            //    .SetIsOriginAllowed(origin => true)); // allow any origin
-            //                                          //.AllowCredentials()); // allow credentials
-
-            //app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(origin => true));
-
-            //app.UseCors(options => options.WithOrigins("https://www.test-cors.org").AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed(origin => true));
-            //app.UseMvc();
-
-            //app.UseCors();
-
+            
             app.UseCors("AllowOrigin");
+
             #endregion
 
             app.UseAuthentication();

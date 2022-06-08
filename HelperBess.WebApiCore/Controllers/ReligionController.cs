@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,140 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/Religion/GetReligion")]
-        public IEnumerable<Religion> GetReligion()
+        public IActionResult GetReligion()
         {
-            return ReligionServiceService.GetReligion();
+            try
+            {
+                List<Religion> religions = ReligionServiceService.GetReligion().ToList();
+
+                if (religions != null && religions.Any())
+                {
+                    return Ok(religions);
+                }
+                else
+                {
+                    return BadRequest("No religion(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/Religion/AddReligion")]
-        public Religion AddReligion(Religion Religion)
+        public IActionResult AddReligion(Religion Religion)
         {
-            return ReligionServiceService.AddReligion(Religion);
+            try
+            {
+                Religion religion = ReligionServiceService.AddReligion(Religion);
+
+                if (religion != null)
+                {
+                    return Ok(religion);
+                }
+                else
+                {
+                    return BadRequest("Failed to add religion.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/Religion/UpdateReligion")]
-        public Religion UpdateReligion(Religion Religion)
+        public IActionResult UpdateReligion(Religion Religion)
         {
-            return ReligionServiceService.UpdateReligion(Religion);
+            try
+            {
+                Religion currentReligion = ReligionServiceService.GetReligionById(Religion.ReligionId);
+
+                if (currentReligion != null)
+                {
+                    #region Religion to update
+
+                    currentReligion.ReligionId = Religion.ReligionId;
+                    currentReligion.Religion1 = Religion.Religion1;
+                    currentReligion.DisplayOrder = Religion.DisplayOrder;
+
+                    #endregion
+
+                    Religion religion = ReligionServiceService.UpdateReligion(currentReligion);
+
+                    if (religion != null)
+                    {
+                        return Ok(religion);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update religion.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Religion not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/Religion/DeleteReligion")]
-        public Religion DeleteReligion(int id)
+        public IActionResult DeleteReligion(int id)
         {
-            return ReligionServiceService.DeleteReligion(id);
+            try
+            {
+                Religion currentReligion = ReligionServiceService.GetReligionById(id);
+
+                if (currentReligion != null)
+                {
+                    Religion religion = ReligionServiceService.DeleteReligion(id);
+
+                    return Ok(religion);
+                }
+                else
+                {
+                    return BadRequest("Religion not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/Religion/GetReligionById")]
-        public Religion GetReligionById(int id)
+        public IActionResult GetReligionById(int id)
         {
-            return ReligionServiceService.GetReligionById(id);
+            try
+            {
+                Religion religion = ReligionServiceService.GetReligionById(id);
+
+                if (religion != null)
+                {
+                    return Ok(religion);
+                }
+                else
+                {
+                    return BadRequest("Religion not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,140 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantCulturalBackground/GetClParticipantCulturalBackground")]
-        public IEnumerable<ClParticipantCulturalBackground> GetClParticipantCulturalBackground()
+        public IActionResult GetClParticipantCulturalBackground()
         {
-            return ClParticipantCulturalBackgroundServiceService.GetClParticipantCulturalBackground();
+            try
+            {
+                List<ClParticipantCulturalBackground> participantCBackgrounds = ClParticipantCulturalBackgroundServiceService.GetClParticipantCulturalBackground().ToList();
+
+                if (participantCBackgrounds != null && participantCBackgrounds.Any())
+                {
+                    return Ok(participantCBackgrounds);
+                }
+                else
+                {
+                    return BadRequest("No participant cultural background(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClParticipantCulturalBackground/AddClParticipantCulturalBackground")]
-        public ClParticipantCulturalBackground AddClParticipantCulturalBackground(ClParticipantCulturalBackground ClParticipantCulturalBackground)
+        public IActionResult AddClParticipantCulturalBackground(ClParticipantCulturalBackground ClParticipantCulturalBackground)
         {
-            return ClParticipantCulturalBackgroundServiceService.AddClParticipantCulturalBackground(ClParticipantCulturalBackground);
+            try
+            {
+                ClParticipantCulturalBackground participantCulturalBackground = ClParticipantCulturalBackgroundServiceService.AddClParticipantCulturalBackground(ClParticipantCulturalBackground);
+
+                if (participantCulturalBackground != null)
+                {
+                    return Ok(participantCulturalBackground);
+                }
+                else
+                {
+                    return BadRequest("Failed to add participant cultural background.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClParticipantCulturalBackground/UpdateClParticipantCulturalBackground")]
-        public ClParticipantCulturalBackground UpdateClParticipantCulturalBackground(ClParticipantCulturalBackground ClParticipantCulturalBackground)
+        public IActionResult UpdateClParticipantCulturalBackground(ClParticipantCulturalBackground ClParticipantCulturalBackground)
         {
-            return ClParticipantCulturalBackgroundServiceService.UpdateClParticipantCulturalBackground(ClParticipantCulturalBackground);
+            try
+            {
+                ClParticipantCulturalBackground currentParticipantCulturalBackground = ClParticipantCulturalBackgroundServiceService.GetClParticipantCulturalBackgroundById(ClParticipantCulturalBackground.ParticipantCulturalBackgroundId);
+
+                if (currentParticipantCulturalBackground != null)
+                {
+                    #region Participant Cultural Background to update
+
+                    currentParticipantCulturalBackground.ParticipantCulturalBackgroundId = ClParticipantCulturalBackground.ParticipantCulturalBackgroundId;
+                    currentParticipantCulturalBackground.ParticipantId = ClParticipantCulturalBackground.ParticipantId;
+                    currentParticipantCulturalBackground.CulturalBackgroundId = ClParticipantCulturalBackground.CulturalBackgroundId;
+
+                    #endregion
+
+                    ClParticipantCulturalBackground participantCulturalBackground = ClParticipantCulturalBackgroundServiceService.UpdateClParticipantCulturalBackground(currentParticipantCulturalBackground);
+
+                    if (participantCulturalBackground != null)
+                    {
+                        return Ok(participantCulturalBackground);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update participant cultural background.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Participant cultural background not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClParticipantCulturalBackground/DeleteClParticipantCulturalBackground")]
-        public ClParticipantCulturalBackground DeleteClParticipantCulturalBackground(int id)
+        public IActionResult DeleteClParticipantCulturalBackground(int id)
         {
-            return ClParticipantCulturalBackgroundServiceService.DeleteClParticipantCulturalBackground(id);
+            try
+            {
+                ClParticipantCulturalBackground CurrentParticipantCulturalBackground = ClParticipantCulturalBackgroundServiceService.GetClParticipantCulturalBackgroundById(id);
+
+                if (CurrentParticipantCulturalBackground != null)
+                {
+                    ClParticipantCulturalBackground participantCulturalBackground = ClParticipantCulturalBackgroundServiceService.DeleteClParticipantCulturalBackground(id);
+
+                    return Ok(participantCulturalBackground);
+                }
+                else
+                {
+                    return BadRequest("Participant cultural background not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantCulturalBackground/GetClParticipantCulturalBackgroundById")]
-        public ClParticipantCulturalBackground GetClParticipantCulturalBackgroundById(int id)
+        public IActionResult GetClParticipantCulturalBackgroundById(int id)
         {
-            return ClParticipantCulturalBackgroundServiceService.GetClParticipantCulturalBackgroundById(id);
+            try
+            {
+                ClParticipantCulturalBackground participantCulturalBackground = ClParticipantCulturalBackgroundServiceService.GetClParticipantCulturalBackgroundById(id);
+
+                if (participantCulturalBackground != null)
+                {
+                    return Ok(participantCulturalBackground);
+                }
+                else
+                {
+                    return BadRequest("Participant cultural background not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

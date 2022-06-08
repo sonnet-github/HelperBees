@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,144 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClOtherContact/GetClOtherContact")]
-        public IEnumerable<ClOtherContact> GetClOtherContact()
+        public IActionResult GetClOtherContact()
         {
-            return ClOtherContactServiceService.GetClOtherContact();
+            try
+            {
+                List<ClOtherContact> otherContacts = ClOtherContactServiceService.GetClOtherContact().ToList();
+
+                if (otherContacts != null && otherContacts.Any())
+                {
+                    return Ok(otherContacts);
+                }
+                else
+                {
+                    return BadRequest("No other contact(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClOtherContact/AddClOtherContact")]
-        public ClOtherContact AddClOtherContact(ClOtherContact ClOtherContact)
+        public IActionResult AddClOtherContact(ClOtherContact ClOtherContact)
         {
-            return ClOtherContactServiceService.AddClOtherContact(ClOtherContact);
+            try
+            {
+                ClOtherContact otherContact = ClOtherContactServiceService.AddClOtherContact(ClOtherContact);
+
+                if (otherContact != null)
+                {
+                    return Ok(otherContact);
+                }
+                else
+                {
+                    return BadRequest("Failed to add other contact.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClOtherContact/UpdateClOtherContact")]
-        public ClOtherContact UpdateClOtherContact(ClOtherContact ClOtherContact)
+        public IActionResult UpdateClOtherContact(ClOtherContact ClOtherContact)
         {
-            return ClOtherContactServiceService.UpdateClOtherContact(ClOtherContact);
+            try
+            {
+                ClOtherContact currentOtherContact = ClOtherContactServiceService.GetClOtherContactById(ClOtherContact.OtherContactId);
+
+                if (currentOtherContact != null)
+                {
+                    #region Other Contact to update
+
+                    currentOtherContact.OtherContactId = ClOtherContact.OtherContactId;
+                    currentOtherContact.ParticipantId = ClOtherContact.ParticipantId;
+                    currentOtherContact.FirstName = ClOtherContact.FirstName;
+                    currentOtherContact.LastName = ClOtherContact.LastName;
+                    currentOtherContact.Phone = ClOtherContact.Phone;
+                    currentOtherContact.EmailAddress = ClOtherContact.EmailAddress;
+                    currentOtherContact.Relationship = ClOtherContact.Relationship;
+
+                    #endregion
+
+                    ClOtherContact otherContact = ClOtherContactServiceService.UpdateClOtherContact(currentOtherContact);
+
+                    if (otherContact != null)
+                    {
+                        return Ok(otherContact);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update other contact.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Other contact not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClOtherContact/DeleteClOtherContact")]
-        public ClOtherContact DeleteClOtherContact(int id)
+        public IActionResult DeleteClOtherContact(int id)
         {
-            return ClOtherContactServiceService.DeleteClOtherContact(id);
+            try
+            {
+                ClOtherContact currentOtherContact = ClOtherContactServiceService.GetClOtherContactById(id);
+
+                if (currentOtherContact != null)
+                {
+                    ClOtherContact otherContact = ClOtherContactServiceService.DeleteClOtherContact(id);
+
+                    return Ok(otherContact);
+                }
+                else
+                {
+                    return BadRequest("Other Contact not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClOtherContact/GetClOtherContactById")]
-        public ClOtherContact GetClOtherContactById(int id)
+        public IActionResult GetClOtherContactById(int id)
         {
-            return ClOtherContactServiceService.GetClOtherContactById(id);
+            try
+            {
+                ClOtherContact otherContact = ClOtherContactServiceService.GetClOtherContactById(id);
+
+                if (otherContact != null)
+                {
+                    return Ok(otherContact);
+                }
+                else
+                {
+                    return BadRequest("Other contact not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,136 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerAhdetail/GetSwSupportWorkerAhdetail")]
-        public IEnumerable<SwSupportWorkerAhdetail> GetSwSupportWorkerAhdetail()
+        public IActionResult GetSwSupportWorkerAhdetail()
         {
-            return SwSupportWorkerAhdetailServiceService.GetSwSupportWorkerAhdetail();
+            try
+            {
+                List<SwSupportWorkerAhdetail> swAhDetails = SwSupportWorkerAhdetailServiceService.GetSwSupportWorkerAhdetail().ToList();
+
+                if (swAhDetails != null && swAhDetails.Any())
+                {
+                    return Ok(swAhDetails);
+                }
+                else
+                {
+                    return BadRequest("No support worker AH detail(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwSupportWorkerAhdetail/AddSwSupportWorkerAhdetail")]
-        public SwSupportWorkerAhdetail AddSwSupportWorkerAhdetail(SwSupportWorkerAhdetail SwSupportWorkerAhdetail)
+        public IActionResult AddSwSupportWorkerAhdetail(SwSupportWorkerAhdetail SwSupportWorkerAhdetail)
         {
-            return SwSupportWorkerAhdetailServiceService.AddSwSupportWorkerAhdetail(SwSupportWorkerAhdetail);
+            try
+            {
+                SwSupportWorkerAhdetail swAhDetail = SwSupportWorkerAhdetailServiceService.AddSwSupportWorkerAhdetail(SwSupportWorkerAhdetail);
+
+                if (swAhDetail != null)
+                {
+                    return Ok(swAhDetail);
+                }
+                else
+                {
+                    return BadRequest("Failed to add support worker AH detail.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/SwSupportWorkerAhdetail/UpdateSwSupportWorkerAhdetail")]
-        public SwSupportWorkerAhdetail UpdateSwSupportWorkerAhdetail(SwSupportWorkerAhdetail SwSupportWorkerAhdetail)
+        public IActionResult UpdateSwSupportWorkerAhdetail(SwSupportWorkerAhdetail SwSupportWorkerAhdetail)
         {
-            return SwSupportWorkerAhdetailServiceService.UpdateSwSupportWorkerAhdetail(SwSupportWorkerAhdetail);
+            try
+            {
+                SwSupportWorkerAhdetail swCurrentAhDetail = SwSupportWorkerAhdetailServiceService.GetSwSupportWorkerAhdetailById(SwSupportWorkerAhdetail.SupportWorkerAhdetailsId);
+
+                if (swCurrentAhDetail != null)
+                {
+                    swCurrentAhDetail.SupportWorkerAhdetailsId = SwSupportWorkerAhdetail.SupportWorkerAhdetailsId;
+                    swCurrentAhDetail.SupportWorkerId = SwSupportWorkerAhdetail.SupportWorkerId;
+                    swCurrentAhDetail.OccupationalTherapyExperience = SwSupportWorkerAhdetail.OccupationalTherapyExperience;
+
+                    SwSupportWorkerAhdetail swAhDetail = SwSupportWorkerAhdetailServiceService.UpdateSwSupportWorkerAhdetail(swCurrentAhDetail);
+
+                    if (swAhDetail != null)
+                    {
+                        return Ok(swAhDetail);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update support worker AH detail.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support worker AH detail not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/SwSupportWorkerAhdetail/DeleteSwSupportWorkerAhdetail")]
-        public SwSupportWorkerAhdetail DeleteSwSupportWorkerAhdetail(int id)
-        {
-            return SwSupportWorkerAhdetailServiceService.DeleteSwSupportWorkerAhdetail(id);
+        public IActionResult DeleteSwSupportWorkerAhdetail(int id)
+        {   
+            try
+            {
+                SwSupportWorkerAhdetail swCurrentAhDetail = SwSupportWorkerAhdetailServiceService.GetSwSupportWorkerAhdetailById(id);
+
+                if (swCurrentAhDetail != null)
+                {
+                    SwSupportWorkerAhdetail swAhDetail = SwSupportWorkerAhdetailServiceService.DeleteSwSupportWorkerAhdetail(id);
+
+                    return Ok(swAhDetail);
+                }
+                else
+                {
+                    return BadRequest("Support worker AH detail not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerAhdetail/GetSwSupportWorkerAhdetailById")]
-        public SwSupportWorkerAhdetail GetSwSupportWorkerAhdetailById(int id)
+        public IActionResult GetSwSupportWorkerAhdetailById(int id)
         {
-            return SwSupportWorkerAhdetailServiceService.GetSwSupportWorkerAhdetailById(id);
+            try
+            {
+                SwSupportWorkerAhdetail swAhDetail = SwSupportWorkerAhdetailServiceService.GetSwSupportWorkerAhdetailById(id);
+
+                if (swAhDetail != null)
+                {
+                    return Ok(swAhDetail);
+                }
+                else
+                {
+                    return BadRequest("Support worker AH detail not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
