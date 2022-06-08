@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,140 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/Language/GetLanguage")]
-        public IEnumerable<Language> GetLanguage()
+        public IActionResult GetLanguage()
         {
-            return LanguageServiceService.GetLanguage();
+            try
+            {
+                List<Language> languages = LanguageServiceService.GetLanguage().ToList();
+
+                if (languages != null && languages.Any())
+                {
+                    return Ok(languages);
+                }
+                else
+                {
+                    return BadRequest("No language(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/Language/AddLanguage")]
-        public Language AddLanguage(Language Language)
+        public IActionResult AddLanguage(Language Language)
         {
-            return LanguageServiceService.AddLanguage(Language);
+            try
+            {
+                Language language = LanguageServiceService.AddLanguage(Language);
+
+                if (language != null)
+                {
+                    return Ok(language);
+                }
+                else
+                {
+                    return BadRequest("Failed to add language.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/Language/UpdateLanguage")]
-        public Language UpdateLanguage(Language Language)
+        public IActionResult UpdateLanguage(Language Language)
         {
-            return LanguageServiceService.UpdateLanguage(Language);
+            try
+            {
+                Language currentLanguage = LanguageServiceService.GetLanguageById(Language.LanguageId);
+
+                if (currentLanguage != null)
+                {
+                    #region Language to update
+
+                    currentLanguage.LanguageId = Language.LanguageId;
+                    currentLanguage.Language1 = Language.Language1;
+                    currentLanguage.DisplayOrder = Language.DisplayOrder;
+
+                    #endregion
+
+                    Language language = LanguageServiceService.UpdateLanguage(currentLanguage);
+
+                    if (language != null)
+                    {
+                        return Ok(language);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update language.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/Language/DeleteLanguage")]
-        public Language DeleteLanguage(int id)
+        public IActionResult DeleteLanguage(int id)
         {
-            return LanguageServiceService.DeleteLanguage(id);
+            try
+            {
+                Language currentLanguage = LanguageServiceService.GetLanguageById(id);
+
+                if (currentLanguage != null)
+                {
+                    Language language = LanguageServiceService.DeleteLanguage(id);
+
+                    return Ok(language);
+                }
+                else
+                {
+                    return BadRequest("Language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/Language/GetLanguageById")]
-        public Language GetLanguageById(int id)
+        public IActionResult GetLanguageById(int id)
         {
-            return LanguageServiceService.GetLanguageById(id);
+            try
+            {
+                Language language = LanguageServiceService.GetLanguageById(id);
+
+                if (language != null)
+                {
+                    return Ok(language);
+                }
+                else
+                {
+                    return BadRequest("Language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,137 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherTraining/GetSwSupportWorkerOtherTraining")]
-        public IEnumerable<SwSupportWorkerOtherTraining> GetSwSupportWorkerOtherTraining()
+        public IActionResult GetSwSupportWorkerOtherTraining()
         {
-            return SwSupportWorkerOtherTrainingServiceService.GetSwSupportWorkerOtherTraining();
+            try
+            {
+                List<SwSupportWorkerOtherTraining> swTrainings = SwSupportWorkerOtherTrainingServiceService.GetSwSupportWorkerOtherTraining().ToList();
+
+                if (swTrainings != null && swTrainings.Any())
+                {
+                    return Ok(swTrainings);
+                }
+                else
+                {
+                    return BadRequest("No support worker other training(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherTraining/AddSwSupportWorkerOtherTraining")]
-        public SwSupportWorkerOtherTraining AddSwSupportWorkerOtherTraining(SwSupportWorkerOtherTraining SwSupportWorkerOtherTraining)
+        public IActionResult AddSwSupportWorkerOtherTraining(SwSupportWorkerOtherTraining SwSupportWorkerOtherTraining)
         {
-            return SwSupportWorkerOtherTrainingServiceService.AddSwSupportWorkerOtherTraining(SwSupportWorkerOtherTraining);
+            try
+            {
+                SwSupportWorkerOtherTraining swTraining = SwSupportWorkerOtherTrainingServiceService.AddSwSupportWorkerOtherTraining(SwSupportWorkerOtherTraining);
+
+                if (swTraining != null)
+                {
+                    return Ok(swTraining);
+                }
+                else
+                {
+                    return BadRequest("Failed to add support worker other training.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherTraining/UpdateSwSupportWorkerOtherTraining")]
-        public SwSupportWorkerOtherTraining UpdateSwSupportWorkerOtherTraining(SwSupportWorkerOtherTraining SwSupportWorkerOtherTraining)
+        public IActionResult UpdateSwSupportWorkerOtherTraining(SwSupportWorkerOtherTraining SwSupportWorkerOtherTraining)
         {
-            return SwSupportWorkerOtherTrainingServiceService.UpdateSwSupportWorkerOtherTraining(SwSupportWorkerOtherTraining);
+            try
+            {
+                SwSupportWorkerOtherTraining swCurrentTraining = SwSupportWorkerOtherTrainingServiceService.GetSwSupportWorkerOtherTrainingById(SwSupportWorkerOtherTraining.SupportWorkerOtherTrainingId);
+
+                if (swCurrentTraining != null)
+                {
+                    swCurrentTraining.SupportWorkerOtherTrainingId = SwSupportWorkerOtherTraining.SupportWorkerOtherTrainingId;
+                    swCurrentTraining.SupportWorkerId = SwSupportWorkerOtherTraining.SupportWorkerId;
+                    swCurrentTraining.OtherQualification = SwSupportWorkerOtherTraining.OtherQualification;
+                    swCurrentTraining.Certificate = SwSupportWorkerOtherTraining.Certificate;
+
+                    SwSupportWorkerOtherTraining swTraining = SwSupportWorkerOtherTrainingServiceService.UpdateSwSupportWorkerOtherTraining(swCurrentTraining);
+
+                    if (swTraining != null)
+                    {
+                        return Ok(swTraining);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update support worker other training.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support worker other training not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherTraining/DeleteSwSupportWorkerOtherTraining")]
-        public SwSupportWorkerOtherTraining DeleteSwSupportWorkerOtherTraining(int id)
+        public IActionResult DeleteSwSupportWorkerOtherTraining(int id)
         {
-            return SwSupportWorkerOtherTrainingServiceService.DeleteSwSupportWorkerOtherTraining(id);
+            try
+            {
+                SwSupportWorkerOtherTraining swCurrentTraining = SwSupportWorkerOtherTrainingServiceService.GetSwSupportWorkerOtherTrainingById(id);
+
+                if (swCurrentTraining != null)
+                {
+                    SwSupportWorkerOtherTraining swTraining = SwSupportWorkerOtherTrainingServiceService.DeleteSwSupportWorkerOtherTraining(id);
+
+                    return Ok(swTraining);
+                }
+                else
+                {
+                    return BadRequest("Support worker other training not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerOtherTraining/GetSwSupportWorkerOtherTrainingById")]
-        public SwSupportWorkerOtherTraining GetSwSupportWorkerOtherTrainingById(int id)
+        public IActionResult GetSwSupportWorkerOtherTrainingById(int id)
         {
-            return SwSupportWorkerOtherTrainingServiceService.GetSwSupportWorkerOtherTrainingById(id);
+            try
+            {
+                SwSupportWorkerOtherTraining swTraining = SwSupportWorkerOtherTrainingServiceService.GetSwSupportWorkerOtherTrainingById(id);
+
+                if (swTraining != null)
+                {
+                    return Ok(swTraining);
+                }
+                else
+                {
+                    return BadRequest("Support worker other training not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

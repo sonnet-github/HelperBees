@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,139 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClInterest/GetClInterest")]
-        public IEnumerable<ClInterest> GetClInterest()
+        public IActionResult GetClInterest()
         {
-            return ClInterestServiceService.GetClInterest();
+            try
+            {
+                List<ClInterest> interests = ClInterestServiceService.GetClInterest().ToList();
+
+                if (interests != null && interests.Any())
+                {
+                    return Ok(interests);
+                }
+                else
+                {
+                    return BadRequest("No interest(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClInterest/AddClInterest")]
-        public ClInterest AddClInterest(ClInterest ClInterest)
+        public IActionResult AddClInterest(ClInterest ClInterest)
         {
-            return ClInterestServiceService.AddClInterest(ClInterest);
+            try
+            {
+                ClInterest interest = ClInterestServiceService.AddClInterest(ClInterest);
+
+                if (interest != null)
+                {
+                    return Ok(interest);
+                }
+                else
+                {
+                    return BadRequest("Failed to add interest.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClInterest/UpdateClInterest")]
-        public ClInterest UpdateClInterest(ClInterest ClInterest)
+        public IActionResult UpdateClInterest(ClInterest ClInterest)
         {
-            return ClInterestServiceService.UpdateClInterest(ClInterest);
+            try
+            {
+                ClInterest currentInterest = ClInterestServiceService.GetClInterestById(ClInterest.InterestsId);
+
+                if (currentInterest != null)
+                {
+                    #region Interest to update
+
+                    currentInterest.InterestsId = ClInterest.InterestsId;
+                    currentInterest.InterestsDescription = ClInterest.InterestsDescription;
+
+                    #endregion
+
+                    ClInterest interest = ClInterestServiceService.UpdateClInterest(currentInterest);
+
+                    if (interest != null)
+                    {
+                        return Ok(interest);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update interest.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Interest not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClInterest/DeleteClInterest")]
-        public ClInterest DeleteClInterest(int id)
+        public IActionResult DeleteClInterest(int id)
         {
-            return ClInterestServiceService.DeleteClInterest(id);
+            try
+            {
+                ClInterest currentInterest = ClInterestServiceService.GetClInterestById(id);
+
+                if (currentInterest != null)
+                {
+                    ClInterest interest = ClInterestServiceService.DeleteClInterest(id);
+
+                    return Ok(interest);
+                }
+                else
+                {
+                    return BadRequest("Interest not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClInterest/GetClInterestById")]
-        public ClInterest GetClInterestById(int id)
+        public IActionResult GetClInterestById(int id)
         {
-            return ClInterestServiceService.GetClInterestById(id);
+            try
+            {
+                ClInterest interest = ClInterestServiceService.GetClInterestById(id);
+
+                if (interest != null)
+                {
+                    return Ok(interest);
+                }
+                else
+                {
+                    return BadRequest("Interest not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

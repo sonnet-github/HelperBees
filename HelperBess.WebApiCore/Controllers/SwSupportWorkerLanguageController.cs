@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,136 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerLanguage/GetSwSupportWorkerLanguage")]
-        public IEnumerable<SwSupportWorkerLanguage> GetSwSupportWorkerLanguage()
+        public IActionResult GetSwSupportWorkerLanguage()
         {
-            return SwSupportWorkerLanguageServiceService.GetSwSupportWorkerLanguage();
+            try
+            {
+                List<SwSupportWorkerLanguage> swLanguages = SwSupportWorkerLanguageServiceService.GetSwSupportWorkerLanguage().ToList();
+
+                if (swLanguages != null && swLanguages.Any())
+                {
+                    return Ok(swLanguages);
+                }
+                else
+                {
+                    return BadRequest("No support worker language(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwSupportWorkerLanguage/AddSwSupportWorkerLanguage")]
-        public SwSupportWorkerLanguage AddSwSupportWorkerLanguage(SwSupportWorkerLanguage SwSupportWorkerLanguage)
+        public IActionResult AddSwSupportWorkerLanguage(SwSupportWorkerLanguage SwSupportWorkerLanguage)
         {
-            return SwSupportWorkerLanguageServiceService.AddSwSupportWorkerLanguage(SwSupportWorkerLanguage);
+            try
+            {
+                SwSupportWorkerLanguage swLanguage = SwSupportWorkerLanguageServiceService.AddSwSupportWorkerLanguage(SwSupportWorkerLanguage);
+
+                if (swLanguage != null)
+                {
+                    return Ok(swLanguage);
+                }
+                else
+                {
+                    return BadRequest("Failed to add support worker language.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/SwSupportWorkerLanguage/UpdateSwSupportWorkerLanguage")]
-        public SwSupportWorkerLanguage UpdateSwSupportWorkerLanguage(SwSupportWorkerLanguage SwSupportWorkerLanguage)
+        public IActionResult UpdateSwSupportWorkerLanguage(SwSupportWorkerLanguage SwSupportWorkerLanguage)
         {
-            return SwSupportWorkerLanguageServiceService.UpdateSwSupportWorkerLanguage(SwSupportWorkerLanguage);
+            try
+            {
+                SwSupportWorkerLanguage swCurrentLanguage = SwSupportWorkerLanguageServiceService.GetSwSupportWorkerLanguageById(SwSupportWorkerLanguage.SupportWorkerLanguageId);
+
+                if (swCurrentLanguage != null)
+                {
+                    swCurrentLanguage.SupportWorkerLanguageId = SwSupportWorkerLanguage.SupportWorkerLanguageId;
+                    swCurrentLanguage.SupportWorkerId = SwSupportWorkerLanguage.SupportWorkerId;
+                    swCurrentLanguage.LanguageId = SwSupportWorkerLanguage.LanguageId;
+
+                    SwSupportWorkerLanguage swLanguage = SwSupportWorkerLanguageServiceService.UpdateSwSupportWorkerLanguage(SwSupportWorkerLanguage);
+
+                    if (swLanguage != null)
+                    {
+                        return Ok(swLanguage);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update support worker language.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support worker language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/SwSupportWorkerLanguage/DeleteSwSupportWorkerLanguage")]
-        public SwSupportWorkerLanguage DeleteSwSupportWorkerLanguage(int id)
+        public IActionResult DeleteSwSupportWorkerLanguage(int id)
         {
-            return SwSupportWorkerLanguageServiceService.DeleteSwSupportWorkerLanguage(id);
+            try
+            {
+                SwSupportWorkerLanguage swCurrentLanguage = SwSupportWorkerLanguageServiceService.GetSwSupportWorkerLanguageById(id);
+
+                if (swCurrentLanguage != null)
+                {
+                    SwSupportWorkerLanguage swLanguage = SwSupportWorkerLanguageServiceService.DeleteSwSupportWorkerLanguage(id);
+
+                    return Ok(swLanguage);
+                }
+                else
+                {
+                    return BadRequest("Support worker language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerLanguage/GetSwSupportWorkerLanguageById")]
-        public SwSupportWorkerLanguage GetSwSupportWorkerLanguageById(int id)
+        public IActionResult GetSwSupportWorkerLanguageById(int id)
         {
-            return SwSupportWorkerLanguageServiceService.GetSwSupportWorkerLanguageById(id);
+            try
+            {
+                SwSupportWorkerLanguage swLanguage = SwSupportWorkerLanguageServiceService.GetSwSupportWorkerLanguageById(id);
+
+                if (swLanguage != null)
+                {
+                    return Ok(swLanguage);
+                }
+                else
+                {
+                    return BadRequest("Support worker language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

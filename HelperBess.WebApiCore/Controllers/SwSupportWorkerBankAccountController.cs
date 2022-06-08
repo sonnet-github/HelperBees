@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,140 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerBankAccount/GetSwSupportWorkerBankAccount")]
-        public IEnumerable<SwSupportWorkerBankAccount> GetSwSupportWorkerBankAccount()
+        public IActionResult GetSwSupportWorkerBankAccount()
         {
-            return SwSupportWorkerBankAccountServiceService.GetSwSupportWorkerBankAccount();
+            try
+            {
+                List<SwSupportWorkerBankAccount> swBankAccounts = SwSupportWorkerBankAccountServiceService.GetSwSupportWorkerBankAccount().ToList();
+
+                if (swBankAccounts != null && swBankAccounts.Any())
+                {
+                    return Ok(swBankAccounts);
+                }
+                else
+                {
+                    return BadRequest("No support worker bank account(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwSupportWorkerBankAccount/AddSwSupportWorkerBankAccount")]
-        public SwSupportWorkerBankAccount AddSwSupportWorkerBankAccount(SwSupportWorkerBankAccount SwSupportWorkerBankAccount)
+        public IActionResult AddSwSupportWorkerBankAccount(SwSupportWorkerBankAccount SwSupportWorkerBankAccount)
         {
-            return SwSupportWorkerBankAccountServiceService.AddSwSupportWorkerBankAccount(SwSupportWorkerBankAccount);
+            try
+            {
+                SwSupportWorkerBankAccount swBankAccount = SwSupportWorkerBankAccountServiceService.AddSwSupportWorkerBankAccount(SwSupportWorkerBankAccount);
+
+                if (swBankAccount != null)
+                {
+                    return Ok(swBankAccount);
+                }
+                else
+                {
+                    return BadRequest("Failed to add support worker bank account.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/SwSupportWorkerBankAccount/UpdateSwSupportWorkerBankAccount")]
-        public SwSupportWorkerBankAccount UpdateSwSupportWorkerBankAccount(SwSupportWorkerBankAccount SwSupportWorkerBankAccount)
+        public IActionResult UpdateSwSupportWorkerBankAccount(SwSupportWorkerBankAccount SwSupportWorkerBankAccount)
         {
-            return SwSupportWorkerBankAccountServiceService.UpdateSwSupportWorkerBankAccount(SwSupportWorkerBankAccount);
+            try
+            {
+                SwSupportWorkerBankAccount swCurrentBankAccount = SwSupportWorkerBankAccountServiceService.GetSwSupportWorkerBankAccountById(SwSupportWorkerBankAccount.BankAccountId);
+
+                if (swCurrentBankAccount != null)
+                {
+                    swCurrentBankAccount.BankAccountId = SwSupportWorkerBankAccount.BankAccountId;
+                    swCurrentBankAccount.SupportWorkerId = SwSupportWorkerBankAccount.SupportWorkerId;
+                    swCurrentBankAccount.Dlnumber = SwSupportWorkerBankAccount.Dlnumber;
+                    swCurrentBankAccount.AccountName = SwSupportWorkerBankAccount.AccountName;
+                    swCurrentBankAccount.BankName = SwSupportWorkerBankAccount.BankName;
+                    swCurrentBankAccount.Bsb = SwSupportWorkerBankAccount.Bsb;
+                    swCurrentBankAccount.AccountNumber = SwSupportWorkerBankAccount.AccountNumber;
+
+                    SwSupportWorkerBankAccount swBankAccount = SwSupportWorkerBankAccountServiceService.UpdateSwSupportWorkerBankAccount(swCurrentBankAccount);
+
+                    if (swBankAccount != null)
+                    {
+                        return Ok(swBankAccount);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update support worker bank account.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support worker bank account not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/SwSupportWorkerBankAccount/DeleteSwSupportWorkerBankAccount")]
-        public SwSupportWorkerBankAccount DeleteSwSupportWorkerBankAccount(int id)
+        public IActionResult DeleteSwSupportWorkerBankAccount(int id)
         {
-            return SwSupportWorkerBankAccountServiceService.DeleteSwSupportWorkerBankAccount(id);
+            try
+            {
+                SwSupportWorkerBankAccount swCurrentBankAccount = SwSupportWorkerBankAccountServiceService.GetSwSupportWorkerBankAccountById(id);
+
+                if (swCurrentBankAccount != null)
+                {
+                    SwSupportWorkerBankAccount swBankAccount = SwSupportWorkerBankAccountServiceService.DeleteSwSupportWorkerBankAccount(id);
+
+                    return Ok(swBankAccount);
+                }
+                else
+                {
+                    return BadRequest("Support worker bank account not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerBankAccount/GetSwSupportWorkerBankAccountById")]
-        public SwSupportWorkerBankAccount GetSwSupportWorkerBankAccountById(int id)
+        public IActionResult GetSwSupportWorkerBankAccountById(int id)
         {
-            return SwSupportWorkerBankAccountServiceService.GetSwSupportWorkerBankAccountById(id);
+            try
+            {
+                SwSupportWorkerBankAccount swBankAccount = SwSupportWorkerBankAccountServiceService.GetSwSupportWorkerBankAccountById(id);
+
+                if (swBankAccount != null)
+                {
+                    return Ok(swBankAccount);
+                }
+                else
+                {
+                    return BadRequest("Support worker bank account not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

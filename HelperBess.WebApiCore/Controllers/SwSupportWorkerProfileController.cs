@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,49 +22,199 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerProfile/GetSwSupportWorkerProfile")]
-        public IEnumerable<SwSupportWorkerProfile> GetSwSupportWorkerProfile()
+        public IActionResult GetSwSupportWorkerProfile()
         {
-            return SwSupportWorkerProfileServiceService.GetSwSupportWorkerProfile();
+            try
+            {
+                List<SwSupportWorkerProfile> swProfiles = SwSupportWorkerProfileServiceService.GetSwSupportWorkerProfile().ToList();
+
+                if (swProfiles != null && swProfiles.Any())
+                {
+                    return Ok(swProfiles);
+                }
+                else
+                {
+                    return BadRequest("No support worker profile(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerProfile/GetSwSupportWorkerProfileByLocation")]
-        public IEnumerable<SwSupportWorkerProfile> GetSwSupportWorkerProfileByLocation(string location)
+        public IActionResult GetSwSupportWorkerProfileByLocation(string location)
         {
-            return SwSupportWorkerProfileServiceService.GetSwSupportWorkerProfileByLocation(location);
+            try
+            {
+                List<SwSupportWorkerProfile> swProfiles = SwSupportWorkerProfileServiceService.GetSwSupportWorkerProfileByLocation(location).ToList();
+
+                if (swProfiles != null && swProfiles.Any())
+                {
+                    return Ok(swProfiles);
+                }
+                else
+                {
+                    return BadRequest("No support worker profile(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwSupportWorkerProfile/AddSwSupportWorkerProfile")]
-        public SwSupportWorkerProfile AddSwSupportWorkerProfile(SwSupportWorkerProfile SwSupportWorkerProfile)
+        public IActionResult AddSwSupportWorkerProfile(SwSupportWorkerProfile SwSupportWorkerProfile)
         {
-            return SwSupportWorkerProfileServiceService.AddSwSupportWorkerProfile(SwSupportWorkerProfile);
+            try
+            {
+                SwSupportWorkerProfile swProfile = SwSupportWorkerProfileServiceService.AddSwSupportWorkerProfile(SwSupportWorkerProfile);
+
+                if (swProfile != null)
+                {
+                    return Ok(swProfile);
+                }
+                else
+                {
+                    return BadRequest("Failed to add support worker profile.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/SwSupportWorkerProfile/UpdateSwSupportWorkerProfile")]
-        public SwSupportWorkerProfile UpdateSwSupportWorkerProfile(SwSupportWorkerProfile SwSupportWorkerProfile)
+        public IActionResult UpdateSwSupportWorkerProfile(SwSupportWorkerProfile SwSupportWorkerProfile)
         {
-            return SwSupportWorkerProfileServiceService.UpdateSwSupportWorkerProfile(SwSupportWorkerProfile);
+            try
+            {
+                SwSupportWorkerProfile swCurrentProfile = SwSupportWorkerProfileServiceService.GetSwSupportWorkerProfileById(SwSupportWorkerProfile.SupportWorkerProfileId);
+
+                if (swCurrentProfile != null)
+                {
+                    #region Profile to update
+
+                    swCurrentProfile.SupportWorkerProfileId = SwSupportWorkerProfile.SupportWorkerProfileId;
+                    swCurrentProfile.SupportWorkerId = SwSupportWorkerProfile.SupportWorkerId;
+                    swCurrentProfile.FirstName = SwSupportWorkerProfile.FirstName;
+                    swCurrentProfile.LastName = SwSupportWorkerProfile.LastName;
+                    swCurrentProfile.LegalName = SwSupportWorkerProfile.LegalName;
+                    swCurrentProfile.FriendlyName = SwSupportWorkerProfile.FriendlyName;
+                    swCurrentProfile.Bio = SwSupportWorkerProfile.Bio;
+                    swCurrentProfile.CompanyPartnershipDetails = SwSupportWorkerProfile.CompanyPartnershipDetails;
+                    swCurrentProfile.CompanyName = SwSupportWorkerProfile.CompanyName;
+                    swCurrentProfile.PartnershipName = SwSupportWorkerProfile.PartnershipName;
+                    swCurrentProfile.InvoiceType = SwSupportWorkerProfile.InvoiceType;
+                    swCurrentProfile.ProfilePhotoURL = SwSupportWorkerProfile.ProfilePhotoURL;
+                    swCurrentProfile.Sex = SwSupportWorkerProfile.Sex;
+                    swCurrentProfile.SexOther = SwSupportWorkerProfile.SexOther;
+                    swCurrentProfile.Birthdate = SwSupportWorkerProfile.Birthdate;
+                    swCurrentProfile.Phone = SwSupportWorkerProfile.Phone;
+                    swCurrentProfile.ResAddrUnitNumber = SwSupportWorkerProfile.ResAddrUnitNumber;
+                    swCurrentProfile.ResAddrStreet = SwSupportWorkerProfile.ResAddrStreet;
+                    swCurrentProfile.ResAddrSuburb = SwSupportWorkerProfile.ResAddrSuburb;
+                    swCurrentProfile.ResAddrState = SwSupportWorkerProfile.ResAddrState;
+                    swCurrentProfile.ResAddrCountry = SwSupportWorkerProfile.ResAddrCountry;
+                    swCurrentProfile.PostAddrSameAsResAddr = SwSupportWorkerProfile.PostAddrSameAsResAddr;
+                    swCurrentProfile.PostAddrUnitNumber = SwSupportWorkerProfile.PostAddrUnitNumber;
+                    swCurrentProfile.PostAddrStreet = SwSupportWorkerProfile.PostAddrStreet;
+                    swCurrentProfile.PostAddrSuburb = SwSupportWorkerProfile.PostAddrSuburb;
+                    swCurrentProfile.PostAddrState = SwSupportWorkerProfile.PostAddrState;
+                    swCurrentProfile.PostAddrCountry = SwSupportWorkerProfile.PostAddrCountry;
+                    swCurrentProfile.ABN = SwSupportWorkerProfile.ABN;
+                    swCurrentProfile.InterestsAndHobbies = SwSupportWorkerProfile.InterestsAndHobbies;
+                    swCurrentProfile.Personality = SwSupportWorkerProfile.Personality;
+                    swCurrentProfile.PersonalityAdditional = SwSupportWorkerProfile.PersonalityAdditional;
+                    swCurrentProfile.PetFriendly = SwSupportWorkerProfile.PetFriendly;
+                    swCurrentProfile.NonSmoker = SwSupportWorkerProfile.NonSmoker;
+                    swCurrentProfile.PreferToWorkWith = SwSupportWorkerProfile.PreferToWorkWith;
+                    swCurrentProfile.AHRPARegistrationNumber = SwSupportWorkerProfile.AHRPARegistrationNumber;
+                    swCurrentProfile.AHRPAExpiryDate = SwSupportWorkerProfile.AHRPAExpiryDate;
+                    swCurrentProfile.AHPRARegistrationActiveConfirm = SwSupportWorkerProfile.AHPRARegistrationActiveConfirm;
+                    swCurrentProfile.ProvideTransportServices = SwSupportWorkerProfile.ProvideTransportServices;
+
+                    #endregion
+
+                    SwSupportWorkerProfile swProfile = SwSupportWorkerProfileServiceService.UpdateSwSupportWorkerProfile(swCurrentProfile);
+
+                    if (swProfile != null)
+                    {
+                        return Ok(swProfile);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update support worker profile.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support worker profile not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/SwSupportWorkerProfile/DeleteSwSupportWorkerProfile")]
-        public SwSupportWorkerProfile DeleteSwSupportWorkerProfile(int id)
+        public IActionResult DeleteSwSupportWorkerProfile(int id)
         {
-            return SwSupportWorkerProfileServiceService.DeleteSwSupportWorkerProfile(id);
+            try
+            {
+                SwSupportWorkerProfile swCurrentProfile = SwSupportWorkerProfileServiceService.GetSwSupportWorkerProfileById(id);
+
+                if (swCurrentProfile != null)
+                {
+                    SwSupportWorkerProfile swProfile = SwSupportWorkerProfileServiceService.DeleteSwSupportWorkerProfile(id);
+
+                    return Ok(swProfile);
+                }
+                else
+                {
+                    return BadRequest("Support worker profile not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerProfile/GetSwSupportWorkerProfileById")]
-        public SwSupportWorkerProfile GetSwSupportWorkerProfileById(int id)
+        public IActionResult GetSwSupportWorkerProfileById(int id)
         {
-            return SwSupportWorkerProfileServiceService.GetSwSupportWorkerProfileById(id);
+            try
+            {
+                SwSupportWorkerProfile swProfile = SwSupportWorkerProfileServiceService.GetSwSupportWorkerProfileById(id);
+
+                if (swProfile != null)
+                {
+                    return Ok(swProfile);
+                }
+                else
+                {
+                    return BadRequest("Support worker profile not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

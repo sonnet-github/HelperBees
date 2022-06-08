@@ -27,16 +27,14 @@ namespace HelperBess.WebApiCore.Controllers
             try
             {
                 await mailService.SendEmailAsync(request);
-                return Ok();
+
+                return Ok("Email sent.");
             }
             catch (Exception ex)
             {
-
-                throw ex;
+return BadRequest(ex.Message);
             }
 
         }
-
-
     }
 }

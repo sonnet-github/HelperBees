@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,144 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerPresign/GetSwSupportWorkerPresign")]
-        public IEnumerable<SwSupportWorkerPresign> GetSwSupportWorkerPresign()
+        public IActionResult GetSwSupportWorkerPresign()
         {
-            return SwSupportWorkerPresignServiceService.GetSwSupportWorkerPresign();
+            try
+            {
+                List<SwSupportWorkerPresign> swPresigns = SwSupportWorkerPresignServiceService.GetSwSupportWorkerPresign().ToList();
+
+                if (swPresigns != null && swPresigns.Any())
+                {
+                    return Ok(swPresigns);
+                }
+                else
+                {
+                    return BadRequest("No support worker presign(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwSupportWorkerPresign/AddSwSupportWorkerPresign")]
-        public SwSupportWorkerPresign AddSwSupportWorkerPresign(SwSupportWorkerPresign SwSupportWorkerPresign)
+        public IActionResult AddSwSupportWorkerPresign(SwSupportWorkerPresign SwSupportWorkerPresign)
         {
-            return SwSupportWorkerPresignServiceService.AddSwSupportWorkerPresign(SwSupportWorkerPresign);
+            try
+            {
+                SwSupportWorkerPresign swPresign = SwSupportWorkerPresignServiceService.AddSwSupportWorkerPresign(SwSupportWorkerPresign);
+
+                if (swPresign != null)
+                {
+                    return Ok(swPresign);
+                }
+                else
+                {
+                    return BadRequest("Failed to add support worker presign.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/SwSupportWorkerPresign/UpdateSwSupportWorkerPresign")]
-        public SwSupportWorkerPresign UpdateSwSupportWorkerPresign(SwSupportWorkerPresign SwSupportWorkerPresign)
+        public IActionResult UpdateSwSupportWorkerPresign(SwSupportWorkerPresign SwSupportWorkerPresign)
         {
-            return SwSupportWorkerPresignServiceService.UpdateSwSupportWorkerPresign(SwSupportWorkerPresign);
+            try
+            {
+                SwSupportWorkerPresign swCurrentPresign = SwSupportWorkerPresignServiceService.GetSwSupportWorkerPresignById(SwSupportWorkerPresign.SupportWorkerPresignId);
+
+                if (swCurrentPresign != null)
+                {
+                    swCurrentPresign.SupportWorkerPresignId = SwSupportWorkerPresign.SupportWorkerPresignId;
+                    swCurrentPresign.SupportWorkerId = SwSupportWorkerPresign.SupportWorkerId;
+                    swCurrentPresign.Firstname = SwSupportWorkerPresign.Firstname;
+                    swCurrentPresign.Lastname = SwSupportWorkerPresign.Lastname;
+                    swCurrentPresign.Location = SwSupportWorkerPresign.Location;
+                    swCurrentPresign.WorkHours = SwSupportWorkerPresign.WorkHours;
+                    swCurrentPresign.MobileNumber = SwSupportWorkerPresign.MobileNumber;
+                    swCurrentPresign.HowHear = SwSupportWorkerPresign.HowHear;
+                    swCurrentPresign.SensitiveDataConfirm = SwSupportWorkerPresign.SensitiveDataConfirm;
+                    swCurrentPresign.MarketingOptin = SwSupportWorkerPresign.MarketingOptin;
+                    swCurrentPresign.TermsAndConditionsConfirm = SwSupportWorkerPresign.TermsAndConditionsConfirm;
+
+                    SwSupportWorkerPresign swPresign = SwSupportWorkerPresignServiceService.UpdateSwSupportWorkerPresign(swCurrentPresign);
+
+                    if (swPresign != null)
+                    {
+                        return Ok(swPresign);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update support worker presign.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support worker presign not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/SwSupportWorkerPresign/DeleteSwSupportWorkerPresign")]
-        public SwSupportWorkerPresign DeleteSwSupportWorkerPresign(int id)
+        public IActionResult DeleteSwSupportWorkerPresign(int id)
         {
-            return SwSupportWorkerPresignServiceService.DeleteSwSupportWorkerPresign(id);
+            try
+            {
+                SwSupportWorkerPresign swCurrentPresign = SwSupportWorkerPresignServiceService.GetSwSupportWorkerPresignById(id);
+
+                if (swCurrentPresign != null)
+                {
+                    SwSupportWorkerPresign swPresign = SwSupportWorkerPresignServiceService.DeleteSwSupportWorkerPresign(id);
+
+                    return Ok(swPresign);
+                }
+                else
+                {
+                    return BadRequest("Support worker presign not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerPresign/GetSwSupportWorkerPresignById")]
-        public SwSupportWorkerPresign GetSwSupportWorkerPresignById(int id)
+        public IActionResult GetSwSupportWorkerPresignById(int id)
         {
-            return SwSupportWorkerPresignServiceService.GetSwSupportWorkerPresignById(id);
+            try
+            {
+                SwSupportWorkerPresign swPresign = SwSupportWorkerPresignServiceService.GetSwSupportWorkerPresignById(id);
+
+                if (swPresign != null)
+                {
+                    return Ok(swPresign);
+                }
+                else
+                {
+                    return BadRequest("Support worker presign not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

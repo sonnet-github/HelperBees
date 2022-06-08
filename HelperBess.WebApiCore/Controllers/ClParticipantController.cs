@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,169 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipant/GetClParticipant")]
-        public IEnumerable<ClParticipant> GetClParticipant()
+        public IActionResult GetClParticipant()
         {
-            return ClParticipantServiceService.GetClParticipant();
+            try
+            {
+                List<ClParticipant> participants = ClParticipantServiceService.GetClParticipant().ToList();
+
+                if (participants != null && participants.Any())
+                {
+                    return Ok(participants);
+                }
+                else
+                {
+                    return BadRequest("No participant(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/ClParticipant/GetClParticipantsByAccountHolderId")]
+        public IActionResult GetClParticipantsByAccountHolderId(int accountHolderId)
+        {
+            try
+            {
+                List<ClParticipant> participants = ClParticipantServiceService.GetClParticipantsByAccountHolderId(accountHolderId).ToList();
+
+                if (participants != null && participants.Any())
+                {
+                    return Ok(participants);
+                }
+                else
+                {
+                    return BadRequest("No participant(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClParticipant/AddClParticipant")]
-        public ClParticipant AddClParticipant(ClParticipant ClParticipant)
+        public IActionResult AddClParticipant(ClParticipant ClParticipant)
         {
-            return ClParticipantServiceService.AddClParticipant(ClParticipant);
+            try
+            {
+                ClParticipant participant = ClParticipantServiceService.AddClParticipant(ClParticipant);
+
+                if (participant != null)
+                {
+                    return Ok(participant);
+                }
+                else
+                {
+                    return BadRequest("Failed to add participant.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClParticipant/UpdateClParticipant")]
-        public ClParticipant UpdateClParticipant(ClParticipant ClParticipant)
+        public IActionResult UpdateClParticipant(ClParticipant ClParticipant)
         {
-            return ClParticipantServiceService.UpdateClParticipant(ClParticipant);
+            try
+            {
+                ClParticipant currentParticipant = ClParticipantServiceService.GetClParticipantById(ClParticipant.ParticpantId);
+
+                if (currentParticipant != null)
+                {
+                    #region Participant to update
+
+                    currentParticipant.ParticpantId = ClParticipant.ParticpantId;
+                    currentParticipant.AccountHolderId = ClParticipant.AccountHolderId;
+                    currentParticipant.FirstName = ClParticipant.FirstName;
+                    currentParticipant.LastName = ClParticipant.LastName;
+                    currentParticipant.Gender = ClParticipant.Gender;
+                    currentParticipant.GenderOther = ClParticipant.GenderOther;
+                    currentParticipant.Phone = ClParticipant.Phone;
+                    currentParticipant.Birthdate = ClParticipant.Birthdate;
+
+                    #endregion
+
+                    ClParticipant participant = ClParticipantServiceService.UpdateClParticipant(currentParticipant);
+
+                    if (participant != null)
+                    {
+                        return Ok(participant);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update participant.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Participant not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClParticipant/DeleteClParticipant")]
-        public ClParticipant DeleteClParticipant(int id)
+        public IActionResult DeleteClParticipant(int id)
         {
-            return ClParticipantServiceService.DeleteClParticipant(id);
+            try
+            {
+                ClParticipant CurrentParticipant = ClParticipantServiceService.GetClParticipantById(id);
+
+                if (CurrentParticipant != null)
+                {
+                    ClParticipant participant = ClParticipantServiceService.DeleteClParticipant(id);
+
+                    return Ok(participant);
+                }
+                else
+                {
+                    return BadRequest("Participant not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipant/GetClParticipantById")]
-        public ClParticipant GetClParticipantById(int id)
+        public IActionResult GetClParticipantById(int id)
         {
-            return ClParticipantServiceService.GetClParticipantById(id);
+            try
+            {
+                ClParticipant participant = ClParticipantServiceService.GetClParticipantById(id);
+
+                if (participant != null)
+                {
+                    return Ok(participant);
+                }
+                else
+                {
+                    return BadRequest("Participant not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
