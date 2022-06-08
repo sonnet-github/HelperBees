@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,140 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClSocialNeedsGoal/GetClSocialNeedsGoal")]
-        public IEnumerable<ClSocialNeedsGoal> GetClSocialNeedsGoal()
+        public IActionResult GetClSocialNeedsGoal()
         {
-            return ClSocialNeedsGoalServiceService.GetClSocialNeedsGoal();
+            try
+            {
+                List<ClSocialNeedsGoal> socialNeedsGoals = ClSocialNeedsGoalServiceService.GetClSocialNeedsGoal().ToList();
+
+                if (socialNeedsGoals != null && socialNeedsGoals.Any())
+                {
+                    return Ok(socialNeedsGoals);
+                }
+                else
+                {
+                    return BadRequest("No social needs goal(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClSocialNeedsGoal/AddClSocialNeedsGoal")]
-        public ClSocialNeedsGoal AddClSocialNeedsGoal(ClSocialNeedsGoal ClSocialNeedsGoal)
+        public IActionResult AddClSocialNeedsGoal(ClSocialNeedsGoal ClSocialNeedsGoal)
         {
-            return ClSocialNeedsGoalServiceService.AddClSocialNeedsGoal(ClSocialNeedsGoal);
+            try
+            {
+                ClSocialNeedsGoal socialNeedsGoal = ClSocialNeedsGoalServiceService.AddClSocialNeedsGoal(ClSocialNeedsGoal);
+
+                if (socialNeedsGoal != null)
+                {
+                    return Ok(socialNeedsGoal);
+                }
+                else
+                {
+                    return BadRequest("Failed to add social needs goal.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClSocialNeedsGoal/UpdateClSocialNeedsGoal")]
-        public ClSocialNeedsGoal UpdateClSocialNeedsGoal(ClSocialNeedsGoal ClSocialNeedsGoal)
+        public IActionResult UpdateClSocialNeedsGoal(ClSocialNeedsGoal ClSocialNeedsGoal)
         {
-            return ClSocialNeedsGoalServiceService.UpdateClSocialNeedsGoal(ClSocialNeedsGoal);
+            try
+            {
+                ClSocialNeedsGoal currentSocialNeedsGoal = ClSocialNeedsGoalServiceService.GetClSocialNeedsGoalById(ClSocialNeedsGoal.SocialNeedsGoalsId);
+
+                if (currentSocialNeedsGoal != null)
+                {
+                    #region Social Needs Goal to update
+
+                    currentSocialNeedsGoal.SocialNeedsGoalsId = ClSocialNeedsGoal.SocialNeedsGoalsId;
+                    currentSocialNeedsGoal.ParticipantId = ClSocialNeedsGoal.ParticipantId;
+                    currentSocialNeedsGoal.SocialNeedsDescription = ClSocialNeedsGoal.SocialNeedsDescription;
+
+                    #endregion
+
+                    ClSocialNeedsGoal socialNeedsGoal = ClSocialNeedsGoalServiceService.UpdateClSocialNeedsGoal(currentSocialNeedsGoal);
+
+                    if (socialNeedsGoal != null)
+                    {
+                        return Ok(socialNeedsGoal);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update social needs goal.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Social needs goal not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClSocialNeedsGoal/DeleteClSocialNeedsGoal")]
-        public ClSocialNeedsGoal DeleteClSocialNeedsGoal(int id)
+        public IActionResult DeleteClSocialNeedsGoal(int id)
         {
-            return ClSocialNeedsGoalServiceService.DeleteClSocialNeedsGoal(id);
+            try
+            {
+                ClSocialNeedsGoal currentSocialNeedsGoal = ClSocialNeedsGoalServiceService.GetClSocialNeedsGoalById(id);
+
+                if (currentSocialNeedsGoal != null)
+                {
+                    ClSocialNeedsGoal socialNeedsGoal = ClSocialNeedsGoalServiceService.DeleteClSocialNeedsGoal(id);
+
+                    return Ok(socialNeedsGoal);
+                }
+                else
+                {
+                    return BadRequest("Social needs goal not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClSocialNeedsGoal/GetClSocialNeedsGoalById")]
-        public ClSocialNeedsGoal GetClSocialNeedsGoalById(int id)
+        public IActionResult GetClSocialNeedsGoalById(int id)
         {
-            return ClSocialNeedsGoalServiceService.GetClSocialNeedsGoalById(id);
+            try
+            {
+                ClSocialNeedsGoal socialNeedsGoal = ClSocialNeedsGoalServiceService.GetClSocialNeedsGoalById(id);
+
+                if (socialNeedsGoal != null)
+                {
+                    return Ok(socialNeedsGoal);
+                }
+                else
+                {
+                    return BadRequest("Social needs goal not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

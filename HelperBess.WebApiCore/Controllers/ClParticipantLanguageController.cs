@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,141 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantLanguage/GetClParticipantLanguage")]
-        public IEnumerable<ClParticipantLanguage> GetClParticipantLanguage()
+        public IActionResult GetClParticipantLanguage()
         {
-            return ClParticipantLanguageServiceService.GetClParticipantLanguage();
+            try
+            {
+                List<ClParticipantLanguage> participantLanguages = ClParticipantLanguageServiceService.GetClParticipantLanguage().ToList();
+
+                if (participantLanguages != null && participantLanguages.Any())
+                {
+                    return Ok(participantLanguages);
+                }
+                else
+                {
+                    return BadRequest("No participant language(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClParticipantLanguage/AddClParticipantLanguage")]
-        public ClParticipantLanguage AddClParticipantLanguage(ClParticipantLanguage ClParticipantLanguage)
+        public IActionResult AddClParticipantLanguage(ClParticipantLanguage ClParticipantLanguage)
         {
-            return ClParticipantLanguageServiceService.AddClParticipantLanguage(ClParticipantLanguage);
+            try
+            {
+                ClParticipantLanguage participantLanguage = ClParticipantLanguageServiceService.AddClParticipantLanguage(ClParticipantLanguage);
+
+                if (participantLanguage != null)
+                {
+                    return Ok(participantLanguage);
+                }
+                else
+                {
+                    return BadRequest("Failed to add participant language.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClParticipantLanguage/UpdateClParticipantLanguage")]
-        public ClParticipantLanguage UpdateClParticipantLanguage(ClParticipantLanguage ClParticipantLanguage)
+        public IActionResult UpdateClParticipantLanguage(ClParticipantLanguage ClParticipantLanguage)
         {
-            return ClParticipantLanguageServiceService.UpdateClParticipantLanguage(ClParticipantLanguage);
+            try
+            {
+                ClParticipantLanguage currentParticipantLanguage = ClParticipantLanguageServiceService.GetClParticipantLanguageById(ClParticipantLanguage.ParticipantLanguageId);
+
+                if (currentParticipantLanguage != null)
+                {
+                    #region Participant Language to update
+
+                    currentParticipantLanguage.ParticipantLanguageId = ClParticipantLanguage.ParticipantLanguageId;
+                    currentParticipantLanguage.ParticipantId = ClParticipantLanguage.ParticipantId;
+                    currentParticipantLanguage.LanguageId = ClParticipantLanguage.LanguageId;
+                    currentParticipantLanguage.Type = ClParticipantLanguage.Type;
+
+                    #endregion
+
+                    ClParticipantLanguage participantLanguage = ClParticipantLanguageServiceService.UpdateClParticipantLanguage(currentParticipantLanguage);
+
+                    if (participantLanguage != null)
+                    {
+                        return Ok(participantLanguage);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update participant language.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Participant language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClParticipantLanguage/DeleteClParticipantLanguage")]
-        public ClParticipantLanguage DeleteClParticipantLanguage(int id)
+        public IActionResult DeleteClParticipantLanguage(int id)
         {
-            return ClParticipantLanguageServiceService.DeleteClParticipantLanguage(id);
+            try
+            {
+                ClParticipantLanguage CurrentParticipantLanguage = ClParticipantLanguageServiceService.GetClParticipantLanguageById(id);
+
+                if (CurrentParticipantLanguage != null)
+                {
+                    ClParticipantLanguage participantLanguage = ClParticipantLanguageServiceService.DeleteClParticipantLanguage(id);
+
+                    return Ok(participantLanguage);
+                }
+                else
+                {
+                    return BadRequest("Participant language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantLanguage/GetClParticipantLanguageById")]
-        public ClParticipantLanguage GetClParticipantLanguageById(int id)
+        public IActionResult GetClParticipantLanguageById(int id)
         {
-            return ClParticipantLanguageServiceService.GetClParticipantLanguageById(id);
+            try
+            {
+                ClParticipantLanguage participantLanguage = ClParticipantLanguageServiceService.GetClParticipantLanguageById(id);
+
+                if (participantLanguage != null)
+                {
+                    return Ok(participantLanguage);
+                }
+                else
+                {
+                    return BadRequest("Participant language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

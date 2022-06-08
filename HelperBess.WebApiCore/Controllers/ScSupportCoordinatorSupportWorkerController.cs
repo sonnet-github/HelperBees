@@ -1,7 +1,9 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -20,41 +22,140 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ScSupportCoordinatorSupportWorker/GetScSupportCoordinatorSupportWorker")]
-        public IEnumerable<ScSupportCoordinatorSupportWorker> GetScSupportCoordinatorSupportWorker()
+        public IActionResult GetScSupportCoordinatorSupportWorker()
         {
-            return ScSupportCoordinatorSupportWorkerServiceService.GetScSupportCoordinatorSupportWorker();
+            try
+            {
+                List<ScSupportCoordinatorSupportWorker> supportCoordinatorSupportWorkers = ScSupportCoordinatorSupportWorkerServiceService.GetScSupportCoordinatorSupportWorker().ToList();
+
+                if (supportCoordinatorSupportWorkers != null && supportCoordinatorSupportWorkers.Any())
+                {
+                    return Ok(supportCoordinatorSupportWorkers);
+                }
+                else
+                {
+                    return BadRequest("No support coordinator support worker(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ScSupportCoordinatorSupportWorker/AddScSupportCoordinatorSupportWorker")]
-        public ScSupportCoordinatorSupportWorker AddScSupportCoordinatorSupportWorker(ScSupportCoordinatorSupportWorker ScSupportCoordinatorSupportWorker)
+        public IActionResult AddScSupportCoordinatorSupportWorker(ScSupportCoordinatorSupportWorker ScSupportCoordinatorSupportWorker)
         {
-            return ScSupportCoordinatorSupportWorkerServiceService.AddScSupportCoordinatorSupportWorker(ScSupportCoordinatorSupportWorker);
+            try
+            {
+                ScSupportCoordinatorSupportWorker supportCoordinatorSupportWorker = ScSupportCoordinatorSupportWorkerServiceService.AddScSupportCoordinatorSupportWorker(ScSupportCoordinatorSupportWorker);
+
+                if (supportCoordinatorSupportWorker != null)
+                {
+                    return Ok(supportCoordinatorSupportWorker);
+                }
+                else
+                {
+                    return BadRequest("Failed to add support coordinator support worker.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ScSupportCoordinatorSupportWorker/UpdateScSupportCoordinatorSupportWorker")]
-        public ScSupportCoordinatorSupportWorker UpdateScSupportCoordinatorSupportWorker(ScSupportCoordinatorSupportWorker ScSupportCoordinatorSupportWorker)
+        public IActionResult UpdateScSupportCoordinatorSupportWorker(ScSupportCoordinatorSupportWorker ScSupportCoordinatorSupportWorker)
         {
-            return ScSupportCoordinatorSupportWorkerServiceService.UpdateScSupportCoordinatorSupportWorker(ScSupportCoordinatorSupportWorker);
+            try
+            {
+                ScSupportCoordinatorSupportWorker currentSupportCoordinatorSupportWorker = ScSupportCoordinatorSupportWorkerServiceService.GetScSupportCoordinatorSupportWorkerById(ScSupportCoordinatorSupportWorker.UpportCoordinatorSupportWorkerId);
+
+                if (currentSupportCoordinatorSupportWorker != null)
+                {
+                    #region Support Coordinator Suppor tWorker to update
+
+                    currentSupportCoordinatorSupportWorker.UpportCoordinatorSupportWorkerId = ScSupportCoordinatorSupportWorker.UpportCoordinatorSupportWorkerId;
+                    currentSupportCoordinatorSupportWorker.SupportCoordinatorId = ScSupportCoordinatorSupportWorker.SupportCoordinatorId;
+                    currentSupportCoordinatorSupportWorker.Status = ScSupportCoordinatorSupportWorker.Status;
+
+                    #endregion
+
+                    ScSupportCoordinatorSupportWorker supportCoordinatorSupportWorker = ScSupportCoordinatorSupportWorkerServiceService.UpdateScSupportCoordinatorSupportWorker(currentSupportCoordinatorSupportWorker);
+
+                    if (supportCoordinatorSupportWorker != null)
+                    {
+                        return Ok(supportCoordinatorSupportWorker);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update support coordinator support worker.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support coordinator support worker not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ScSupportCoordinatorSupportWorker/DeleteScSupportCoordinatorSupportWorker")]
-        public ScSupportCoordinatorSupportWorker DeleteScSupportCoordinatorSupportWorker(int id)
+        public IActionResult DeleteScSupportCoordinatorSupportWorker(int id)
         {
-            return ScSupportCoordinatorSupportWorkerServiceService.DeleteScSupportCoordinatorSupportWorker(id);
+            try
+            {
+                ScSupportCoordinatorSupportWorker currentSupportCoordinatorSupportWorker = ScSupportCoordinatorSupportWorkerServiceService.GetScSupportCoordinatorSupportWorkerById(id);
+
+                if (currentSupportCoordinatorSupportWorker != null)
+                {
+                    ScSupportCoordinatorSupportWorker supportCoordinatorSupportWorker = ScSupportCoordinatorSupportWorkerServiceService.DeleteScSupportCoordinatorSupportWorker(id);
+
+                    return Ok(supportCoordinatorSupportWorker);
+                }
+                else
+                {
+                    return BadRequest("Support coordinator support worker not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ScSupportCoordinatorSupportWorker/GetScSupportCoordinatorSupportWorkerById")]
-        public ScSupportCoordinatorSupportWorker GetScSupportCoordinatorSupportWorkerById(int id)
+        public IActionResult GetScSupportCoordinatorSupportWorkerById(int id)
         {
-            return ScSupportCoordinatorSupportWorkerServiceService.GetScSupportCoordinatorSupportWorkerById(id);
+            try
+            {
+                ScSupportCoordinatorSupportWorker supportCoordinatorSupportWorker = ScSupportCoordinatorSupportWorkerServiceService.GetScSupportCoordinatorSupportWorkerById(id);
+
+                if (supportCoordinatorSupportWorker != null)
+                {
+                    return Ok(supportCoordinatorSupportWorker);
+                }
+                else
+                {
+                    return BadRequest("Support coordinator support worker not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

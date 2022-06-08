@@ -1,6 +1,7 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace HelperBess.WebApiCore.Controllers
@@ -20,41 +21,141 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorker/GetSwSupportWorker")]
-        public SwSupportWorker GetSwSupportWorkerByLogin(string email, string password)
+        public IActionResult GetSwSupportWorkerByLogin(string email, string password)
         {
-            return swSupportWorkerService.GetSwSupportWorkerByLogin(email, password);
+            try
+            {
+                SwSupportWorker worker = swSupportWorkerService.GetSwSupportWorkerByLogin(email, password);
+
+                if (worker != null)
+                {
+                    return Ok(worker);
+                }
+                else
+                {
+                    return BadRequest("Support worker not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwSupportWorker/AddSwSupportWorker")]
-        public SwSupportWorker AddSwSupportWorker(SwSupportWorker swSupportWorker)
+        public IActionResult AddSwSupportWorker(SwSupportWorker swSupportWorker)
         {
-            return swSupportWorkerService.AddSwSupportWorker(swSupportWorker);
+            try
+            {
+                SwSupportWorker worker = swSupportWorkerService.AddSwSupportWorker(swSupportWorker);
+
+                if (worker != null)
+                {
+                    return Ok(worker);
+                }
+                else
+                {
+                    return BadRequest("Failed to add Support worker.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/SwSupportWorker/EditSwSupportWorker")]
-        public SwSupportWorker EditEmployee(SwSupportWorker swSupportWorker)
+        public IActionResult EditEmployee(SwSupportWorker swSupportWorker)
         {
-            return swSupportWorkerService.UpdateSwSupportWorker(swSupportWorker);
+            try
+            {
+                SwSupportWorker currentWorker = swSupportWorkerService.GetSwSupportWorkerById(swSupportWorker.SupportWorkerId);
+
+                if (currentWorker != null)
+                {
+                    currentWorker.SupportWorkerId = swSupportWorker.SupportWorkerId;
+                    currentWorker.EmailAddress = swSupportWorker.EmailAddress;
+                    currentWorker.Password = swSupportWorker.Password;
+                    currentWorker.FailedLoginCount = swSupportWorker.FailedLoginCount;
+                    currentWorker.DateCreated = swSupportWorker.DateCreated;
+                    currentWorker.StatusId = swSupportWorker.StatusId;
+                    currentWorker.Locked = swSupportWorker.Locked;
+                    currentWorker.Active = swSupportWorker.Active;
+
+                    SwSupportWorker worker = swSupportWorkerService.UpdateSwSupportWorker(currentWorker);
+
+                    if (worker != null)
+                    {
+                        return Ok(worker);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to update Support worker.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Support worker not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/SwSupportWorker/DeleteSwSupportWorker")]
-        public SwSupportWorker DeleteSwSupportWorker(int id)
+        public IActionResult DeleteSwSupportWorker(int id)
         {
-            return swSupportWorkerService.DeleteSwSupportWorker(id);
+            try
+            {
+                SwSupportWorker currentWorker = swSupportWorkerService.GetSwSupportWorkerById(id);
+
+                if (currentWorker != null)
+                {
+                    SwSupportWorker worker = swSupportWorkerService.DeleteSwSupportWorker(id);
+
+                    return Ok(worker);                    
+                }
+                else
+                {
+                    return BadRequest("Support worker not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorker/GetSwSupportWorkerById")]
-        public SwSupportWorker GetSwSupportWorkerById(int id)
+        public IActionResult GetSwSupportWorkerById(int id)
         {
-            return swSupportWorkerService.GetSwSupportWorkerById(id);
+            try
+            {
+                SwSupportWorker worker = swSupportWorkerService.GetSwSupportWorkerById(id);
+
+                if (worker != null)
+                {
+                    return Ok(worker);
+                }
+                else
+                {
+                    return BadRequest("Support worker not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
