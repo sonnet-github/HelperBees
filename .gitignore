@@ -6,3 +6,5 @@
 .vs/
 HelperBees Release/HelperBees/HelperBess.WebApiCore.runtimeconfig.json
 HelperBees Release/
+HelperBees/obj/Release/netcoreapp3.1/HelperBees.GeneratedMSBuildEditorConfig.editorconfig
+HelperBess.WebApiCore/obj/Release/netcoreapp3.1/HelperBess.WebApiCore.GeneratedMSBuildEditorConfig.editorconfig
