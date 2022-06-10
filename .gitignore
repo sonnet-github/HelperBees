@@ -57,6 +57,9 @@ artifacts/
 
 HelperBees Release/
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Feature/06102022_SupportWorker_API_Methods
 HelperBees Debug/**
 HelperBees/[Bb]in/**
 HelperBees/[Oo]bj/
@@ -65,7 +68,10 @@ HelperBess.WebApiCore/[Oo]bj/**
 HelperBess.WebApiCoreTests/[Bb]in/
 HelperBess.WebApiCoreTests/[Oo]bj/
 
+<<<<<<< HEAD
 =======
 HelperBees/obj/Release/netcoreapp3.1/HelperBees.GeneratedMSBuildEditorConfig.editorconfig
 HelperBess.WebApiCore/obj/Release/netcoreapp3.1/HelperBess.WebApiCore.GeneratedMSBuildEditorConfig.editorconfig
 >>>>>>> master
+=======
+>>>>>>> Feature/06102022_SupportWorker_API_Methods
