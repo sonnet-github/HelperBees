@@ -28,9 +28,9 @@ namespace HelperBess.WebApiCore.Services
             return null;
         }
 
-        public SW_SupportWorkerUploadFiles DeleteSW_SupportWorkerUploadFiles(int id)
+        public SW_SupportWorkerUploadFiles DeleteSW_SupportWorkerUploadFiles(int SupportWorkerId)
         {
-            var SW_SupportWorkerUploadFiles = dbContext.SW_SupportWorkerUploadFiles.FirstOrDefault(x => x.FileId == id);
+            var SW_SupportWorkerUploadFiles = dbContext.SW_SupportWorkerUploadFiles.FirstOrDefault(x => x.SupportWorkerId == SupportWorkerId);
             dbContext.Entry(SW_SupportWorkerUploadFiles).State = EntityState.Deleted;
             dbContext.SaveChanges();
             return SW_SupportWorkerUploadFiles;
@@ -42,9 +42,9 @@ namespace HelperBess.WebApiCore.Services
             return SW_SupportWorkerUploadFiles;
         }
 
-        public SW_SupportWorkerUploadFiles GetSW_SupportWorkerUploadFilesById(int id)
+        public SW_SupportWorkerUploadFiles GetSW_SupportWorkerUploadFilesById(int SupportWorkerId)
         {
-            var SW_SupportWorkerUploadFiles = dbContext.SW_SupportWorkerUploadFiles.FirstOrDefault(x => x.FileId == id);
+            var SW_SupportWorkerUploadFiles = dbContext.SW_SupportWorkerUploadFiles.FirstOrDefault(x => x.SupportWorkerId == SupportWorkerId);
             return SW_SupportWorkerUploadFiles;
         }
 
