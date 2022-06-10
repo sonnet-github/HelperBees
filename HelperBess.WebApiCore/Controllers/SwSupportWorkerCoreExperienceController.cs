@@ -154,5 +154,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerCoreExperience/GetSwSupportWorkerCoreExperienceBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerCoreExperienceBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerCoreExperience> swCoreExperiences = SwSupportWorkerCoreExperienceServiceService.GetSwSupportWorkerCoreExperienceBySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swCoreExperiences != null && swCoreExperiences.Any())
+                {
+                    return Ok(swCoreExperiences);
+                }
+                else
+                {
+                    return NotFound("Support worker core experience not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

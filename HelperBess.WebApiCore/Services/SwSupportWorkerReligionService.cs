@@ -44,11 +44,17 @@ namespace HelperBess.WebApiCore.Services
             var SwSupportWorkerReligions = dbContext.SwSupportWorkerReligions.FirstOrDefault(x => x.SupportWorkerReligionId == id);
             return SwSupportWorkerReligions;
         }
-
+        
         public SwSupportWorkerReligion UpdateSwSupportWorkerReligion(SwSupportWorkerReligion SwSupportWorkerReligions)
         {
             dbContext.Entry(SwSupportWorkerReligions).State = EntityState.Modified;
             dbContext.SaveChanges();
+            return SwSupportWorkerReligions;
+        }
+
+        public IEnumerable<SwSupportWorkerReligion> GetSwSupportWorkerReligionBySupportWorkerId(int supportWorkerId)
+        {
+            var SwSupportWorkerReligions = dbContext.SwSupportWorkerReligions.Where(x => x.SupportWorkerId == supportWorkerId);
             return SwSupportWorkerReligions;
         }
     }
