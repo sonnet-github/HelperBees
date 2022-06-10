@@ -7,6 +7,9 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwSupportWorkerCulturalBackground> GetSwSupportWorkerCulturalBackground();
         SwSupportWorkerCulturalBackground GetSwSupportWorkerCulturalBackgroundById(int id);
+
+        IEnumerable<SwSupportWorkerCulturalBackground> GetSwSupportWorkerCulturalBackgroundBySupportWorkerId(int supportWorkerId);
+
         SwSupportWorkerCulturalBackground AddSwSupportWorkerCulturalBackground(SwSupportWorkerCulturalBackground SwSupportWorkerCulturalBackground);
         SwSupportWorkerCulturalBackground UpdateSwSupportWorkerCulturalBackground(SwSupportWorkerCulturalBackground SwSupportWorkerCulturalBackground);
         SwSupportWorkerCulturalBackground DeleteSwSupportWorkerCulturalBackground(int id);

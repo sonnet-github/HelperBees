@@ -161,5 +161,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerPresign/GetSwSupportWorkerPresignBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerPresignBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerPresign> swPresigns = SwSupportWorkerPresignServiceService.GetSwSupportWorkerPresignBySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swPresigns != null && swPresigns.Any())
+                {
+                    return Ok(swPresigns);
+                }
+                else
+                {
+                    return NotFound("Support worker presign not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

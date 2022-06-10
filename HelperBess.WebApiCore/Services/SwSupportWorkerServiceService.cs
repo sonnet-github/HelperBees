@@ -55,5 +55,11 @@ namespace HelperBess.WebApiCore.Services
             dbContext.SaveChanges();
             return SwSupportWorkerService;
         }
+
+        public IEnumerable<HelperBess.WebApiCore.Models.SwSupportWorkerService> GetSwSupportWorkerServiceBySupportWorkerId(int supportWorkerId)
+        {
+            var SwSupportWorkerService = dbContext.SwSupportWorkerServices.Where(x => x.SupportWorkerId == supportWorkerId);
+            return SwSupportWorkerService;
+        }
     }
 }
