@@ -51,5 +51,11 @@ namespace HelperBess.WebApiCore.Services
             dbContext.SaveChanges();
             return SwSupportWorkerLanguages;
         }
+
+        public IEnumerable<SwSupportWorkerLanguage> GetSwSupportWorkerLanguageBySupportWorkerId(int supportWorkerId)
+        {
+            var SwSupportWorkerLanguages = dbContext.SwSupportWorkerLanguages.Where(x => x.SupportWorkerId == supportWorkerId);
+            return SwSupportWorkerLanguages;
+        }
     }
 }

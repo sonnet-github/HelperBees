@@ -7,6 +7,9 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwSupportWorkerLanguage> GetSwSupportWorkerLanguage();
         SwSupportWorkerLanguage GetSwSupportWorkerLanguageById(int id);
+
+        IEnumerable<SwSupportWorkerLanguage> GetSwSupportWorkerLanguageBySupportWorkerId(int supportWorkerId);
+
         SwSupportWorkerLanguage AddSwSupportWorkerLanguage(SwSupportWorkerLanguage SwSupportWorkerLanguage);
         SwSupportWorkerLanguage UpdateSwSupportWorkerLanguage(SwSupportWorkerLanguage SwSupportWorkerLanguage);
         SwSupportWorkerLanguage DeleteSwSupportWorkerLanguage(int id);

@@ -7,6 +7,9 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwSupportWorkerReligion> GetSwSupportWorkerReligion();
         SwSupportWorkerReligion GetSwSupportWorkerReligionById(int id);
+
+        IEnumerable<SwSupportWorkerReligion> GetSwSupportWorkerReligionBySupportWorkerId(int supportWorkerId);
+
         SwSupportWorkerReligion AddSwSupportWorkerReligion(SwSupportWorkerReligion SwSupportWorkerReligion);
         SwSupportWorkerReligion UpdateSwSupportWorkerReligion(SwSupportWorkerReligion SwSupportWorkerReligion);
         SwSupportWorkerReligion DeleteSwSupportWorkerReligion(int id);

@@ -153,5 +153,31 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerAhdetail/GetSwSupportWorkerAhdetailBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerAhdetailBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerAhdetail> swAhDetails = SwSupportWorkerAhdetailServiceService
+                                                                .GetSwSupportWorkerAhdetailBySupportWorkerId(supportWorkerId)?
+                                                                .ToList();
+
+                if (swAhDetails != null && swAhDetails.Any())
+                {
+                    return Ok(swAhDetails);
+                }
+                else
+                {
+                    return NotFound("Support worker AH detail not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

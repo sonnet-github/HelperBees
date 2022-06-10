@@ -7,6 +7,9 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwSupportWorkerCoreExperience> GetSwSupportWorkerCoreExperience();
         SwSupportWorkerCoreExperience GetSwSupportWorkerCoreExperienceById(int id);
+
+        IEnumerable<SwSupportWorkerCoreExperience> GetSwSupportWorkerCoreExperienceBySupportWorkerId(int supportWorkerId);
+
         SwSupportWorkerCoreExperience AddSwSupportWorkerCoreExperience(SwSupportWorkerCoreExperience SwSupportWorkerCoreExperience);
         SwSupportWorkerCoreExperience UpdateSwSupportWorkerCoreExperience(SwSupportWorkerCoreExperience SwSupportWorkerCoreExperience);
         SwSupportWorkerCoreExperience DeleteSwSupportWorkerCoreExperience(int id);

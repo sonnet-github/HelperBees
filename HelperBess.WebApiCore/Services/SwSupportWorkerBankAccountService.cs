@@ -52,5 +52,11 @@ namespace HelperBess.WebApiCore.Services
             dbContext.SaveChanges();
             return SwSupportWorkerBankAccounts;
         }
+
+        public IEnumerable<SwSupportWorkerBankAccount> GetSwSupportWorkerBankAccountBySupportWorkerId(int supportWorkerId)
+        {
+            var SwSupportWorkerBankAccounts = dbContext.SwSupportWorkerBankAccounts.Where(x => x.SupportWorkerId == supportWorkerId);
+            return SwSupportWorkerBankAccounts;
+        }
     }
 }

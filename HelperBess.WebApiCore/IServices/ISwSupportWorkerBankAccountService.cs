@@ -7,6 +7,9 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwSupportWorkerBankAccount> GetSwSupportWorkerBankAccount();
         SwSupportWorkerBankAccount GetSwSupportWorkerBankAccountById(int id);
+
+        IEnumerable<SwSupportWorkerBankAccount> GetSwSupportWorkerBankAccountBySupportWorkerId(int supportWorkerId);
+
         SwSupportWorkerBankAccount AddSwSupportWorkerBankAccount(SwSupportWorkerBankAccount SwSupportWorkerBankAccount);
         SwSupportWorkerBankAccount UpdateSwSupportWorkerBankAccount(SwSupportWorkerBankAccount SwSupportWorkerBankAccount);
         SwSupportWorkerBankAccount DeleteSwSupportWorkerBankAccount(int id);

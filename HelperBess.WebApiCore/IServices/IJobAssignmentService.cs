@@ -7,6 +7,9 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<JobAssignment> GetJobAssignment();
         JobAssignment GetJobAssignmentById(int id);
+
+        IEnumerable<JobAssignment> GetJobAssignmentByParticipantId(int participantId);
+
         JobAssignment AddJobAssignment(JobAssignment JobAssignment);
         JobAssignment UpdateJobAssignment(JobAssignment JobAssignment);
         JobAssignment DeleteJobAssignment(int id);

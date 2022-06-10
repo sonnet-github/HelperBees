@@ -164,5 +164,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerQualification/GetSwSupportWorkerQualificationBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerQualificationBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerQualification> swQualifications = SwSupportWorkerQualificationServiceService.GetSwSupportWorkerQualificationBySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swQualifications != null && swQualifications.Any())
+                {
+                    return Ok(swQualifications);
+                }
+                else
+                {
+                    return NotFound("Support worker qualification not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

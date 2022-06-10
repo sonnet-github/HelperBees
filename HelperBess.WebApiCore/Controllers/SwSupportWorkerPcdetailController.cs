@@ -153,5 +153,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerPcdetail/GetSwSupportWorkerPcdetailBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerPcdetailBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerPcdetail> swPcdetails = SwSupportWorkerPcdetailServiceService.GetSwSupportWorkerPcdetailBySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swPcdetails != null && swPcdetails.Any())
+                {
+                    return Ok(swPcdetails);
+                }
+                else
+                {
+                    return NotFound("Support worker PC detail not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

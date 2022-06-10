@@ -8,6 +8,9 @@ namespace HelperBess.WebApiCore.IServices
         IEnumerable<SwSupportWorkerPresign> GetSwSupportWorkerPresign();
         IEnumerable<SwSupportWorkerPresign> GetSwSupportWorkerPresignByLocation(string location);
         SwSupportWorkerPresign GetSwSupportWorkerPresignById(int id);
+
+        IEnumerable<SwSupportWorkerPresign> GetSwSupportWorkerPresignBySupportWorkerId(int supportWorkerId);
+
         SwSupportWorkerPresign AddSwSupportWorkerPresign(SwSupportWorkerPresign SwSupportWorkerPresign);
         SwSupportWorkerPresign UpdateSwSupportWorkerPresign(SwSupportWorkerPresign SwSupportWorkerPresign);
         SwSupportWorkerPresign DeleteSwSupportWorkerPresign(int id);

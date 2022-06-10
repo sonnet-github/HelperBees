@@ -157,5 +157,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerBankAccount/GetSwSupportWorkerBankAccountBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerBankAccountBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerBankAccount> swBankAccounts = SwSupportWorkerBankAccountServiceService.GetSwSupportWorkerBankAccountBySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swBankAccounts != null && swBankAccounts.Any())
+                {
+                    return Ok(swBankAccounts);
+                }
+                else
+                {
+                    return NotFound("Support worker bank account not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

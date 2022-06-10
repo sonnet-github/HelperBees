@@ -154,5 +154,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerOtherTraining/GetSwSupportWorkerOtherTrainingBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerOtherTrainingBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerOtherTraining> swTrainings = SwSupportWorkerOtherTrainingServiceService.GetSwSupportWorkerOtherTrainingBySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swTrainings != null && swTrainings.Any())
+                {
+                    return Ok(swTrainings);
+                }
+                else
+                {
+                    return NotFound("Support worker other training not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
