@@ -7,7 +7,11 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwSupportWorkerProfile> GetSwSupportWorkerProfile();
         SwSupportWorkerProfile GetSwSupportWorkerProfileById(int id);
-        public IEnumerable<SwSupportWorkerProfile> GetSwSupportWorkerProfileByLocation(string location);
+
+        IEnumerable<SwSupportWorkerProfile> GetSwSupportWorkerProfileBySupportWorkerId(int supportWorkerId);
+
+        IEnumerable<SwSupportWorkerProfile> GetSwSupportWorkerProfileByLocation(string location);
+
         SwSupportWorkerProfile AddSwSupportWorkerProfile(SwSupportWorkerProfile SwSupportWorkerProfile);
         SwSupportWorkerProfile UpdateSwSupportWorkerProfile(SwSupportWorkerProfile SwSupportWorkerProfile);
         SwSupportWorkerProfile DeleteSwSupportWorkerProfile(int id);

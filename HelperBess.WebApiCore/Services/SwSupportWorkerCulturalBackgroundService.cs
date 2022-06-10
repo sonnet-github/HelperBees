@@ -51,5 +51,11 @@ namespace HelperBess.WebApiCore.Services
             dbContext.SaveChanges();
             return SwSupportWorkerCulturalBackgrounds;
         }
+
+        public IEnumerable<SwSupportWorkerCulturalBackground> GetSwSupportWorkerCulturalBackgroundBySupportWorkerId(int supportWorkerId)
+        {
+            var SwSupportWorkerCulturalBackgrounds = dbContext.SwSupportWorkerCulturalBackgrounds.Where(x => x.SupportWorkerId == supportWorkerId);
+            return SwSupportWorkerCulturalBackgrounds;
+        }
     }
 }

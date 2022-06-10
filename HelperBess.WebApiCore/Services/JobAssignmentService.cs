@@ -51,5 +51,11 @@ namespace HelperBess.WebApiCore.Services
             dbContext.SaveChanges();
             return JobAssignments;
         }
+
+        public IEnumerable<JobAssignment> GetJobAssignmentByParticipantId(int participantId)
+        {
+            var JobAssignments = dbContext.JobAssignments.Where(x => x.Job.ParticipantId == participantId);
+            return JobAssignments;
+        }
     }
 }

@@ -153,5 +153,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerCulturalBackground/GetSwSupportWorkerCulturalBackgroundBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerCulturalBackgroundBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerCulturalBackground> swCulturalBackgrounds = SwSupportWorkerCulturalBackgroundServiceService.GetSwSupportWorkerCulturalBackgroundBySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swCulturalBackgrounds != null && swCulturalBackgrounds.Any())
+                {
+                    return Ok(swCulturalBackgrounds);
+                }
+                else
+                {
+                    return BadRequest("Support worker cultural background not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

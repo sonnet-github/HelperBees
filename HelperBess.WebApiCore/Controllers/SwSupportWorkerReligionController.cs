@@ -157,5 +157,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerReligion/GetSwSupportWorkerReligionBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerReligionBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerReligion> swReligions = SwSupportWorkerReligionServiceService.GetSwSupportWorkerReligionBySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swReligions != null && swReligions.Any())
+                {
+                    return Ok(swReligions);
+                }
+                else
+                {
+                    return NotFound("Support worker religion not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -7,6 +7,9 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwSupportWorkerPcdetail> GetSwSupportWorkerPcdetail();
         SwSupportWorkerPcdetail GetSwSupportWorkerPcdetailById(int id);
+
+        IEnumerable<SwSupportWorkerPcdetail> GetSwSupportWorkerPcdetailBySupportWorkerId(int supportWorkerId);
+
         SwSupportWorkerPcdetail AddSwSupportWorkerPcdetail(SwSupportWorkerPcdetail SwSupportWorkerPcdetail);
         SwSupportWorkerPcdetail UpdateSwSupportWorkerPcdetail(SwSupportWorkerPcdetail SwSupportWorkerPcdetail);
         SwSupportWorkerPcdetail DeleteSwSupportWorkerPcdetail(int id);

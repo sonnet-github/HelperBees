@@ -153,5 +153,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerLanguage/GetSwSupportWorkerLanguageBySupportWorkerId")]
+        public IActionResult GetSwSupportWorkerLanguageBySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerLanguage> swLanguages = SwSupportWorkerLanguageServiceService.GetSwSupportWorkerLanguageBySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swLanguages != null && swLanguages.Any())
+                {
+                    return Ok(swLanguages);
+                }
+                else
+                {
+                    return NotFound("Support worker language not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
