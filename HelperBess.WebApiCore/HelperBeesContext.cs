@@ -92,6 +92,7 @@ namespace HelperBess.WebApiCore.Models
         public virtual DbSet<SwTransportInfo> SwTransportInfos { get; set; }
         public virtual DbSet<SwWorkHistory> SwWorkHistories { get; set; }
         public virtual DbSet<SwloginAudit> SwloginAudits { get; set; }
+        public virtual DbSet<SW_SupportWorkerUploadFiles> SW_SupportWorkerUploadFiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
