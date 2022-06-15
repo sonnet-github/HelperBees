@@ -20,8 +20,23 @@ namespace HelperBess.WebApiCore.Services
         {
             if (SW_SupportWorkerUploadFiles != null)
             {
-                dbContext.SW_SupportWorkerUploadFiles.Add(SW_SupportWorkerUploadFiles);
-                dbContext.SaveChanges();
+                Int32 iSupportWorkerID = SW_SupportWorkerUploadFiles.SupportWorkerId;
+                var SW_SupportWorkerExists = dbContext.SW_SupportWorkerUploadFiles.FirstOrDefault(x => x.SupportWorkerId == iSupportWorkerID);
+                if (SW_SupportWorkerExists != null)
+                {
+                    SW_SupportWorkerExists.FileType = SW_SupportWorkerUploadFiles.FileType;
+                    SW_SupportWorkerExists.DataFiles = SW_SupportWorkerUploadFiles.DataFiles;
+                    SW_SupportWorkerExists.CreatedOn = SW_SupportWorkerUploadFiles.CreatedOn;
+                    SW_SupportWorkerUploadFiles.FileId = SW_SupportWorkerExists.FileId;
+                    dbContext.Entry(SW_SupportWorkerExists).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                }
+                else
+                {
+                    dbContext.SW_SupportWorkerUploadFiles.Add(SW_SupportWorkerUploadFiles);
+                    dbContext.SaveChanges();
+                }
+              
                 return SW_SupportWorkerUploadFiles;
             }
 
