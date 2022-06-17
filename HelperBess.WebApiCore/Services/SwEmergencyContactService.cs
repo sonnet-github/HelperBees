@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return SwEmergencyContacts;
         }
 
+        public IEnumerable<SwEmergencyContact> GetSwEmergencyContactBySWId(int swid)
+        {
+            var SwEmergencyContacts = dbContext.SwEmergencyContacts.Where(x => x.SupportWorkerId == swid);
+            return SwEmergencyContacts;
+        }
+
         public SwEmergencyContact UpdateSwEmergencyContact(SwEmergencyContact SwEmergencyContacts)
         {
             dbContext.Entry(SwEmergencyContacts).State = EntityState.Modified;

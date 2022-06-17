@@ -56,5 +56,13 @@ namespace HelperBess.WebApiCore.Controllers
         {
             return SwEmergencyContactServiceService.GetSwEmergencyContactById(id);
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwEmergencyContact/GetSwEmergencyContactBySWId")]
+        public IEnumerable<SwEmergencyContact> GetSwEmergencyContactBySWId(int swid)
+        {
+            return SwEmergencyContactServiceService.GetSwEmergencyContactBySWId(swid);
+        }
     }
 }

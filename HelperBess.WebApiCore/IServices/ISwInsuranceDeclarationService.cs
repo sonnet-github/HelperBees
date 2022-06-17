@@ -7,6 +7,7 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwInsuranceDeclaration> GetSwInsuranceDeclaration();
         SwInsuranceDeclaration GetSwInsuranceDeclarationById(int id);
+        IEnumerable<SwInsuranceDeclaration> GetSwInsuranceDeclarationBySWId(int swid);
         SwInsuranceDeclaration AddSwInsuranceDeclaration(SwInsuranceDeclaration SwInsuranceDeclaration);
         SwInsuranceDeclaration UpdateSwInsuranceDeclaration(SwInsuranceDeclaration SwInsuranceDeclaration);
         SwInsuranceDeclaration DeleteSwInsuranceDeclaration(int id);
