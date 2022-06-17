@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return SwInsuranceDeclarations;
         }
 
+        public IEnumerable<SwInsuranceDeclaration> GetSwInsuranceDeclarationBySWId(int swid)
+        {
+            var SwInsuranceDeclarations = dbContext.SwInsuranceDeclarations.Where(x => x.SupportWorkerId == swid);
+            return SwInsuranceDeclarations;
+        }
+
         public SwInsuranceDeclaration UpdateSwInsuranceDeclaration(SwInsuranceDeclaration SwInsuranceDeclarations)
         {
             dbContext.Entry(SwInsuranceDeclarations).State = EntityState.Modified;

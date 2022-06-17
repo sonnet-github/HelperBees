@@ -7,6 +7,8 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwEmergencyContact> GetSwEmergencyContact();
         SwEmergencyContact GetSwEmergencyContactById(int id);
+
+        IEnumerable<SwEmergencyContact> GetSwEmergencyContactBySWId(int swid);
         SwEmergencyContact AddSwEmergencyContact(SwEmergencyContact SwEmergencyContact);
         SwEmergencyContact UpdateSwEmergencyContact(SwEmergencyContact SwEmergencyContact);
         SwEmergencyContact DeleteSwEmergencyContact(int id);

@@ -7,6 +7,8 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwTransportInfo> GetSwTransportInfo();
         SwTransportInfo GetSwTransportInfoById(int id);
+
+        IEnumerable<SwTransportInfo> GetSwTransportInfoBySWId(int swid);
         SwTransportInfo AddSwTransportInfo(SwTransportInfo SwTransportInfo);
         SwTransportInfo UpdateSwTransportInfo(SwTransportInfo SwTransportInfo);
         SwTransportInfo DeleteSwTransportInfo(int id);

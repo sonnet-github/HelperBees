@@ -165,5 +165,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwTransportInfo/GetSwTransportInfoBySWId")]
+        public IActionResult GetSwTransportInfoBySWId(int swid)
+        {
+            try
+            {
+                List<SwTransportInfo> swTransportInfos = SwTransportInfoServiceService.GetSwTransportInfoBySWId(swid).ToList();
+
+                if (swTransportInfos != null && swTransportInfos.Any())
+                {
+                    return Ok(swTransportInfos);
+                }
+                else
+                {
+                    return BadRequest("No transport info(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

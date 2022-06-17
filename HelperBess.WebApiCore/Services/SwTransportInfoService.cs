@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return SwTransportInfos;
         }
 
+        public IEnumerable<SwTransportInfo> GetSwTransportInfoBySWId(int swid)
+        {
+            var SwTransportInfos = dbContext.SwTransportInfos.Where(x => x.SupportWorkerId == swid);
+            return SwTransportInfos;
+        }
+
         public SwTransportInfo UpdateSwTransportInfo(SwTransportInfo SwTransportInfos)
         {
             dbContext.Entry(SwTransportInfos).State = EntityState.Modified;

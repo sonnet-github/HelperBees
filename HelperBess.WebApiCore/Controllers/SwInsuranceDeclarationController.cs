@@ -56,5 +56,15 @@ namespace HelperBess.WebApiCore.Controllers
         {
             return SwInsuranceDeclarationServiceService.GetSwInsuranceDeclarationById(id);
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwInsuranceDeclaration/GetSwInsuranceDeclarationBySWId")]
+        public IEnumerable<SwInsuranceDeclaration> GetSwInsuranceDeclarationBySWId(int swid)
+        {
+            return SwInsuranceDeclarationServiceService.GetSwInsuranceDeclarationBySWId(swid);
+        }
+
+
     }
 }
