@@ -7,6 +7,7 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwWorkHistory> GetSwWorkHistory();
         SwWorkHistory GetSwWorkHistoryById(int id);
+        IEnumerable<SwWorkHistory> GetSwWorkHistoryBySWId(int swid);
         SwWorkHistory AddSwWorkHistory(SwWorkHistory SwWorkHistory);
         SwWorkHistory UpdateSwWorkHistory(SwWorkHistory SwWorkHistory);
         SwWorkHistory DeleteSwWorkHistory(int id);

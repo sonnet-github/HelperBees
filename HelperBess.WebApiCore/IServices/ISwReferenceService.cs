@@ -7,6 +7,8 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwReference> GetSwReference();
         SwReference GetSwReferenceById(int id);
+
+        IEnumerable<SwReference> GetSwReferenceBySWId(int swid);
         SwReference AddSwReference(SwReference SwReference);
         SwReference UpdateSwReference(SwReference SwReference);
         SwReference DeleteSwReference(int id);

@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return SwAvailabilitys;
         }
 
+        public IEnumerable<SwAvailability> GetSwAvailabilityBySWId(int swid)
+        {
+            var SwAvailabilitys = dbContext.SwAvailabilities.Where(x => x.SupportWorkerId == swid);
+            return SwAvailabilitys;
+        }
+
         public SwAvailability UpdateSwAvailability(SwAvailability SwAvailabilitys)
         {
             dbContext.Entry(SwAvailabilitys).State = EntityState.Modified;

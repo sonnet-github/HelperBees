@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return SwWorkHistorys;
         }
 
+        public IEnumerable<SwWorkHistory> GetSwWorkHistoryBySWId(int swid)
+        {
+            var SwWorkHistorys = dbContext.SwWorkHistories.Where(x => x.SupportWorkerId == swid);
+            return SwWorkHistorys;
+        }
+
         public SwWorkHistory UpdateSwWorkHistory(SwWorkHistory SwWorkHistorys)
         {
             dbContext.Entry(SwWorkHistorys).State = EntityState.Modified;
