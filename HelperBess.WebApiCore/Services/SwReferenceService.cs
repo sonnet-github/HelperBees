@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return SwReferences;
         }
 
+        public IEnumerable<SwReference> GetSwReferenceBySWId(int swid)
+        {
+            var SwReferences = dbContext.SwReferences.Where(x => x.SupportWorkerId == swid);
+            return SwReferences;
+        }
+
         public SwReference UpdateSwReference(SwReference SwReferences)
         {
             dbContext.Entry(SwReferences).State = EntityState.Modified;

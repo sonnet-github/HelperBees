@@ -56,5 +56,13 @@ namespace HelperBess.WebApiCore.Controllers
         {
             return SwMandatoryCheckServiceService.GetSwMandatoryCheckById(id);
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwMandatoryCheck/GetSwMandatoryCheckBySWId")]
+        public IEnumerable<SwMandatoryCheck> GetSwMandatoryCheckBySWId(int swid)
+        {
+            return SwMandatoryCheckServiceService.GetSwMandatoryCheckBySWId(swid);
+        }
     }
 }

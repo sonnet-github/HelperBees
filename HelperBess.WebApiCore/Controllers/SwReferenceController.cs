@@ -56,5 +56,13 @@ namespace HelperBess.WebApiCore.Controllers
         {
             return SwReferenceServiceService.GetSwReferenceById(id);
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwReference/GetSwReferenceBySWId")]
+        public IEnumerable<SwReference> GetSwReferenceBySWId(int swid)
+        {
+            return SwReferenceServiceService.GetSwReferenceBySWId(swid);
+        }
     }
 }

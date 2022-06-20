@@ -7,6 +7,8 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwAvailability> GetSwAvailability();
         SwAvailability GetSwAvailabilityById(int id);
+
+        IEnumerable<SwAvailability> GetSwAvailabilityBySWId(int swid);
         SwAvailability AddSwAvailability(SwAvailability SwAvailability);
         SwAvailability UpdateSwAvailability(SwAvailability SwAvailability);
         SwAvailability DeleteSwAvailability(int id);

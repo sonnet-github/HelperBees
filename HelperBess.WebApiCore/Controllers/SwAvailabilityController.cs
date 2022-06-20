@@ -169,5 +169,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwAvailability/GetSwAvailabilityBySWId")]
+        public IActionResult GetSwAvailabilityBySWId(int swid)
+        {
+            try
+            {
+                List<SwAvailability> availabilities = SwAvailabilityServiceService.GetSwAvailabilityBySWId(swid).ToList();
+
+                if (availabilities != null && availabilities.Any())
+                {
+                    return Ok(availabilities);
+                }
+                else
+                {
+                    return BadRequest("No support worker availability available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

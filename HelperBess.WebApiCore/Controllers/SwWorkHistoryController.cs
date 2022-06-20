@@ -157,5 +157,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwWorkHistory/GetSwWorkHistoryBySWId")]
+        public IActionResult GetSwWorkHistoryBySWId(int swid)
+        {
+            try
+            {
+                List<SwWorkHistory> swWorkHistories = SwWorkHistoryServiceService.GetSwWorkHistoryBySWId(swid).ToList();
+
+                if (swWorkHistories != null && swWorkHistories.Any())
+                {
+                    return Ok(swWorkHistories);
+                }
+                else
+                {
+                    return BadRequest("No work history available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
