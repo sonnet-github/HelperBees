@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return SwMandatoryChecks;
         }
 
+        public IEnumerable<SwMandatoryCheck> GetSwMandatoryCheckBySWId(int swid)
+        {
+            var SwMandatoryChecks = dbContext.SwMandatoryChecks.Where(x => x.SupportWorkerId == swid);
+            return SwMandatoryChecks;
+        }
+
         public SwMandatoryCheck UpdateSwMandatoryCheck(SwMandatoryCheck SwMandatoryChecks)
         {
             dbContext.Entry(SwMandatoryChecks).State = EntityState.Modified;
