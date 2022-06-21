@@ -163,6 +163,7 @@ namespace HelperBess.WebApiCore
             services.AddTransient<ISwTransportInfoService, SwTransportInfoService>();
             services.AddTransient<ISwWorkHistoryService, SwWorkHistoryService>();
             services.AddTransient<ISW_SupportWorkerUploadFiles, SW_SupportWorkerUploadFilesService>();
+            services.AddTransient<ICLEmailPreferenceService, ClEmailPreferenceService>();
 
         }
 

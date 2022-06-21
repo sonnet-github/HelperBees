@@ -39,6 +39,7 @@ namespace HelperBess.WebApiCore.Models
             SwTransportInfos = new HashSet<SwTransportInfo>();
             SwWorkHistories = new HashSet<SwWorkHistory>();
             SwloginAudits = new HashSet<SwloginAudit>();
+            CLEmailPreference = new HashSet<CLEmailPreference>();
         }
 
         public int SupportWorkerId { get; set; }
@@ -81,5 +82,6 @@ namespace HelperBess.WebApiCore.Models
         public virtual ICollection<SwTransportInfo> SwTransportInfos { get; set; }
         public virtual ICollection<SwWorkHistory> SwWorkHistories { get; set; }
         public virtual ICollection<SwloginAudit> SwloginAudits { get; set; }
+        public virtual ICollection<CLEmailPreference> CLEmailPreference { get; set; }
     }
 }
