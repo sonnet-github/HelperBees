@@ -92,7 +92,7 @@ namespace HelperBess.WebApiCore.Models
         public virtual DbSet<SwTransportInfo> SwTransportInfos { get; set; }
         public virtual DbSet<SwWorkHistory> SwWorkHistories { get; set; }
         public virtual DbSet<SwloginAudit> SwloginAudits { get; set; }
-        public virtual DbSet<SW_SupportWorkerUploadFiles> SW_SupportWorkerUploadFiles { get; set; }
+        public virtual DbSet<SW_SupportWorkerUploadFiles> SW_SupportWorkerUploadFiles { get; set; }        public virtual DbSet<CLEmailPreference> CLEmailPreference { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -1063,6 +1063,21 @@ namespace HelperBess.WebApiCore.Models
                     .WithMany(p => p.SwEmailPreferences)
                     .HasForeignKey(d => d.SupportWorkerId)
                     .HasConstraintName("FK_SW_EmailPreferences_SW_SupportWorker");
+            });
+
+
+            modelBuilder.Entity<CLEmailPreference>(entity =>
+            {
+                entity.HasKey(e => e.CLEmailPreferencesId);
+
+                entity.ToTable("CL_EmailPreference");
+
+                entity.HasIndex(e => e.SupportWorkerId, "CL_EmailPreference_SupportWorkerId");
+
+                entity.HasOne(d => d.SupportWorker)
+                    .WithMany(p => p.CLEmailPreference)
+                    .HasForeignKey(d => d.SupportWorkerId)
+                    .HasConstraintName("FK_CL_EmailPreference_SW_SupportWorker");
             });
 
             modelBuilder.Entity<SwEmergencyContact>(entity =>
