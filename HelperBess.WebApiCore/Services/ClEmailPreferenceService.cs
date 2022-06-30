@@ -45,9 +45,9 @@ namespace HelperBess.WebApiCore.Services
             return ClEmailPreferences;
         }
 
-        public IEnumerable<CLEmailPreference> GetCLEmailPreferenceBySupportWorkerId(int supportWorkerId)
+        public IEnumerable<CLEmailPreference> GetCLEmailPreferenceByAccountHolderId(int accountholderid)
         {
-            var ClEmailPreferences = dbContext.CLEmailPreference.Where(x => x.SupportWorkerId == supportWorkerId);
+            var ClEmailPreferences = dbContext.CLEmailPreference.Where(x => x.AccountHolderId == accountholderid);
             return ClEmailPreferences;
         }
 

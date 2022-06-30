@@ -58,10 +58,10 @@ namespace HelperBess.WebApiCore.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Route("api/CLEmailPreference/GetCLEmailPreferenceBySupportWorkerId")]
-        public IEnumerable<CLEmailPreference> GetCLEmailPreferenceBySupportWorkerId(int supportWorkerId)
+        [Route("api/CLEmailPreference/GetCLEmailPreferenceByAccountHolderId")]
+        public IEnumerable<CLEmailPreference> GetCLEmailPreferenceByAccountHolderId(int accountholderid)
         {
-            return CLEmailPreferenceServiceService.GetCLEmailPreferenceBySupportWorkerId(supportWorkerId);
+            return CLEmailPreferenceServiceService.GetCLEmailPreferenceByAccountHolderId(accountholderid);
         }
     }
 }

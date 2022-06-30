@@ -7,7 +7,7 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<CLEmailPreference> GetCLEmailPreference();
         CLEmailPreference GetCLEmailPreferenceById(int id);
-        IEnumerable<CLEmailPreference> GetCLEmailPreferenceBySupportWorkerId(int supportWorkerId);
+        IEnumerable<CLEmailPreference> GetCLEmailPreferenceByAccountHolderId(int accountholderid);
         CLEmailPreference AddCLEmailPreference(CLEmailPreference CLEmailPreference);
         CLEmailPreference UpdateCLEmailPreference(CLEmailPreference CLEmailPreference);
         CLEmailPreference DeleteCLEmailPreference(int id);

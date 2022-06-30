@@ -1072,12 +1072,12 @@ namespace HelperBess.WebApiCore.Models
 
                 entity.ToTable("CL_EmailPreference");
 
-                entity.HasIndex(e => e.SupportWorkerId, "CL_EmailPreference_SupportWorkerId");
+                entity.HasIndex(e => e.AccountHolderId, "CL_EmailPreference_AccountHolderId");
 
-                entity.HasOne(d => d.SupportWorker)
-                    .WithMany(p => p.CLEmailPreference)
-                    .HasForeignKey(d => d.SupportWorkerId)
-                    .HasConstraintName("FK_CL_EmailPreference_SW_SupportWorker");
+                entity.HasOne(d => d.ClAccountHolder)
+                    .WithMany(p => p.ClEmailPreference)
+                    .HasForeignKey(d => d.AccountHolderId)
+                    .HasConstraintName("FK_CL_EmailPreference_CL_AccountHolder");
             });
 
             modelBuilder.Entity<SwEmergencyContact>(entity =>
