@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return ScSupportCoordinatorProfiles;
         }
 
+        public ScSupportCoordinatorProfile GetScSupportCoordinatorProfileByCoordinatorId(int coordinatorid)
+        {
+            var ScSupportCoordinatorProfiles = dbContext.ScSupportCoordinatorProfiles.FirstOrDefault(x => x.SupportCoordinatorId == coordinatorid);
+            return ScSupportCoordinatorProfiles;
+        }
+
         public ScSupportCoordinatorProfile UpdateScSupportCoordinatorProfile(ScSupportCoordinatorProfile ScSupportCoordinatorProfiles)
         {
             dbContext.Entry(ScSupportCoordinatorProfiles).State = EntityState.Modified;

@@ -158,5 +158,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/ScSupportCoordinatorProfile/GetScSupportCoordinatorProfileByCoordinatorId")]
+        public IActionResult GetScSupportCoordinatorProfileByCoordinatorId(int coordinatorid)
+        {
+            try
+            {
+                ScSupportCoordinatorProfile supportCoordinatorProfile = ScSupportCoordinatorProfileServiceService.GetScSupportCoordinatorProfileByCoordinatorId(coordinatorid);
+
+                if (supportCoordinatorProfile != null)
+                {
+                    return Ok(supportCoordinatorProfile);
+                }
+                else
+                {
+                    return BadRequest("Support coordinator profile not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

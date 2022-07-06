@@ -162,5 +162,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/ScSupportCoordinator/GetScSupportCoordinatorByEmail")]
+        public IActionResult GetScSupportCoordinatorByEmail(string emailaddress)
+        {
+            try
+            {
+                ScSupportCoordinator supportCoordinator = ScSupportCoordinatorServiceService.GetScSupportCoordinatorByEmail(emailaddress);
+
+                if (supportCoordinator != null)
+                {
+                    return Ok(supportCoordinator);
+                }
+                else
+                {
+                    return BadRequest("Support coordinator not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
