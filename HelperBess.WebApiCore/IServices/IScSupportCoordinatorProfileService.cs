@@ -7,6 +7,7 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<ScSupportCoordinatorProfile> GetScSupportCoordinatorProfile();
         ScSupportCoordinatorProfile GetScSupportCoordinatorProfileById(int id);
+        ScSupportCoordinatorProfile GetScSupportCoordinatorProfileByCoordinatorId(int id);
         ScSupportCoordinatorProfile AddScSupportCoordinatorProfile(ScSupportCoordinatorProfile ScSupportCoordinatorProfile);
         ScSupportCoordinatorProfile UpdateScSupportCoordinatorProfile(ScSupportCoordinatorProfile ScSupportCoordinatorProfile);
         ScSupportCoordinatorProfile DeleteScSupportCoordinatorProfile(int id);
