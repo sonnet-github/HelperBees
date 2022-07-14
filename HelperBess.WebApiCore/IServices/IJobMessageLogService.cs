@@ -7,6 +7,11 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<JobMessageLog> GetJobMessageLog();
         JobMessageLog GetJobMessageLogById(int id);
+        IEnumerable<JobMessageLog> GetJobMessageLogByParticipantId(int participantid);
+        IEnumerable<JobMessageLog> GetJobMessageLogByAssignmentIdAsc(int assignmentid);
+        IEnumerable<JobMessageLog> GetJobMessageLogByAssignmentIdDesc(int assignmentid);
+        IEnumerable<JobMessageLogGet> GetJobMessageLogByJobIdAsc(int assignmentid);
+        IEnumerable<JobMessageLogGet> GetJobMessageLogByJobIdDesc(int assignmentid);
         JobMessageLog AddJobMessageLog(JobMessageLog JobMessageLog);
         JobMessageLog UpdateJobMessageLog(JobMessageLog JobMessageLog);
         JobMessageLog DeleteJobMessageLog(int id);

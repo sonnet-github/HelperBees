@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelperBess.WebApiCore.Services
 {
-    public class JobAssignmentService :IJobAssignmentService
+    public class JobAssignmentService : IJobAssignmentService
     {
         HelperBeesContext dbContext;
         public JobAssignmentService(HelperBeesContext _db)
@@ -55,6 +55,18 @@ namespace HelperBess.WebApiCore.Services
         public IEnumerable<JobAssignment> GetJobAssignmentByParticipantId(int participantId)
         {
             var JobAssignments = dbContext.JobAssignments.Where(x => x.Job.ParticipantId == participantId);
+            return JobAssignments;
+        }
+
+        public IEnumerable<JobAssignment> GetJobAssignmentByJobId(int jobid)
+        {
+            var JobAssignments = dbContext.JobAssignments.Where(x => x.JobId == jobid);
+            return JobAssignments;
+        }
+
+        public IEnumerable<JobAssignment> GetJobAssignmentBySWId(int swid)
+        {
+            var JobAssignments = dbContext.JobAssignments.Where(x => x.SupportWorkerId == swid);
             return JobAssignments;
         }
     }

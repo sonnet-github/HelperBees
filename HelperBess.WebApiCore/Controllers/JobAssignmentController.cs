@@ -180,5 +180,53 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/JobAssignment/GetJobAssignmentByJobId")]
+        public IActionResult GetJobAssignmentByJobId(int jobid)
+        {
+            try
+            {
+                List<JobAssignment> assignments = JobAssignmentServiceService.GetJobAssignmentByJobId(jobid)?.ToList();
+
+                if (assignments != null && assignments.Any())
+                {
+                    return Ok(assignments);
+                }
+                else
+                {
+                    return NotFound("Job assignment not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/JobAssignment/GetJobAssignmentBySWId")]
+        public IActionResult GetJobAssignmentBySWId(int swid)
+        {
+            try
+            {
+                List<JobAssignment> assignments = JobAssignmentServiceService.GetJobAssignmentBySWId(swid)?.ToList();
+
+                if (assignments != null && assignments.Any())
+                {
+                    return Ok(assignments);
+                }
+                else
+                {
+                    return NotFound("Job assignment not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

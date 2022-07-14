@@ -45,6 +45,58 @@ namespace HelperBess.WebApiCore.Services
             return JobMessageLogs;
         }
 
+        public IEnumerable<JobMessageLog> GetJobMessageLogByParticipantId(int participantid)
+        {
+            var JobMessageLogs = dbContext.JobMessageLogs.Where(x => x.JobAssignment.Job.ParticipantId == participantid);
+            return JobMessageLogs;
+        }
+
+        public IEnumerable<JobMessageLog> GetJobMessageLogByAssignmentIdAsc(int assignmentid)
+        {
+            var JobMessageLogs = dbContext.JobMessageLogs.Where(x => x.JobAssignmentId == assignmentid);
+            return JobMessageLogs;
+        }
+
+        public IEnumerable<JobMessageLog> GetJobMessageLogByAssignmentIdDesc(int assignmentid)
+        {
+            var JobMessageLogs = dbContext.JobMessageLogs.Where(x => x.JobAssignmentId == assignmentid);
+            return JobMessageLogs;
+        }
+
+       
+
+        public IEnumerable<JobMessageLogGet> GetJobMessageLogByJobIdAsc(int jobid)
+        {
+            List <JobMessageLogGet> jobMessageLogGet= new List<JobMessageLogGet>();
+            jobMessageLogGet = dbContext.JobMessageLogs.Where(x => x.JobAssignment.JobId == jobid).Select(a => new JobMessageLogGet { 
+                JobMessageLogId = a.JobAssignmentId,
+                JobAssignmentId = a.JobAssignmentId,
+                MessageType = a.MessageType,
+                MessageDateTime = a.MessageDateTime,
+                Message = a.Message              
+
+            }).ToList();
+            //var JobMessageLogs = dbContext.JobMessageLogs.Where(x => x.JobAssignment.JobId == jobid);
+            return jobMessageLogGet;
+        }
+
+
+        public IEnumerable<JobMessageLogGet> GetJobMessageLogByJobIdDesc(int jobid)
+        {
+            List<JobMessageLogGet> jobMessageLogGet = new List<JobMessageLogGet>();
+            jobMessageLogGet = dbContext.JobMessageLogs.Where(x => x.JobAssignment.JobId == jobid).Select(a => new JobMessageLogGet
+            {
+                JobMessageLogId = a.JobAssignmentId,
+                JobAssignmentId = a.JobAssignmentId,
+                MessageType = a.MessageType,
+                MessageDateTime = a.MessageDateTime,
+                Message = a.Message
+
+            }).ToList();
+            //var JobMessageLogs = dbContext.JobMessageLogs.Where(x => x.JobAssignment.JobId == jobid);
+            return jobMessageLogGet;
+        }
+
         public JobMessageLog UpdateJobMessageLog(JobMessageLog JobMessageLogs)
         {
             dbContext.Entry(JobMessageLogs).State = EntityState.Modified;
