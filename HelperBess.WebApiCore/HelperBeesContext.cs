@@ -92,7 +92,8 @@ namespace HelperBess.WebApiCore.Models
         public virtual DbSet<SwTransportInfo> SwTransportInfos { get; set; }
         public virtual DbSet<SwWorkHistory> SwWorkHistories { get; set; }
         public virtual DbSet<SwloginAudit> SwloginAudits { get; set; }
-        public virtual DbSet<SW_SupportWorkerUploadFiles> SW_SupportWorkerUploadFiles { get; set; }        public virtual DbSet<CLEmailPreference> CLEmailPreference { get; set; }
+        public virtual DbSet<SW_SupportWorkerUploadFiles> SW_SupportWorkerUploadFiles { get; set; }
+        public virtual DbSet<CLEmailPreference> CLEmailPreference { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -103,7 +104,7 @@ namespace HelperBess.WebApiCore.Models
                 //optionsBuilder.UseSqlServer("Server=DEO-DESKTOP;Database=HelperBees;Persist Security Info=True;Integrated Security=True;MultipleActiveResultSets=True;");
 
                 //optionsBuilder.UseSqlServer("Server=LAPTOP-JQE05MHB\\SQLEXPRESS2019;Database=HelperBees;Persist Security Info=True;User ID=sa;Password=8232566;MultipleActiveResultSets=True;");
-                
+
                 optionsBuilder.UseSqlServer(configuration.DbConnectionString);
             }
         }
@@ -701,47 +702,6 @@ namespace HelperBess.WebApiCore.Models
                     .HasColumnName("CulturalBackground");
             });
 
-            modelBuilder.Entity<JobMessageLog>(entity =>
-            {
-               
-                entity.ToTable("JobMessageLog");
-                
-                entity.HasIndex(e => e.JobAssignmentId, "JobMessageLog_JobAssignmentId");
-
-                entity.Property(e => e.Message)
-                    .HasMaxLength(1000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.MessageDateTime).HasColumnType("datetime");
-
-                entity.HasOne(d => d.JobAssignment)
-                    .WithMany(p => p.JobMessageLogs)
-                    .HasForeignKey(d => d.JobAssignmentId)
-                    .HasConstraintName("FK_JobMessageLog_JobAssignment");
-            });
-
-            modelBuilder.Entity<JobAssignment>(entity =>
-            {
-                entity.ToTable("JobAssignment");
-
-                entity.HasIndex(e => e.JobId, "JobAssignment_JobId");
-
-                entity.HasIndex(e => e.SupportWorkerId, "JobAssignment_SupportWorkerId");
-
-                entity.Property(e => e.DateAssigned).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Job)
-                    .WithMany(p => p.JobAssignments)
-                    .HasForeignKey(d => d.JobId)
-                    .HasConstraintName("FK_JobAssignment_Job");
-
-                entity.HasOne(d => d.SupportWorker)
-                    .WithMany(p => p.JobAssignments)
-                    .HasForeignKey(d => d.SupportWorkerId)
-                    .HasConstraintName("FK_JobAssignment_SW_SupportWorker");
-            });
-
-
             modelBuilder.Entity<Job>(entity =>
             {
                 entity.ToTable("Job");
@@ -776,8 +736,44 @@ namespace HelperBess.WebApiCore.Models
                     .HasConstraintName("FK_Job_CL_Participant");
             });
 
-            
-            
+            modelBuilder.Entity<JobAssignment>(entity =>
+            {
+                entity.ToTable("JobAssignment");
+
+                entity.HasIndex(e => e.JobId, "JobAssignment_JobId");
+
+                entity.HasIndex(e => e.SupportWorkerId, "JobAssignment_SupportWorkerId");
+
+                entity.Property(e => e.DateAssigned).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Job)
+                    .WithMany(p => p.JobAssignments)
+                    .HasForeignKey(d => d.JobId)
+                    .HasConstraintName("FK_JobAssignment_Job");
+
+                entity.HasOne(d => d.SupportWorker)
+                    .WithMany(p => p.JobAssignments)
+                    .HasForeignKey(d => d.SupportWorkerId)
+                    .HasConstraintName("FK_JobAssignment_SW_SupportWorker");
+            });
+
+            modelBuilder.Entity<JobMessageLog>(entity =>
+            {
+                entity.ToTable("JobMessageLog");
+
+                entity.HasIndex(e => e.JobAssignmentId, "JobMessageLog_JobAssignmentId");
+
+                entity.Property(e => e.Message)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.MessageDateTime).HasColumnType("datetime");
+
+                entity.HasOne(d => d.JobAssignment)
+                    .WithMany(p => p.JobMessageLogs)
+                    .HasForeignKey(d => d.JobAssignmentId)
+                    .HasConstraintName("FK_JobMessageLog_JobAssignment");
+            });
 
             modelBuilder.Entity<JobTime>(entity =>
             {
