@@ -10,7 +10,7 @@ namespace HelperBess.WebApiCore.Models
         public JobAssignment()
         {
             JobMessageLogs = new HashSet<JobMessageLog>();
-        }       
+        }
 
 
         public int JobAssignmentId { get; set; }
@@ -18,7 +18,8 @@ namespace HelperBess.WebApiCore.Models
         public int? SupportWorkerId { get; set; }
         public bool? Alerts { get; set; }
         public DateTime? DateAssigned { get; set; }
-            
+        public int? Status { get; set; }
+
         public virtual Job Job { get; set; }
         public virtual SwSupportWorker SupportWorker { get; set; }
         public virtual ICollection<JobMessageLog> JobMessageLogs { get; set; }

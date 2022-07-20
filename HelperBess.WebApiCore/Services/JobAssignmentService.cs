@@ -69,5 +69,11 @@ namespace HelperBess.WebApiCore.Services
             var JobAssignments = dbContext.JobAssignments.Where(x => x.SupportWorkerId == swid);
             return JobAssignments;
         }
+
+        public IEnumerable<JobAssignment> GetActiveJobAssignmentBySWId(int swid)
+        {
+            var JobAssignments = dbContext.JobAssignments.Where(x => x.SupportWorkerId == swid && x.Status == 1);
+            return JobAssignments;
+        }
     }
 }
