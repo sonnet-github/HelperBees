@@ -228,5 +228,29 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/JobAssignment/GetActiveJobAssignmentBySWId")]
+        public IActionResult GetActiveJobAssignmentBySWId(int swid)
+        {
+            try
+            {
+                List<JobAssignment> assignments = JobAssignmentServiceService.GetActiveJobAssignmentBySWId(swid)?.ToList();
+
+                if (assignments != null && assignments.Any())
+                {
+                    return Ok(assignments);
+                }
+                else
+                {
+                    return NotFound("Job assignment not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
