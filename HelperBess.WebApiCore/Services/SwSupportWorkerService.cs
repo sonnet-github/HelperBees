@@ -50,6 +50,12 @@ namespace HelperBess.WebApiCore.Services
             return swSupportWorker;
         }
 
+        public IEnumerable<SwSupportWorker> GetSwSupportWorkerByStatusId(string status)
+        {
+            var swSupportWorker = dbContext.SwSupportWorkers.Where(x => x.Status.Status1 == status);
+            return swSupportWorker;
+        }
+
         public SwSupportWorker UpdateSwSupportWorker(SwSupportWorker swSupportWorker)
         {
             dbContext.Entry(swSupportWorker).State = EntityState.Modified;

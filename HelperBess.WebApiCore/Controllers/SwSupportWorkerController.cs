@@ -121,7 +121,7 @@ namespace HelperBess.WebApiCore.Controllers
                 {
                     SwSupportWorker worker = swSupportWorkerService.DeleteSwSupportWorker(id);
 
-                    return Ok(worker);                    
+                    return Ok(worker);
                 }
                 else
                 {
@@ -156,6 +156,14 @@ namespace HelperBess.WebApiCore.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwSupportWorker/GetSwSupportWorkerByStatusId")]
+        public IEnumerable<SwSupportWorker> GetSwSupportWorkerByStatusId(string status)
+        {
+            return swSupportWorkerService.GetSwSupportWorkerByStatusId(status);
         }
     }
 }

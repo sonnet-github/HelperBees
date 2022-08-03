@@ -11,6 +11,16 @@ namespace HelperBess.WebApiCore.Models
         public string Dosage { get; set; }
         public string Frequency { get; set; }
         public string ReasonTaken { get; set; }
+        public string TypeofCare { get; set; }
+        public string TypeofCareOther { get; set; }
+        public string ReasonforCare { get; set; }
+        public string MedicalHistory { get; set; }
+        public bool? Allergies { get; set; }
+        public string AllergyDetail { get; set; }
+        public string MedicalCondi { get; set; }
+        public string MedicalCondiOther { get; set; }
+        public string MobilityIssues { get; set; }
+        public string MedAssistance { get; set; }
 
         public virtual ClParticipant Participant { get; set; }
     }

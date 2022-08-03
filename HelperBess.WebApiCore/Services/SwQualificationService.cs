@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return SwQualifications;
         }
 
+        public IEnumerable<SwQualification> GetSwQualificationByServiceId(int serviceid)
+        {
+            var SwQualifications = dbContext.SwQualifications.Where(x => x.ServiceId == serviceid);
+            return SwQualifications;
+        }
+
         public SwQualification UpdateSwQualification(SwQualification SwQualifications)
         {
             dbContext.Entry(SwQualifications).State = EntityState.Modified;
