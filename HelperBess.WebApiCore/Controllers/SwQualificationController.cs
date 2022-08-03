@@ -56,5 +56,13 @@ namespace HelperBess.WebApiCore.Controllers
         {
             return SwQualificationServiceService.GetSwQualificationById(id);
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwQualification/GetSwQualificationByServiceId")]
+        public IEnumerable<SwQualification> GetSwQualificationByServiceId(int serviceid)
+        {
+            return SwQualificationServiceService.GetSwQualificationByServiceId(serviceid);
+        }
     }
 }
