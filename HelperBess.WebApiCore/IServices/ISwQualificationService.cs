@@ -7,6 +7,7 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwQualification> GetSwQualification();
         SwQualification GetSwQualificationById(int id);
+        IEnumerable<SwQualification> GetSwQualificationByServiceId(int serviceid);
         SwQualification AddSwQualification(SwQualification SwQualification);
         SwQualification UpdateSwQualification(SwQualification SwQualification);
         SwQualification DeleteSwQualification(int id);

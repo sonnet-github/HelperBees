@@ -13,7 +13,7 @@ namespace HelperBess.WebApiCore.Models
         public string EquipmentDetails { get; set; }
         public string Pets { get; set; }
         public string OtherPets { get; set; }
-
+        public string AddtlHouseholdInfo { get; set; }
         public virtual ClParticipant Participant { get; set; }
     }
 }
