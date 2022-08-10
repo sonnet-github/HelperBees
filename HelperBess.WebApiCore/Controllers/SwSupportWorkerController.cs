@@ -158,12 +158,21 @@ namespace HelperBess.WebApiCore.Controllers
             }
         }
 
+        //[HttpGet]
+        //[Route("[action]")]
+        //[Route("api/SwSupportWorker/GetSwSupportWorkerByStatus")]
+        //public IEnumerable<SwSupportWorker> GetSwSupportWorkerByStatus(string status)
+        //{
+        //    return swSupportWorkerService.GetSwSupportWorkerByStatus(status);
+        //}
+
         [HttpGet]
         [Route("[action]")]
-        [Route("api/SwSupportWorker/GetSwSupportWorkerByStatus")]
-        public IEnumerable<SwSupportWorker> GetSwSupportWorkerByStatus(string status)
+        [Route("api/SwSupportWorker/GetSwSupportWorkerActive")]
+        public IEnumerable<SwSupportWorker> GetSwSupportWorkerActive(bool Active)
         {
-            return swSupportWorkerService.GetSwSupportWorkerByStatus(status);
+            return swSupportWorkerService.GetSwSupportWorkerActive(Active);
         }
+
     }
 }

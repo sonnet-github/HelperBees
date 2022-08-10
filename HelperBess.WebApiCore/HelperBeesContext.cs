@@ -94,6 +94,7 @@ namespace HelperBess.WebApiCore.Models
         public virtual DbSet<SwloginAudit> SwloginAudits { get; set; }
         public virtual DbSet<SW_SupportWorkerUploadFiles> SW_SupportWorkerUploadFiles { get; set; }
         public virtual DbSet<CLEmailPreference> CLEmailPreference { get; set; }
+        public virtual DbSet<Administrator> Administrator { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -112,6 +113,30 @@ namespace HelperBess.WebApiCore.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
+
+            modelBuilder.Entity<Administrator>(entity =>
+            {
+                entity.HasKey(e => e.AdministratorId);
+
+                entity.ToTable("Administrator");
+
+                entity.HasIndex(e => e.StatusId, "CL_AccountHolder_StatusId");
+
+                entity.Property(e => e.DateCreated).HasColumnType("datetime");
+
+                entity.Property(e => e.EmailAddress)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.Administrators)
+                    .HasForeignKey(d => d.StatusId)
+                    .HasConstraintName("FK_Administrator_Status");
+            });
 
             modelBuilder.Entity<ChangeLog>(entity =>
             {

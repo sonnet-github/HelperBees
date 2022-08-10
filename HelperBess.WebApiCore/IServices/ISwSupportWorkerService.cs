@@ -8,6 +8,8 @@ namespace HelperBess.WebApiCore.IServices
         SwSupportWorker GetSwSupportWorkerByLogin(string email, string password);
         SwSupportWorker GetSwSupportWorkerById(int id);
         IEnumerable<SwSupportWorker> GetSwSupportWorkerByStatus(string status);
+        IEnumerable<SwSupportWorker> GetSwSupportWorkerActive(bool Active);
+
         SwSupportWorker AddSwSupportWorker(SwSupportWorker swSupportWorker);
         SwSupportWorker UpdateSwSupportWorker(SwSupportWorker swSupportWorker);
         SwSupportWorker DeleteSwSupportWorker(int id);
