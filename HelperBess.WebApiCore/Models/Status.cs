@@ -10,6 +10,7 @@ namespace HelperBess.WebApiCore.Models
         {
             ClAccountHolders = new HashSet<ClAccountHolder>();
             SwSupportWorkers = new HashSet<SwSupportWorker>();
+            Administrators = new HashSet<Administrator>();
         }
 
         public int StatusId { get; set; }
@@ -17,5 +18,8 @@ namespace HelperBess.WebApiCore.Models
 
         public virtual ICollection<ClAccountHolder> ClAccountHolders { get; set; }
         public virtual ICollection<SwSupportWorker> SwSupportWorkers { get; set; }
+
+        public virtual ICollection<Administrator> Administrators { get; set; }
+
     }
 }
