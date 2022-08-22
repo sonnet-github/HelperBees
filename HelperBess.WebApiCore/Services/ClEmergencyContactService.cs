@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelperBess.WebApiCore.Services
 {
-    public class ClEmergencyContactService: IClEmergencyContactService
+    public class ClEmergencyContactService : IClEmergencyContactService
     {
         HelperBeesContext dbContext;
         public ClEmergencyContactService(HelperBeesContext _db)
@@ -42,6 +42,12 @@ namespace HelperBess.WebApiCore.Services
         public ClEmergencyContact GetClEmergencyContactById(int id)
         {
             var clEmergencyContact = dbContext.ClEmergencyContacts.FirstOrDefault(x => x.EmergencyContactId == id);
+            return clEmergencyContact;
+        }
+
+        public IEnumerable<ClEmergencyContact> GetClEmergencyContactByParticipantId(int participantid)
+        {
+            var clEmergencyContact = dbContext.ClEmergencyContacts.Where(x => x.ParticipantId == participantid);
             return clEmergencyContact;
         }
 

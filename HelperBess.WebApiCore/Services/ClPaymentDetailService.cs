@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return ClPaymentDetails;
         }
 
+        public IEnumerable<ClPaymentDetail> GetClPaymentDetailParticipantId(int participant)
+        {
+            var ClPaymentDetails = dbContext.ClPaymentDetails.Where(x => x.ParticipantId == participant);
+            return ClPaymentDetails;
+        }
+
         public ClPaymentDetail UpdateClPaymentDetail(ClPaymentDetail ClPaymentDetails)
         {
             dbContext.Entry(ClPaymentDetails).State = EntityState.Modified;
