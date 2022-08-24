@@ -1,9 +1,7 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -22,144 +20,49 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantMedication/GetClParticipantMedication")]
-        public IActionResult GetClParticipantMedication()
+        public IEnumerable<ClParticipantMedication> GetClParticipantMedication()
         {
-            try
-            {
-                List<ClParticipantMedication> participantMedications = ClParticipantMedicationServiceService.GetClParticipantMedication().ToList();
-
-                if (participantMedications != null && participantMedications.Any())
-                {
-                    return Ok(participantMedications);
-                }
-                else
-                {
-                    return BadRequest("No participant medication(s) available.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return ClParticipantMedicationServiceService.GetClParticipantMedication();
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClParticipantMedication/AddClParticipantMedication")]
-        public IActionResult AddClParticipantMedication(ClParticipantMedication ClParticipantMedication)
+        public ClParticipantMedication AddClParticipantMedication(ClParticipantMedication ClParticipantMedication)
         {
-            try
-            {
-                ClParticipantMedication participantMedication = ClParticipantMedicationServiceService.AddClParticipantMedication(ClParticipantMedication);
-
-                if (participantMedication != null)
-                {
-                    return Ok(participantMedication);
-                }
-                else
-                {
-                    return BadRequest("Failed to add participant medication.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return ClParticipantMedicationServiceService.AddClParticipantMedication(ClParticipantMedication);
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClParticipantMedication/UpdateClParticipantMedication")]
-        public IActionResult UpdateClParticipantMedication(ClParticipantMedication ClParticipantMedication)
+        public ClParticipantMedication UpdateClParticipantMedication(ClParticipantMedication ClParticipantMedication)
         {
-            try
-            {
-                ClParticipantMedication currentParticipantMedication = ClParticipantMedicationServiceService.GetClParticipantMedicationById(ClParticipantMedication.ParticipantMedicationId);
-
-                if (currentParticipantMedication != null)
-                {
-                    #region Participant Medication to update
-
-                    currentParticipantMedication.ParticipantMedicationId = ClParticipantMedication.ParticipantMedicationId;
-                    currentParticipantMedication.ParticipantId = ClParticipantMedication.ParticipantId;
-                    currentParticipantMedication.Description = ClParticipantMedication.Description;
-                    currentParticipantMedication.Medication = ClParticipantMedication.Medication;
-                    currentParticipantMedication.Dosage = ClParticipantMedication.Dosage;
-                    currentParticipantMedication.Frequency = ClParticipantMedication.Frequency;
-                    currentParticipantMedication.ReasonTaken = ClParticipantMedication.ReasonTaken;
-
-                    #endregion
-
-                    ClParticipantMedication participantMedication = ClParticipantMedicationServiceService.UpdateClParticipantMedication(currentParticipantMedication);
-
-                    if (participantMedication != null)
-                    {
-                        return Ok(participantMedication);
-                    }
-                    else
-                    {
-                        return BadRequest("Failed to update participant medication.");
-                    }
-                }
-                else
-                {
-                    return BadRequest("Participant medication not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return ClParticipantMedicationServiceService.UpdateClParticipantMedication(ClParticipantMedication);
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClParticipantMedication/DeleteClParticipantMedication")]
-        public IActionResult DeleteClParticipantMedication(int id)
+        public ClParticipantMedication DeleteClParticipantMedication(int id)
         {
-            try
-            {
-                ClParticipantMedication CurrentParticipantMedication = ClParticipantMedicationServiceService.GetClParticipantMedicationById(id);
-
-                if (CurrentParticipantMedication != null)
-                {
-                    ClParticipantMedication participantMedication = ClParticipantMedicationServiceService.DeleteClParticipantMedication(id);
-
-                    return Ok(participantMedication);
-                }
-                else
-                {
-                    return BadRequest("Participant medication not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return ClParticipantMedicationServiceService.DeleteClParticipantMedication(id);
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantMedication/GetClParticipantMedicationById")]
-        public IActionResult GetClParticipantMedicationById(int id)
+        public ClParticipantMedication GetClParticipantMedicationById(int id)
         {
-            try
-            {
-                ClParticipantMedication participantMedication = ClParticipantMedicationServiceService.GetClParticipantMedicationById(id);
+            return ClParticipantMedicationServiceService.GetClParticipantMedicationById(id);
+        }
 
-                if (participantMedication != null)
-                {
-                    return Ok(participantMedication);
-                }
-                else
-                {
-                    return BadRequest("Participant medication not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/ClParticipantMedication/GetClParticipantMedicationByParticipantId")]
+        public ClParticipantMedication GetClParticipantMedicationByParticipantId(int id)
+        {
+            return ClParticipantMedicationServiceService.GetClParticipantMedicationById(id);
         }
     }
 }

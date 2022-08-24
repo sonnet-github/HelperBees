@@ -7,6 +7,7 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<ClParticipantMedication> GetClParticipantMedication();
         ClParticipantMedication GetClParticipantMedicationById(int id);
+        IEnumerable<ClParticipantMedication> GetClParticipantMedicationByParticipantId(int participantid);
         ClParticipantMedication AddClParticipantMedication(ClParticipantMedication ClParticipantMedication);
         ClParticipantMedication UpdateClParticipantMedication(ClParticipantMedication ClParticipantMedication);
         ClParticipantMedication DeleteClParticipantMedication(int id);
