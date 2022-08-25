@@ -484,3 +484,4 @@ C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcorea
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.dll
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.pdb
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.genruntimeconfig.cache
+C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.csproj.AssemblyReference.cache

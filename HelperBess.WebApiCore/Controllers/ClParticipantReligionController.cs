@@ -1,9 +1,8 @@
 ﻿using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
+
 
 namespace HelperBess.WebApiCore.Controllers
 {
@@ -22,140 +21,49 @@ namespace HelperBess.WebApiCore.Controllers
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantReligion/GetClParticipantReligion")]
-        public IActionResult GetClParticipantReligion()
+        public IEnumerable<ClParticipantReligion> GetClParticipantReligion()
         {
-            try
-            {
-                List<ClParticipantReligion> participantReligions = ClParticipantReligionServiceService.GetClParticipantReligion().ToList();
-
-                if (participantReligions != null && participantReligions.Any())
-                {
-                    return Ok(participantReligions);
-                }
-                else
-                {
-                    return BadRequest("No participant medication religion(s) available.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return ClParticipantReligionServiceService.GetClParticipantReligion();
         }
 
         [HttpPost]
         [Route("[action]")]
         [Route("api/ClParticipantReligion/AddClParticipantReligion")]
-        public IActionResult AddClParticipantReligion(ClParticipantReligion ClParticipantReligion)
+        public ClParticipantReligion AddClParticipantReligion(ClParticipantReligion ClParticipantReligion)
         {
-            try
-            {
-                ClParticipantReligion participantReligion = ClParticipantReligionServiceService.AddClParticipantReligion(ClParticipantReligion);
-
-                if (participantReligion != null)
-                {
-                    return Ok(participantReligion);
-                }
-                else
-                {
-                    return BadRequest("Failed to add participant religion.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return ClParticipantReligionServiceService.AddClParticipantReligion(ClParticipantReligion);
         }
 
         [HttpPut]
         [Route("[action]")]
         [Route("api/ClParticipantReligion/UpdateClParticipantReligion")]
-        public IActionResult UpdateClParticipantReligion(ClParticipantReligion ClParticipantReligion)
+        public ClParticipantReligion UpdateClParticipantReligion(ClParticipantReligion ClParticipantReligion)
         {
-            try
-            {
-                ClParticipantReligion currentParticipantReligion = ClParticipantReligionServiceService.GetClParticipantReligionById(ClParticipantReligion.ParticipantReligionId);
-
-                if (currentParticipantReligion != null)
-                {
-                    #region Participant Religion to update
-
-                    currentParticipantReligion.ParticipantReligionId = ClParticipantReligion.ParticipantReligionId;
-                    currentParticipantReligion.ParticipantId = ClParticipantReligion.ParticipantId;
-                    currentParticipantReligion.ReligionId = ClParticipantReligion.ReligionId;
-
-                    #endregion
-
-                    ClParticipantReligion participantReligion = ClParticipantReligionServiceService.UpdateClParticipantReligion(currentParticipantReligion);
-
-                    if (participantReligion != null)
-                    {
-                        return Ok(participantReligion);
-                    }
-                    else
-                    {
-                        return BadRequest("Failed to update participant religion.");
-                    }
-                }
-                else
-                {
-                    return BadRequest("Participant religion not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return ClParticipantReligionServiceService.UpdateClParticipantReligion(ClParticipantReligion);
         }
 
         [HttpDelete]
         [Route("[action]")]
         [Route("api/ClParticipantReligion/DeleteClParticipantReligion")]
-        public IActionResult DeleteClParticipantReligion(int id)
+        public ClParticipantReligion DeleteClParticipantReligion(int id)
         {
-            try
-            {
-                ClParticipantReligion currentParticipantReligion = ClParticipantReligionServiceService.GetClParticipantReligionById(id);
-
-                if (currentParticipantReligion != null)
-                {
-                    ClParticipantReligion participantReligion = ClParticipantReligionServiceService.DeleteClParticipantReligion(id);
-
-                    return Ok(participantReligion);
-                }
-                else
-                {
-                    return BadRequest("Participant religion not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return ClParticipantReligionServiceService.DeleteClParticipantReligion(id);
         }
 
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantReligion/GetClParticipantReligionById")]
-        public IActionResult GetClParticipantReligionById(int id)
+        public ClParticipantReligion GetClParticipantReligionById(int id)
         {
-            try
-            {
-                ClParticipantReligion participantReligion = ClParticipantReligionServiceService.GetClParticipantReligionById(id);
+            return ClParticipantReligionServiceService.GetClParticipantReligionById(id);
+        }
 
-                if (participantReligion != null)
-                {
-                    return Ok(participantReligion);
-                }
-                else
-                {
-                    return BadRequest("Participant religion not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/ClParticipantReligion/GetClParticipantReligionByParticipantId")]
+        public IEnumerable<ClParticipantReligion> GetClParticipantReligionByParticipantId(int id)
+        {
+            return ClParticipantReligionServiceService.GetClParticipantReligionByParticipantId(id);
         }
     }
 }
