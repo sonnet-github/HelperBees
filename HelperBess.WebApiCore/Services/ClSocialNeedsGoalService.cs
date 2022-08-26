@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return ClSocialNeedsGoals;
         }
 
+        public IEnumerable<ClSocialNeedsGoal> GetClSocialNeedsGoalByParticipantId(int participantid)
+        {
+            var ClSocialNeedsGoals = dbContext.ClSocialNeedsGoals.Where(x => x.ParticipantId == participantid);
+            return ClSocialNeedsGoals;
+        }
+
         public ClSocialNeedsGoal UpdateClSocialNeedsGoal(ClSocialNeedsGoal ClSocialNeedsGoals)
         {
             dbContext.Entry(ClSocialNeedsGoals).State = EntityState.Modified;

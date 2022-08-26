@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return ClParticipantLanguages;
         }
 
+        public IEnumerable<ClParticipantLanguage> GetClParticipantLanguageByParticipantId(int participantid)
+        {
+            var ClParticipantLanguages = dbContext.ClParticipantLanguages.Where(x => x.ParticipantId == participantid);
+            return ClParticipantLanguages;
+        }
+
         public ClParticipantLanguage UpdateClParticipantLanguage(ClParticipantLanguage ClParticipantLanguages)
         {
             dbContext.Entry(ClParticipantLanguages).State = EntityState.Modified;
