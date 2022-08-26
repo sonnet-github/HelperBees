@@ -157,5 +157,15 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/ClSocialNeedsGoal/GetClSocialNeedsGoalByParticipantId")]
+        public IEnumerable<ClSocialNeedsGoal> GetClSocialNeedsGoalByParticipantId(int participantid)
+        {
+            return ClSocialNeedsGoalServiceService.GetClSocialNeedsGoalByParticipantId(participantid);
+        }
+
+
     }
 }

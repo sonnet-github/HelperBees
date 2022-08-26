@@ -7,6 +7,7 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<ClParticipantInterest> GetClParticipantInterest();
         ClParticipantInterest GetClParticipantInterestById(int id);
+        IEnumerable<ClParticipantInterest> GetClParticipantInterestByParticipantId(int participantid);
         ClParticipantInterest AddClParticipantInterest(ClParticipantInterest ClParticipantInterest);
         ClParticipantInterest UpdateClParticipantInterest(ClParticipantInterest ClParticipantInterest);
         ClParticipantInterest DeleteClParticipantInterest(int id);

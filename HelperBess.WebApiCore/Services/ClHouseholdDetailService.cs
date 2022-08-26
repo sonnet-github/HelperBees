@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return ClHouseholdDetails;
         }
 
+        public IEnumerable<ClHouseholdDetail> GetClHouseholdDetailByParticipantId(int participantid)
+        {
+            var ClHouseholdDetails = dbContext.ClHouseholdDetails.Where(x => x.ParticipantId == participantid);
+            return ClHouseholdDetails;
+        }
+
         public ClHouseholdDetail UpdateClHouseholdDetail(ClHouseholdDetail ClHouseholdDetails)
         {
             dbContext.Entry(ClHouseholdDetails).State = EntityState.Modified;

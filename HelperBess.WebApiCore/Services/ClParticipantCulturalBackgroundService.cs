@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return ClParticipantCulturalBackgrounds;
         }
 
+        public IEnumerable<ClParticipantCulturalBackground> GetClParticipantCulturalBackgroundByParticipantId(int participantid)
+        {
+            var ClParticipantCulturalBackgrounds = dbContext.ClParticipantCulturalBackgrounds.Where(x => x.ParticipantId == participantid);
+            return ClParticipantCulturalBackgrounds;
+        }
+
         public ClParticipantCulturalBackground UpdateClParticipantCulturalBackground(ClParticipantCulturalBackground ClParticipantCulturalBackgrounds)
         {
             dbContext.Entry(ClParticipantCulturalBackgrounds).State = EntityState.Modified;

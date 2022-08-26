@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelperBess.WebApiCore.Services
 {
-    public class ClParticipantInterestService :IClParticipantInterestService
+    public class ClParticipantInterestService : IClParticipantInterestService
     {
         HelperBeesContext dbContext;
         public ClParticipantInterestService(HelperBeesContext _db)
@@ -42,6 +42,12 @@ namespace HelperBess.WebApiCore.Services
         public ClParticipantInterest GetClParticipantInterestById(int id)
         {
             var ClParticipantInterests = dbContext.ClParticipantInterests.FirstOrDefault(x => x.ParticipantInterestsId == id);
+            return ClParticipantInterests;
+        }
+
+        public IEnumerable<ClParticipantInterest> GetClParticipantInterestByParticipantId(int participantid)
+        {
+            var ClParticipantInterests = dbContext.ClParticipantInterests.Where(x => x.ParticipantId == participantid);
             return ClParticipantInterests;
         }
 

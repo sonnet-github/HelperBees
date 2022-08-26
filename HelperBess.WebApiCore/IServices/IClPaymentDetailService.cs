@@ -7,6 +7,7 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<ClPaymentDetail> GetClPaymentDetail();
         ClPaymentDetail GetClPaymentDetailById(int id);
+        IEnumerable<ClPaymentDetail> GetClPaymentDetailParticipantId(int participantid);
         ClPaymentDetail AddClPaymentDetail(ClPaymentDetail ClPaymentDetail);
         ClPaymentDetail UpdateClPaymentDetail(ClPaymentDetail ClPaymentDetail);
         ClPaymentDetail DeleteClPaymentDetail(int id);

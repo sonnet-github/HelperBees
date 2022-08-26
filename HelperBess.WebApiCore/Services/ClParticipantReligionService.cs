@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return ClParticipantReligions;
         }
 
+        public IEnumerable<ClParticipantReligion> GetClParticipantReligionByParticipantId(int participantid)
+        {
+            var ClParticipantReligions = dbContext.ClParticipantReligions.Where(x => x.ParticipantId == participantid);
+            return ClParticipantReligions;
+        }
+
         public ClParticipantReligion UpdateClParticipantReligion(ClParticipantReligion ClParticipantReligions)
         {
             dbContext.Entry(ClParticipantReligions).State = EntityState.Modified;

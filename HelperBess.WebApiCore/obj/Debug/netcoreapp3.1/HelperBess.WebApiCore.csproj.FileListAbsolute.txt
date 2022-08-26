@@ -471,7 +471,6 @@ C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\bin\Debug\netcorea
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.csproj.AssemblyReference.cache
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.AssemblyInfoInputs.cache
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.AssemblyInfo.cs
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.csproj.CoreCompileInputs.cache
@@ -485,3 +484,4 @@ C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcorea
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.dll
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.pdb
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.genruntimeconfig.cache
+C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBess.WebApiCore\obj\Debug\netcoreapp3.1\HelperBess.WebApiCore.csproj.AssemblyReference.cache

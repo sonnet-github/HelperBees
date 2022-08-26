@@ -7,6 +7,8 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<ClParticipantCulturalBackground> GetClParticipantCulturalBackground();
         ClParticipantCulturalBackground GetClParticipantCulturalBackgroundById(int id);
+
+        IEnumerable<ClParticipantCulturalBackground> GetClParticipantCulturalBackgroundByParticipantId(int participantid);
         ClParticipantCulturalBackground AddClParticipantCulturalBackground(ClParticipantCulturalBackground ClParticipantCulturalBackground);
         ClParticipantCulturalBackground UpdateClParticipantCulturalBackground(ClParticipantCulturalBackground ClParticipantCulturalBackground);
         ClParticipantCulturalBackground DeleteClParticipantCulturalBackground(int id);

@@ -45,6 +45,12 @@ namespace HelperBess.WebApiCore.Services
             return ClParticipantMedications;
         }
 
+        public IEnumerable<ClParticipantMedication> GetClParticipantMedicationByParticipantId(int participantid)
+        {
+            var ClParticipantMedications = dbContext.ClParticipantMedications.Where(x => x.ParticipantId == participantid);
+            return ClParticipantMedications;
+        }
+
         public ClParticipantMedication UpdateClParticipantMedication(ClParticipantMedication ClParticipantMedications)
         {
             dbContext.Entry(ClParticipantMedications).State = EntityState.Modified;

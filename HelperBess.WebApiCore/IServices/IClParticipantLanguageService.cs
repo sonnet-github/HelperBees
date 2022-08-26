@@ -7,6 +7,7 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<ClParticipantLanguage> GetClParticipantLanguage();
         ClParticipantLanguage GetClParticipantLanguageById(int id);
+        IEnumerable<ClParticipantLanguage> GetClParticipantLanguageByParticipantId(int participantid);
         ClParticipantLanguage AddClParticipantLanguage(ClParticipantLanguage ClParticipantLanguage);
         ClParticipantLanguage UpdateClParticipantLanguage(ClParticipantLanguage ClParticipantLanguage);
         ClParticipantLanguage DeleteClParticipantLanguage(int id);
