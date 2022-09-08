@@ -3,6 +3,7 @@ using HelperBess.WebApiCore.IServices;
 using HelperBess.WebApiCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System;
 
 namespace HelperBess.WebApiCore.Services
 {
@@ -57,5 +58,33 @@ namespace HelperBess.WebApiCore.Services
         {
             return AdministratorServiceService.GetAdministratorById(id);
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/Administrator/GetAdministratorByEmail")]
+        public IActionResult GetAdministratorByEmail(string EmailAddress)
+        {
+            try
+            {
+                Administrator administrator = AdministratorServiceService.GetAdministratorByEmail(EmailAddress);
+
+
+                if (administrator != null)
+                {
+                    return Ok(administrator);
+                }
+                else
+                {
+                    return BadRequest("administrator emailaddress not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+           
+        }
+
     }
 }
