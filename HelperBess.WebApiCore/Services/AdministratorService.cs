@@ -45,6 +45,13 @@ namespace HelperBess.WebApiCore.Services
             return Administrators;
         }
 
+        public Administrator GetAdministratorByEmail(string EmailAddress)
+        {
+            var Administrators = dbContext.Administrator.FirstOrDefault(x => x.EmailAddress == EmailAddress);
+            return Administrators;
+        }
+
+
         public Administrator UpdateAdministrator(Administrator Administrators)
         {
             dbContext.Entry(Administrators).State = EntityState.Modified;

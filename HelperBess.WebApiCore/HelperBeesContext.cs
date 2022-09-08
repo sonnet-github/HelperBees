@@ -95,7 +95,9 @@ namespace HelperBess.WebApiCore.Models
         public virtual DbSet<SW_SupportWorkerUploadFiles> SW_SupportWorkerUploadFiles { get; set; }
         public virtual DbSet<CLEmailPreference> CLEmailPreference { get; set; }
         public virtual DbSet<Administrator> Administrator { get; set; }
-
+        public virtual DbSet<AdministratorProfile> AdministratorProfiles { get; set; }
+        public virtual DbSet<AdminSupportWorker> AdminSupportWorkers { get; set; }
+        public virtual DbSet<AdminAccountHolder> AdminAccountHolders { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -113,6 +115,75 @@ namespace HelperBess.WebApiCore.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
+
+            modelBuilder.Entity<AdministratorProfile>(entity =>
+            {
+                entity.HasKey(e => e.AdministratorProfileId);
+
+                entity.ToTable("AdministratorProfile");
+
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LastName)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Administrator)
+                    .WithMany(p => p.AdministratorProfiles)
+                    .HasForeignKey(d => d.AdministratorId)
+                    .HasConstraintName("FK_AdministratorProfile_SC_Administrator");
+
+            });
+
+            modelBuilder.Entity<AdminSupportWorker>(entity =>
+            {
+                entity.HasKey(e => e.AdminSupportWorkerId);
+
+                entity.ToTable("AdminSupportWorker");
+
+
+                entity.Property(e => e.AdminSupportWorkerId).HasColumnName("AdminSupportWorkerId");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Admin)
+                    .WithMany(p => p.AdminSupportWorkers)
+                    .HasForeignKey(d => d.AdministratorId)
+                    .HasConstraintName("FK_AdminSupportWorker_Administrator");
+
+                entity.HasOne(d => d.SwSupportWorker)
+                    .WithMany(p => p.AdminSupportWorkers)
+                    .HasForeignKey(d => d.SupportWorkerId)
+                    .HasConstraintName("FK_AdminSupportWorker_SW_SupportWorker");
+            });
+
+            modelBuilder.Entity<AdminAccountHolder>(entity =>
+            {
+                entity.HasKey(e => e.AdminAccountHolderId);
+
+                entity.ToTable("AdminAccountHolder");
+
+
+                entity.Property(e => e.AdminAccountHolderId).HasColumnName("AdminAccountHolderId");
+
+                entity.Property(e => e.Status)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Admin)
+                    .WithMany(p => p.AdminAccountHolders)
+                    .HasForeignKey(d => d.AdministratorId)
+                    .HasConstraintName("FK_SC_AdminAccountHolder_Administrator");
+
+                entity.HasOne(d => d.SwSupportWorker)
+                    .WithMany(p => p.AdminAccountHolders)
+                    .HasForeignKey(d => d.SupportWorkerId)
+                    .HasConstraintName("FK_AdminAccountHolder_SW_SupportWorker");
+            });
 
             modelBuilder.Entity<Administrator>(entity =>
             {

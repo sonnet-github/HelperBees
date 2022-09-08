@@ -165,6 +165,9 @@ namespace HelperBess.WebApiCore
             services.AddTransient<ISW_SupportWorkerUploadFiles, SW_SupportWorkerUploadFilesService>();
             services.AddTransient<ICLEmailPreferenceService, ClEmailPreferenceService>();
             services.AddTransient<IAdministratorService, AdministratorService>();
+            services.AddTransient<IAdministratorProfileService, AdministratorProfileService>();
+            services.AddTransient<IAdminSupportWorkerService, AdminSupportWorkerService>();
+            services.AddTransient<IAdminAccountHolderService, AdminAccountHolderService>();
 
         }
 
