@@ -42,6 +42,7 @@ namespace HelperBess.WebApiCore.Models
         public string MedicalNeedsGoals { get; set; }
 
 
+
         public virtual ClAccountHolder AccountHolder { get; set; }
         public virtual ICollection<ClEmergencyContact> ClEmergencyContacts { get; set; }
         public virtual ICollection<ClHouseholdDetail> ClHouseholdDetails { get; set; }
