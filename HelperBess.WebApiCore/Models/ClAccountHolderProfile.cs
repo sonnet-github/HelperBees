@@ -19,6 +19,11 @@ namespace HelperBess.WebApiCore.Models
         public string AddressStreet { get; set; }
         public string AddressPostcode { get; set; }
         public string AddressSuburb { get; set; }
+        public string AddressState { get; set; }
+        public string Mobile { get; set; }
+        public bool? CareAtThisAddress { get; set; }
+        public string LivingWith { get; set; }
+        public string LivingWithPerson { get; set; }
 
         public virtual ClAccountHolder AccountHolder { get; set; }
     }

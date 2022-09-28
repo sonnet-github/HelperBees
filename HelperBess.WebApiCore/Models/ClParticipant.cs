@@ -32,6 +32,16 @@ namespace HelperBess.WebApiCore.Models
         public string GenderOther { get; set; }
         public string Phone { get; set; }
         public DateTime? Birthdate { get; set; }
+        public string EmailAddress { get; set; }
+        public string AddressStreet { get; set; }
+        public string AddressPostcode { get; set; }
+        public string AddressSuburb { get; set; }
+        public string AddressState { get; set; }
+        public bool? DangerContactAccept { get; set; }
+        public bool? EmergencyContactAccept { get; set; }
+        public string MedicalNeedsGoals { get; set; }
+
+
 
         public virtual ClAccountHolder AccountHolder { get; set; }
         public virtual ICollection<ClEmergencyContact> ClEmergencyContacts { get; set; }
