@@ -179,10 +179,10 @@ namespace HelperBess.WebApiCore.Models
                     .HasForeignKey(d => d.AdministratorId)
                     .HasConstraintName("FK_SC_AdminAccountHolder_Administrator");
 
-                entity.HasOne(d => d.SwSupportWorker)
+                entity.HasOne(d => d.ClAccountHolder)
                     .WithMany(p => p.AdminAccountHolders)
-                    .HasForeignKey(d => d.SupportWorkerId)
-                    .HasConstraintName("FK_AdminAccountHolder_SW_SupportWorker");
+                    .HasForeignKey(d => d.AccountHolderId)
+                    .HasConstraintName("FK_SC_AdminAccountHolder_CL_AccountHolder");
             });
 
             modelBuilder.Entity<Administrator>(entity =>
