@@ -84,6 +84,7 @@ namespace HelperBess.WebApiCore.Models
         public virtual ICollection<SwWorkHistory> SwWorkHistories { get; set; }
         public virtual ICollection<SwloginAudit> SwloginAudits { get; set; }
         public virtual ICollection<AdminSupportWorker> AdminSupportWorkers { get; set; }
-        public virtual ICollection<AdminAccountHolder> AdminAccountHolders { get; set; }
+
+        ///public virtual ICollection<AdminAccountHolder> AdminAccountHolders { get; set; }
     }
 }

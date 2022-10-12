@@ -12,6 +12,7 @@ namespace HelperBess.WebApiCore.Models
             ClAccountHolderProfiles = new HashSet<ClAccountHolderProfile>();
             ClParticipants = new HashSet<ClParticipant>();
             ClEmailPreference = new HashSet<CLEmailPreference>();
+            AdminAccountHolders = new HashSet<AdminAccountHolder>();
         }
 
         public int AccountHolderId { get; set; }
@@ -27,5 +28,6 @@ namespace HelperBess.WebApiCore.Models
         public virtual ICollection<ClAccountHolderProfile> ClAccountHolderProfiles { get; set; }
         public virtual ICollection<ClParticipant> ClParticipants { get; set; }
         public virtual ICollection<CLEmailPreference> ClEmailPreference { get; set; }
+        public virtual ICollection<AdminAccountHolder> AdminAccountHolders { get; set; }
     }
 }

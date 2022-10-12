@@ -387,7 +387,6 @@ C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBees\obj\Debug\netcoreapp3.1\Helpe
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBees\obj\Debug\netcoreapp3.1\HelperBees.AssemblyInfoInputs.cache
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBees\obj\Debug\netcoreapp3.1\HelperBees.AssemblyInfo.cs
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBees\obj\Debug\netcoreapp3.1\HelperBees.csproj.CoreCompileInputs.cache
-C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBees\obj\Debug\netcoreapp3.1\HelperBees.MvcApplicationPartsAssemblyInfo.cs
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBees\obj\Debug\netcoreapp3.1\HelperBees.MvcApplicationPartsAssemblyInfo.cache
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBees\obj\Debug\netcoreapp3.1\HelperBees.RazorAssemblyInfo.cache
 C:\TFS-2019sonnet\SourceTree\HelperBees\HelperBees\obj\Debug\netcoreapp3.1\HelperBees.RazorAssemblyInfo.cs
