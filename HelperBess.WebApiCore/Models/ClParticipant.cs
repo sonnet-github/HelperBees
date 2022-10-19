@@ -22,6 +22,7 @@ namespace HelperBess.WebApiCore.Models
             ClPaymentDetails = new HashSet<ClPaymentDetail>();
             ClSocialNeedsGoals = new HashSet<ClSocialNeedsGoal>();
             Jobs = new HashSet<Job>();
+            SwClients = new HashSet<SwClient>();
         }
 
         public int ParticpantId { get; set; }
@@ -40,6 +41,8 @@ namespace HelperBess.WebApiCore.Models
         public bool? DangerContactAccept { get; set; }
         public bool? EmergencyContactAccept { get; set; }
         public string MedicalNeedsGoals { get; set; }
+        public string LivingWith { get; set; }
+        public string LivingWithPerson { get; set; }
 
 
 
@@ -57,5 +60,6 @@ namespace HelperBess.WebApiCore.Models
         public virtual ICollection<ClPaymentDetail> ClPaymentDetails { get; set; }
         public virtual ICollection<ClSocialNeedsGoal> ClSocialNeedsGoals { get; set; }
         public virtual ICollection<Job> Jobs { get; set; }
+        public virtual ICollection<SwClient> SwClients { get; set; }
     }
 }

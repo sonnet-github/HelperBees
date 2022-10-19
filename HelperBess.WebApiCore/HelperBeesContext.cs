@@ -1091,6 +1091,13 @@ namespace HelperBess.WebApiCore.Models
                     .HasForeignKey(d => d.SupportWorkerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SW_Client_SW_SupportWorker");
+
+                entity.HasOne(d => d.ClParticipant)
+                    .WithMany(p => p.SwClients)
+                    .HasForeignKey(d => d.ParticpantId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SW_Client_CL_Participant");
+
             });
 
             modelBuilder.Entity<SwCoreExperience>(entity =>
