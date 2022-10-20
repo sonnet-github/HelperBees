@@ -91,8 +91,14 @@ namespace HelperBess.WebApiCore.Controllers
                     currentProfile.AddressStreet = ClAccountHolderProfile.AddressStreet;
                     currentProfile.AddressPostcode = ClAccountHolderProfile.AddressPostcode;
                     currentProfile.AddressSuburb = ClAccountHolderProfile.AddressSuburb;
+                    currentProfile.AddressState = ClAccountHolderProfile.AddressState;
+                    currentProfile.Mobile = ClAccountHolderProfile.Mobile;
+                    currentProfile.CareAtThisAddress = ClAccountHolderProfile.CareAtThisAddress;
+                    currentProfile.LivingWith = ClAccountHolderProfile.LivingWith;
+                    currentProfile.LivingWithPerson = ClAccountHolderProfile.LivingWithPerson;
 
-                    ClAccountHolderProfile profile = ClAccountHolderProfileService.UpdateClAccountHolderProfile(currentProfile);
+
+        ClAccountHolderProfile profile = ClAccountHolderProfileService.UpdateClAccountHolderProfile(currentProfile);
 
                     if (profile != null)
                     {

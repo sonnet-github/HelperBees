@@ -112,10 +112,21 @@ namespace HelperBess.WebApiCore.Controllers
                     currentParticipant.GenderOther = ClParticipant.GenderOther;
                     currentParticipant.Phone = ClParticipant.Phone;
                     currentParticipant.Birthdate = ClParticipant.Birthdate;
+                    currentParticipant.EmailAddress = ClParticipant.EmailAddress;
+                    currentParticipant.AddressStreet = ClParticipant.AddressStreet;
+                    currentParticipant.AddressPostcode = ClParticipant.AddressPostcode;
+                    currentParticipant.AddressSuburb = ClParticipant.AddressSuburb;
+                    currentParticipant.AddressState = ClParticipant.AddressState;
+                    currentParticipant.DangerContactAccept = ClParticipant.DangerContactAccept;
+                    currentParticipant.EmergencyContactAccept = ClParticipant.EmergencyContactAccept;
+                    currentParticipant.MedicalNeedsGoals = ClParticipant.MedicalNeedsGoals;
+                    currentParticipant.LivingWith = ClParticipant.LivingWith;
+                    currentParticipant.LivingWithPerson = ClParticipant.LivingWithPerson;                  
 
-                    #endregion
 
-                    ClParticipant participant = ClParticipantServiceService.UpdateClParticipant(currentParticipant);
+        #endregion
+
+        ClParticipant participant = ClParticipantServiceService.UpdateClParticipant(currentParticipant);
 
                     if (participant != null)
                     {
