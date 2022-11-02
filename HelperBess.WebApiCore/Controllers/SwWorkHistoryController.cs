@@ -83,6 +83,7 @@ namespace HelperBess.WebApiCore.Controllers
                     currentWorkHistory.WorkHistoryId = SwWorkHistory.WorkHistoryId;
                     currentWorkHistory.SupportWorkerId = SwWorkHistory.SupportWorkerId;
                     currentWorkHistory.JobTitle = SwWorkHistory.JobTitle;
+                    currentWorkHistory.StillCurrent = SwWorkHistory.StillCurrent;
 
                     #endregion
 

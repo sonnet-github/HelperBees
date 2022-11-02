@@ -135,6 +135,33 @@ namespace HelperBess.WebApiCore.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("[action]")]
+        [Route("api/ClParticipantNeed/DeleteParticipantNeedbyParticipantId")]
+        public IActionResult DeleteParticipantNeedbyParticipantId(int ParticipantId)
+        {
+            try
+            {
+                List<ClParticipantNeed> CurrentParticipantNeed = ClParticipantNeedServiceService.GetParticipantNeedByParticipantId(ParticipantId).ToList();
+
+                if (CurrentParticipantNeed != null)
+                {
+                    List<ClParticipantNeed> participantNeed = ClParticipantNeedServiceService.DeleteParticipantNeedbyParticipantId(ParticipantId).ToList();
+
+                    return Ok(participantNeed);
+                }
+                else
+                {
+                    return BadRequest("Participant need not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpGet]
         [Route("[action]")]
         [Route("api/ClParticipantNeed/GetClParticipantNeedById")]
@@ -158,5 +185,50 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/ClParticipantNeed/GetParticipantNeedByParticipantId")]
+        public IActionResult GetParticipantNeedByParticipantId(int ParticipantId)
+        {
+
+            try
+            {
+                List<ClParticipantNeed> participantNeeds = ClParticipantNeedServiceService.GetParticipantNeedByParticipantId(ParticipantId).ToList();
+
+                if (participantNeeds != null && participantNeeds.Any())
+                {
+                    return Ok(participantNeeds);
+                }
+                else
+                {
+                    return BadRequest("Participant need not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+            //try
+            //{
+            //    ClParticipantNeed participantNeed = ClParticipantNeedServiceService.GetParticipantNeedByParticipantId(ParticipantId);
+
+            //    if (participantNeed != null)
+            //    {
+            //        return Ok(participantNeed);
+            //    }
+            //    else
+            //    {
+            //        return BadRequest("Participant need not found.");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest(ex.Message);
+            //}
+        }
+
     }
 }

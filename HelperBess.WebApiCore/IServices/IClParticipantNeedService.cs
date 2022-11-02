@@ -10,5 +10,7 @@ namespace HelperBess.WebApiCore.IServices
         ClParticipantNeed AddClParticipantNeed(ClParticipantNeed ClParticipantNeed);
         ClParticipantNeed UpdateClParticipantNeed(ClParticipantNeed ClParticipantNeed);
         ClParticipantNeed DeleteClParticipantNeed(int id);
+        IEnumerable<ClParticipantNeed> GetParticipantNeedByParticipantId(int ParticipantId);
+        IEnumerable<ClParticipantNeed> DeleteParticipantNeedbyParticipantId(int ParticipantId);
     }
 }

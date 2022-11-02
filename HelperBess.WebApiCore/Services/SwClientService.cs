@@ -52,6 +52,13 @@ namespace HelperBess.WebApiCore.Services
             return SwClients;
         }
 
+        public IEnumerable<SwClient> GetSwClientByParticpantId(int ParticpantId)
+        {
+            var SwClients = dbContext.SwClients.Where(x => x.ParticpantId == ParticpantId);
+            return SwClients;
+        }
+
+
         public SwClient UpdateSwClient(SwClient SwClients)
         {
             dbContext.Entry(SwClients).State = EntityState.Modified;
