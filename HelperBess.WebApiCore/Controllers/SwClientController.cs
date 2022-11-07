@@ -183,5 +183,33 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwClient/GetSwClientByParticpantId")]
+        public IActionResult GetSwClientByParticpantId(int ParticpantId)
+        {
+            try
+            {
+                List<SwClient> clients = SwClientServiceService.GetSwClientByParticpantId(ParticpantId).ToList();
+
+                if (clients != null)
+                {
+                    return Ok(clients);
+                }
+                else
+                {
+                    return BadRequest("No client(s) available.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+
     }
 }

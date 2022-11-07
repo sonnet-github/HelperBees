@@ -33,6 +33,23 @@ namespace HelperBess.WebApiCore.Services
             return ClParticipantNeeds;
         }
 
+        public IEnumerable<ClParticipantNeed> DeleteParticipantNeedbyParticipantId(int ParticipantId)
+        {
+            var ClParticipantNeeds = dbContext.ClParticipantNeeds.Where(x => x.ParticipantId == ParticipantId).ToList();
+            if (ClParticipantNeeds.Count > 0)
+            {
+                foreach (var n in ClParticipantNeeds)
+                {
+                    var ClParticipantNeedx = dbContext.ClParticipantNeeds.FirstOrDefault(x => x.ParticipantNeedsId == n.ParticipantNeedsId);
+                    dbContext.Entry(ClParticipantNeedx).State = EntityState.Deleted;
+                    dbContext.SaveChanges();
+
+                }
+            }           
+            return ClParticipantNeeds;
+        }
+
+
         public IEnumerable<ClParticipantNeed> GetClParticipantNeed()
         {
             var ClParticipantNeeds = dbContext.ClParticipantNeeds.ToList();
@@ -44,6 +61,13 @@ namespace HelperBess.WebApiCore.Services
             var ClParticipantNeeds = dbContext.ClParticipantNeeds.FirstOrDefault(x => x.ParticipantNeedsId == id);
             return ClParticipantNeeds;
         }
+
+        public IEnumerable<ClParticipantNeed> GetParticipantNeedByParticipantId(int ParticipantId)
+        {
+            var ClParticipantNeeds = dbContext.ClParticipantNeeds.Where(x => x.ParticipantId == ParticipantId).ToList();
+            return ClParticipantNeeds;
+        }
+
 
         public ClParticipantNeed UpdateClParticipantNeed(ClParticipantNeed ClParticipantNeeds)
         {

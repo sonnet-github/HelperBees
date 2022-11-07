@@ -8,6 +8,7 @@ namespace HelperBess.WebApiCore.IServices
         IEnumerable<SwClient> GetSwClient();
         SwClient GetSwClientById(int id);
         IEnumerable<SwClient> GetSwClientBySupportWorkerId(int id);
+        IEnumerable<SwClient> GetSwClientByParticpantId(int id);
         SwClient AddSwClient(SwClient SwClient);
         SwClient UpdateSwClient(SwClient SwClient);
         SwClient DeleteSwClient(int id);
