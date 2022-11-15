@@ -43,6 +43,7 @@ namespace HelperBess.WebApiCore.Controllers
             }
         }
 
+
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwClient/AddSwClient")]
@@ -186,12 +187,12 @@ namespace HelperBess.WebApiCore.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [Route("api/SwClient/GetSwClientByParticpantId")]
-        public IActionResult GetSwClientByParticpantId(int ParticpantId)
+        [Route("api/SwClient/GetSwClientByParticipantId")]
+        public IActionResult GetSwClientByParticipantId(int ParticpantId)
         {
             try
             {
-                List<SwClient> clients = SwClientServiceService.GetSwClientByParticpantId(ParticpantId).ToList();
+                List<SwClient> clients = SwClientServiceService.GetSwClientByParticipantId(ParticpantId).ToList();
 
                 if (clients != null)
                 {

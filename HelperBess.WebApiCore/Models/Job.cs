@@ -26,7 +26,9 @@ namespace HelperBess.WebApiCore.Models
         public string JobName { get; set; }
         public string JobStatus { get; set; }
         public DateTime DateCreated { get; set; }
-
+        public string ActivityDescription { get; set; }
+        public string PreferredDays { get; set; }       
+            
         public virtual ClParticipant Participant { get; set; }
         public virtual ICollection<JobAssignment> JobAssignments { get; set; }
         public virtual ICollection<JobTime> JobTimes { get; set; }
