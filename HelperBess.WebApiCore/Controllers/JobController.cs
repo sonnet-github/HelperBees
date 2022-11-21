@@ -139,6 +139,8 @@ namespace HelperBess.WebApiCore.Controllers
                     currentJob.JobName = job.JobName;
                     currentJob.JobStatus = job.JobStatus;
                     currentJob.DateCreated = job.DateCreated;
+                    currentJob.ActivityDescription = job.ActivityDescription;
+                    currentJob.PreferredDays = job.PreferredDays;
 
                     Job updatedJob = JobServiceService.UpdateJob(currentJob);
 

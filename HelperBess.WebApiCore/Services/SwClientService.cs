@@ -52,7 +52,7 @@ namespace HelperBess.WebApiCore.Services
             return SwClients;
         }
 
-        public IEnumerable<SwClient> GetSwClientByParticpantId(int ParticpantId)
+        public IEnumerable<SwClient> GetSwClientByParticipantId(int ParticpantId)
         {
             var SwClients = dbContext.SwClients.Where(x => x.ParticpantId == ParticpantId);
             return SwClients;

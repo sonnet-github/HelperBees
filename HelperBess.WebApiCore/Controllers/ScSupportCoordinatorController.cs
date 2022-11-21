@@ -50,16 +50,26 @@ namespace HelperBess.WebApiCore.Controllers
         {
             try
             {
-                ScSupportCoordinator supportCoordinator = ScSupportCoordinatorServiceService.AddScSupportCoordinator(ScSupportCoordinator);
+                ScSupportCoordinator currentCoordinator = ScSupportCoordinatorServiceService.GetScSupportCoordinatorByEmail(ScSupportCoordinator.EmailAddress);
 
-                if (supportCoordinator != null)
+                if (currentCoordinator == null)
                 {
-                    return Ok(supportCoordinator);
+                    ScSupportCoordinator supportCoordinator = ScSupportCoordinatorServiceService.AddScSupportCoordinator(ScSupportCoordinator);
+
+                    if (supportCoordinator != null)
+                    {
+                        return Ok(supportCoordinator);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to add support coordinator.");
+                    }
                 }
                 else
                 {
-                    return BadRequest("Failed to add support coordinator.");
+                    return BadRequest($"E-mail address {ScSupportCoordinator.EmailAddress} is already used by another account holder.");
                 }
+
             }
             catch (Exception ex)
             {

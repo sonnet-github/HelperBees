@@ -49,6 +49,11 @@ namespace HelperBess.WebApiCore.Services
             var swSupportWorker = dbContext.SwSupportWorkers.FirstOrDefault(x => x.SupportWorkerId == id);
             return swSupportWorker;
         }
+        public SwSupportWorker GetSwSupportWorkerByEmail(string emailaddress)
+        {
+            var swSupportWorker = dbContext.SwSupportWorkers.FirstOrDefault(x => x.EmailAddress == emailaddress);
+            return swSupportWorker;
+        }
 
         public IEnumerable<SwSupportWorker> GetSwSupportWorkerByStatus(string status)
         {

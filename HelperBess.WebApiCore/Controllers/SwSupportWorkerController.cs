@@ -49,15 +49,24 @@ namespace HelperBess.WebApiCore.Controllers
         {
             try
             {
-                SwSupportWorker worker = swSupportWorkerService.AddSwSupportWorker(swSupportWorker);
+                SwSupportWorker currentWorker = swSupportWorkerService.GetSwSupportWorkerByEmail(swSupportWorker.EmailAddress);
 
-                if (worker != null)
+                if (currentWorker == null)
                 {
-                    return Ok(worker);
+                    SwSupportWorker worker = swSupportWorkerService.AddSwSupportWorker(swSupportWorker);
+
+                    if (worker != null)
+                    {
+                        return Ok(worker);
+                    }
+                    else
+                    {
+                        return BadRequest("Failed to add Support worker.");
+                    }
                 }
                 else
                 {
-                    return BadRequest("Failed to add Support worker.");
+                    return BadRequest($"E-mail address {swSupportWorker.EmailAddress} is already used by another account holder.");
                 }
             }
             catch (Exception ex)
