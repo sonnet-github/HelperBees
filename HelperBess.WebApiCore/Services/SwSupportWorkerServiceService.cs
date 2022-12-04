@@ -29,10 +29,26 @@ namespace HelperBess.WebApiCore.Services
 
         public HelperBess.WebApiCore.Models.SwSupportWorkerService DeleteSwSupportWorkerService(int id)
         {
-            var SwSupportWorkerService = dbContext.SwSupportWorkerServices.FirstOrDefault(x => x.SupportWorkerId == id);
+            var SwSupportWorkerService = dbContext.SwSupportWorkerServices.FirstOrDefault(x => x.SupportWorkerServiceId == id);
             dbContext.Entry(SwSupportWorkerService).State = EntityState.Deleted;
             dbContext.SaveChanges();
             return SwSupportWorkerService;
+        }
+
+        public IEnumerable<HelperBess.WebApiCore.Models.SwSupportWorkerService> DeleteSwSupportWorkerServicebySupportWorkerID(int supportWorkerId)
+        {
+            var swSupportWorkerServices = dbContext.SwSupportWorkerServices.Where(x => x.SupportWorkerId == supportWorkerId).ToList();
+            if (swSupportWorkerServices.Count > 0)
+            {
+                foreach (var n in swSupportWorkerServices)
+                {
+                    var swSupportWorkerServicesx = dbContext.SwSupportWorkerServices.FirstOrDefault(x => x.SupportWorkerServiceId == n.SupportWorkerServiceId);
+                    dbContext.Entry(swSupportWorkerServicesx).State = EntityState.Deleted;
+                    dbContext.SaveChanges();
+
+                }
+            }
+            return swSupportWorkerServices;
         }
 
         public IEnumerable<HelperBess.WebApiCore.Models.SwSupportWorkerService> GetSwSupportWorkerService()

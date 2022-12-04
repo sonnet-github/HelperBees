@@ -43,6 +43,57 @@ namespace HelperBess.WebApiCore.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("[action]")]
+        [Route("api/SwAvailabilityDetail/DeleteSwAvailabilityDetailbySupportWorkerId")]
+        public IActionResult DeleteSwAvailabilityDetailbySupportWorkerId(int SupportWorkerId)
+        {
+            try
+            {
+                List<SwAvailabilityDetail> swAvailabilityDetail = SwAvailabilityDetailServiceService.GetSwAvailabilityDetailbySupportWorkerId(SupportWorkerId).ToList();
+
+                if (swAvailabilityDetail != null)
+                {
+                    List<SwAvailabilityDetail> swAvailabilityDetailx = SwAvailabilityDetailServiceService.DeleteSwAvailabilityDetailbySupportWorkerId(SupportWorkerId).ToList();
+
+                    return Ok(swAvailabilityDetailx);
+                }
+                else
+                {
+                    return BadRequest("Support Worker Id not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Route("api/SwAvailabilityDetail/GetSwAvailabilityDetailbySupportWorkerId")]
+        public IActionResult GetSwAvailabilityDetailbySupportWorkerId(int supportWorkerId)
+        {
+            try
+            {
+                List<SwAvailabilityDetail> swAvailabilityDetail = SwAvailabilityDetailServiceService.GetSwAvailabilityDetailbySupportWorkerId(supportWorkerId)?.ToList();
+
+                if (swAvailabilityDetail != null && swAvailabilityDetail.Any())
+                {
+                    return Ok(swAvailabilityDetail);
+                }
+                else
+                {
+                    return NotFound("Support worker Id not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost]
         [Route("[action]")]
         [Route("api/SwAvailabilityDetail/AddSwAvailabilityDetail")]

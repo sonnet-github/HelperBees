@@ -13,5 +13,9 @@ namespace HelperBess.WebApiCore.IServices
         SwSupportWorkerCoreExperience AddSwSupportWorkerCoreExperience(SwSupportWorkerCoreExperience SwSupportWorkerCoreExperience);
         SwSupportWorkerCoreExperience UpdateSwSupportWorkerCoreExperience(SwSupportWorkerCoreExperience SwSupportWorkerCoreExperience);
         SwSupportWorkerCoreExperience DeleteSwSupportWorkerCoreExperience(int id);
+        IEnumerable<SwSupportWorkerCoreExperience> DeleteSwSupportWorkerCoreExperiencebySupportWorkerID(int SupportWorkerId);
+     
+
+
     }
 }

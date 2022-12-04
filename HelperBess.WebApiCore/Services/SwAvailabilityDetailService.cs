@@ -51,5 +51,30 @@ namespace HelperBess.WebApiCore.Services
             dbContext.SaveChanges();
             return SwAvailabilityDetails;
         }
+
+
+        public IEnumerable<SwAvailabilityDetail> GetSwAvailabilityDetailbySupportWorkerId(int supportWorkerId)
+        {
+            var SwSupportWorkerDetail = dbContext.SwAvailabilityDetails.Where(x => x.SupportWorkerId == supportWorkerId);
+            return SwSupportWorkerDetail;
+        }
+
+        public IEnumerable<SwAvailabilityDetail> DeleteSwAvailabilityDetailbySupportWorkerId(int supportWorkerId)
+        {
+            var SwSupportWorkerDetail = dbContext.SwAvailabilityDetails.Where(x => x.SupportWorkerId == supportWorkerId).ToList();
+            if (SwSupportWorkerDetail.Count > 0)
+            {
+                foreach (var n in SwSupportWorkerDetail)
+                {
+                    var SwSupportWorkerDetailx = dbContext.SwAvailabilityDetails.FirstOrDefault(x => x.AvailabilityDetailsId == n.AvailabilityDetailsId);
+                    dbContext.Entry(SwSupportWorkerDetailx).State = EntityState.Deleted;
+                    dbContext.SaveChanges();
+
+                }
+            }
+            return SwSupportWorkerDetail;
+        }
+
+
     }
 }
