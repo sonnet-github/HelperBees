@@ -131,6 +131,8 @@ namespace HelperBess.WebApiCore.Controllers
             }
         }
 
+
+
         [HttpGet]
         [Route("[action]")]
         [Route("api/SwSupportWorkerCoreExperience/GetSwSupportWorkerCoreExperienceById")]
@@ -154,6 +156,34 @@ namespace HelperBess.WebApiCore.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete]
+        [Route("[action]")]
+        [Route("api/SwSupportWorkerCoreExperience/DeleteSwSupportWorkerCoreExperiencebySupportWorkerID")]
+        public IActionResult DeleteSwSupportWorkerCoreExperiencebySupportWorkerID(int SupportWorkerId)
+        {
+            try
+            {
+                List<SwSupportWorkerCoreExperience> swCoreExperiences = SwSupportWorkerCoreExperienceServiceService.GetSwSupportWorkerCoreExperienceBySupportWorkerId(SupportWorkerId).ToList();
+
+                if (swCoreExperiences != null)
+                {
+                    List<SwSupportWorkerCoreExperience> swSupportWorkerCoreExperience = SwSupportWorkerCoreExperienceServiceService.DeleteSwSupportWorkerCoreExperiencebySupportWorkerID(SupportWorkerId).ToList();
+
+                    return Ok(swSupportWorkerCoreExperience);
+                }
+                else
+                {
+                    return BadRequest("SupportWorker Id not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
         [HttpGet]
         [Route("[action]")]

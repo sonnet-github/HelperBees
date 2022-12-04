@@ -10,5 +10,7 @@ namespace HelperBess.WebApiCore.IServices
         SwAvailabilityDetail AddSwAvailabilityDetail(SwAvailabilityDetail SwAvailabilityDetail);
         SwAvailabilityDetail UpdateSwAvailabilityDetail(SwAvailabilityDetail SwAvailabilityDetail);
         SwAvailabilityDetail DeleteSwAvailabilityDetail(int id);
+        IEnumerable<SwAvailabilityDetail> GetSwAvailabilityDetailbySupportWorkerId(int supportWorkerId);
+        IEnumerable<SwAvailabilityDetail> DeleteSwAvailabilityDetailbySupportWorkerId(int SupportWorkerId);
     }
 }

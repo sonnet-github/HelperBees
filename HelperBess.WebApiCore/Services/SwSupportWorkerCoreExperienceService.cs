@@ -33,6 +33,24 @@ namespace HelperBess.WebApiCore.Services
             return SwSupportWorkerCoreExperiences;
         }
 
+        public IEnumerable<SwSupportWorkerCoreExperience> DeleteSwSupportWorkerCoreExperiencebySupportWorkerID(int SupportWorkerId)
+        {
+            var SwSupportWorkerCoreExperiences = dbContext.SwSupportWorkerCoreExperiences.Where(x => x.SupportWorkerId == SupportWorkerId).ToList();
+            if (SwSupportWorkerCoreExperiences.Count > 0)
+            {
+                foreach (var n in SwSupportWorkerCoreExperiences)
+                {
+                    var SwSupportWorkerCoreExperiencesx = dbContext.SwSupportWorkerCoreExperiences.FirstOrDefault(x => x.SupportWorkerId == n.SupportWorkerId);
+                    dbContext.Entry(SwSupportWorkerCoreExperiencesx).State = EntityState.Deleted;
+                    dbContext.SaveChanges();
+
+                }
+            }
+            return SwSupportWorkerCoreExperiences;
+        }
+
+
+
         public IEnumerable<SwSupportWorkerCoreExperience> GetSwSupportWorkerCoreExperience()
         {
             var SwSupportWorkerCoreExperiences = dbContext.SwSupportWorkerCoreExperiences.ToList();

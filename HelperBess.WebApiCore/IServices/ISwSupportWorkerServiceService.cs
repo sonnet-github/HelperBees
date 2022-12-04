@@ -7,11 +7,11 @@ namespace HelperBess.WebApiCore.IServices
     {
         IEnumerable<SwSupportWorkerService> GetSwSupportWorkerService();
         SwSupportWorkerService GetSwSupportWorkerServiceById(int id);
-
         IEnumerable<SwSupportWorkerService> GetSwSupportWorkerServiceBySupportWorkerId(int supportWorkerId);
-
         SwSupportWorkerService AddSwSupportWorkerService(SwSupportWorkerService SwSupportWorkerService);
         SwSupportWorkerService UpdateSwSupportWorkerService(SwSupportWorkerService SwSupportWorkerService);
         SwSupportWorkerService DeleteSwSupportWorkerService(int id);
+        IEnumerable<SwSupportWorkerService> DeleteSwSupportWorkerServicebySupportWorkerID(int supportWorkerId);
+
     }
 }
