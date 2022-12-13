@@ -82,7 +82,7 @@ namespace HelperBess.WebApiCore.Controllers
                     swCurrentLanguage.SupportWorkerId = SwSupportWorkerLanguage.SupportWorkerId;
                     swCurrentLanguage.LanguageId = SwSupportWorkerLanguage.LanguageId;
 
-                    SwSupportWorkerLanguage swLanguage = SwSupportWorkerLanguageServiceService.UpdateSwSupportWorkerLanguage(SwSupportWorkerLanguage);
+                    SwSupportWorkerLanguage swLanguage = SwSupportWorkerLanguageServiceService.UpdateSwSupportWorkerLanguage(swCurrentLanguage);
 
                     if (swLanguage != null)
                     {
